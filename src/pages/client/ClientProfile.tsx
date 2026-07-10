@@ -1,0 +1,96 @@
+import { useState } from 'react';
+import { User, Save, LogOut } from 'lucide-react';
+import { useAuth } from '../../contexts/AuthContext';
+import { useToast } from '../../contexts/ToastContext';
+import { supabase } from '../../lib/supabase';
+
+export default function ClientProfile() {
+  const { profile, refreshProfile, signOut } = useAuth();
+  const { toast } = useToast();
+  const [fullName, setFullName] = useState(profile?.full_name ?? '');
+  const [phone, setPhone] = useState(profile?.phone ?? '');
+  const [saving, setSaving] = useState(false);
+
+  async function save(e: React.FormEvent) {
+    e.preventDefault();
+    setSaving(true);
+    const { error } = await supabase
+      .from('profiles')
+      .update({ full_name: fullName, phone })
+      .eq('id', profile!.id);
+    setSaving(false);
+    if (error) toast('Failed to save changes.', 'error');
+    else {
+      toast('Profile updated!', 'success');
+      await refreshProfile();
+    }
+  }
+
+  return (
+    <div className="px-4 py-6 max-w-lg mx-auto pb-24 md:pb-8">
+      <h1 className="text-2xl font-bold text-[#1A1A1A] mb-6">Profile</h1>
+
+      <div className="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm mb-4">
+        <div className="flex items-center gap-4 mb-5 pb-5 border-b border-gray-50">
+          <div className="w-14 h-14 rounded-2xl flex items-center justify-center shrink-0" style={{ backgroundColor: '#f0f4e8' }}>
+            <User size={24} style={{ color: '#2D5016' }} />
+          </div>
+          <div>
+            <div className="font-semibold text-[#1A1A1A]">{profile?.full_name || 'No name set'}</div>
+            <div className="text-sm text-gray-500">{profile?.email}</div>
+            <div className="text-xs mt-0.5 capitalize px-2 py-0.5 rounded-full inline-block" style={{ backgroundColor: '#f0f4e8', color: '#2D5016' }}>
+              {profile?.role}
+            </div>
+          </div>
+        </div>
+
+        <form onSubmit={save} className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1.5">Full Name</label>
+            <input
+              value={fullName}
+              onChange={e => setFullName(e.target.value)}
+              placeholder="Your full name"
+              className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-forest-500/30 focus:border-forest-500"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1.5">Email</label>
+            <input
+              value={profile?.email ?? ''}
+              disabled
+              className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 bg-gray-50 text-sm text-gray-400 cursor-not-allowed"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1.5">Phone</label>
+            <input
+              type="tel"
+              value={phone}
+              onChange={e => setPhone(e.target.value)}
+              placeholder="(555) 000-0000"
+              className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-forest-500/30 focus:border-forest-500"
+            />
+          </div>
+          <button
+            type="submit"
+            disabled={saving}
+            className="w-full flex items-center justify-center gap-2 py-3 rounded-xl text-white font-semibold disabled:opacity-60"
+            style={{ backgroundColor: '#2D5016' }}
+          >
+            <Save size={16} />
+            {saving ? 'Saving…' : 'Save Changes'}
+          </button>
+        </form>
+      </div>
+
+      <button
+        onClick={signOut}
+        className="w-full flex items-center justify-center gap-2 py-3 rounded-xl border border-red-200 text-red-500 text-sm font-medium hover:bg-red-50 transition-colors"
+      >
+        <LogOut size={16} />
+        Sign Out
+      </button>
+    </div>
+  );
+}

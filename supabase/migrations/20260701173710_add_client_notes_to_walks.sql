@@ -1,0 +1,1 @@
+ALTER TABLE walks ADD COLUMN IF NOT EXISTS client_notes TEXT;

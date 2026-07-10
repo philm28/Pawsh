@@ -1,0 +1,24 @@
+{
+  "name": "Pawsh",
+  "short_name": "Pawsh",
+  "description": "Book and manage dog walks with real-time updates.",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#2D5016",
+  "background_color": "#f8faf5",
+  "icons": [
+    {
+      "src": "/icon-192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
