@@ -128,7 +128,7 @@ export default function AdminSettings() {
         <div className="space-y-3 text-sm">
           {[
             { key: 'RESEND_API_KEY', label: 'Resend API Key', desc: 'Required for all outbound emails' },
-            { key: 'FROM_EMAIL', label: 'From Address', desc: 'e.g. North Paws <hello@yourdomain.com>' },
+            { key: 'FROM_EMAIL', label: 'From Address', desc: 'e.g. Pawsh <hello@yourdomain.com>' },
             { key: 'ADMIN_EMAIL', label: 'Admin Email', desc: 'Receives new access request alerts' },
           ].map(({ key, label, desc }) => (
             <div key={key} className="flex items-start gap-3 py-2.5 border-b border-gray-50 last:border-0">
