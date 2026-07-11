@@ -92,7 +92,7 @@ export default function LoginPage() {
             className="font-medium text-gold-400 hover:text-gold-500 transition-colors"
             style={{ color: '#C9A84C' }}
           >
-            Request Access
+            Create Account
           </button>
         </p>
       </div>
