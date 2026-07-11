@@ -5,13 +5,13 @@ import { supabase, callEdgeFunction } from '../../lib/supabase';
 import { AccessRequest } from '../../lib/types';
 import LoadingSpinner from '../../components/ui/LoadingSpinner';
 
-type Filter = 'pending' | 'all';
+type Filter = 'pending' | 'new' | 'all';
 
 export default function AdminRequests() {
   const { toast } = useToast();
   const [requests, setRequests] = useState<AccessRequest[]>([]);
   const [loading, setLoading] = useState(true);
-  const [filter, setFilter] = useState<Filter>('pending');
+  const [filter, setFilter] = useState<Filter>('new');
   const [processing, setProcessing] = useState<string | null>(null);
 
   async function load() {
@@ -64,12 +64,21 @@ export default function AdminRequests() {
   }
 
   const pendingCount = requests.filter(r => r.status === 'pending').length;
-  const displayed = filter === 'pending' ? requests.filter(r => r.status === 'pending') : requests;
+  const newCount = requests.filter(r => r.status === 'auto_approved').length;
+  const displayed =
+    filter === 'pending' ? requests.filter(r => r.status === 'pending') :
+    filter === 'new' ? requests.filter(r => r.status === 'auto_approved') :
+    requests;
 
   function statusBadge(status: AccessRequest['status']) {
     if (status === 'pending') return (
       <span className="inline-flex items-center gap-1 text-xs font-medium px-2 py-0.5 rounded-full bg-amber-50 text-amber-700">
         <Clock size={10} /> Pending
+      </span>
+    );
+    if (status === 'auto_approved') return (
+      <span className="inline-flex items-center gap-1 text-xs font-medium px-2 py-0.5 rounded-full bg-blue-50 text-blue-700">
+        <CheckCircle size={10} /> Self-signup
       </span>
     );
     if (status === 'approved') return (
@@ -99,7 +108,7 @@ export default function AdminRequests() {
 
       {/* Filter tabs */}
       <div className="flex gap-1 bg-gray-100 rounded-xl p-1 mb-5">
-        {(['pending', 'all'] as Filter[]).map(f => (
+        {(['new', 'pending', 'all'] as Filter[]).map(f => (
           <button
             key={f}
             onClick={() => setFilter(f)}
@@ -107,7 +116,7 @@ export default function AdminRequests() {
               filter === f ? 'bg-white text-[#1A1A1A] shadow-sm' : 'text-gray-500'
             }`}
           >
-            {f === 'pending' ? `Pending${pendingCount > 0 ? ` (${pendingCount})` : ''}` : 'All'}
+            {f === 'new' ? `New${newCount > 0 ? ` (${newCount})` : ''}` : f === 'pending' ? `Pending${pendingCount > 0 ? ` (${pendingCount})` : ''}` : 'All'}
           </button>
         ))}
       </div>
@@ -116,7 +125,7 @@ export default function AdminRequests() {
         <div className="text-center py-16">
           <UserPlus size={48} className="mx-auto mb-3 text-gray-200" />
           <p className="text-gray-500 font-medium">
-            {filter === 'pending' ? 'No pending requests.' : 'No requests yet.'}
+            {filter === 'pending' ? 'No pending requests.' : filter === 'new' ? 'No new self-signups to review.' : 'No requests yet.'}
           </p>
         </div>
       ) : (
