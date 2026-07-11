@@ -11,7 +11,7 @@ interface NavContextType {
 const NavContext = createContext<NavContextType | null>(null);
 
 export function NavProvider({ children }: { children: React.ReactNode }) {
-  const [page, setPage] = useState<Page>('login');
+  const [page, setPage] = useState<Page>('landing');
   const [selectedDogId, setSelectedDogId] = useState<string | null>(null);
 
   function navigate(p: Page) {
