@@ -8,6 +8,7 @@ interface AuthContextType {
   profile: Profile | null;
   loading: boolean;
   signIn: (email: string, password: string) => Promise<{ error: Error | null }>;
+  signUp: (params: { email: string; password: string; fullName: string; phone?: string; role: 'client' | 'walker' }) => Promise<{ error: Error | null }>;
   signOut: () => Promise<void>;
   refreshProfile: () => Promise<void>;
 }
@@ -60,6 +61,42 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return { error };
   }
 
+  async function signUp(params: { email: string; password: string; fullName: string; phone?: string; role: 'client' | 'walker' }) {
+    const { email, password, fullName, phone, role } = params;
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: { full_name: fullName, role },
+      },
+    });
+    if (error) return { error };
+
+    // Log for admin visibility. Account is already active — this is a
+    // review flag, not a gate. Non-fatal if it fails.
+    supabase.from('access_requests').insert({
+      full_name: fullName,
+      email,
+      phone: phone || null,
+      requested_role: role,
+      status: 'auto_approved',
+    }).then(() => {});
+
+    if (data.user) {
+      setUser(data.user);
+      // The handle_new_user DB trigger creates the profile row; it can lag
+      // by a beat behind signUp() returning, so poll briefly.
+      for (let i = 0; i < 5; i++) {
+        await fetchProfile(data.user.id);
+        await new Promise(r => setTimeout(r, 400));
+        const { data: check } = await supabase.from('profiles').select('*').eq('id', data.user.id).maybeSingle();
+        if (check) { setProfile(check as Profile); break; }
+      }
+    }
+
+    return { error: null };
+  }
+
   async function signOut() {
     await supabase.auth.signOut();
     setUser(null);
@@ -67,7 +104,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <AuthContext.Provider value={{ user, profile, loading, signIn, signOut, refreshProfile }}>
+    <AuthContext.Provider value={{ user, profile, loading, signIn, signUp, signOut, refreshProfile }}>
       {children}
     </AuthContext.Provider>
   );
