@@ -1,4 +1,4 @@
-import { CheckCircle, ChevronRight, Clock, CreditCard, PawPrint, Shield, Star, Users } from 'lucide-react';
+import { CheckCircle, ChevronRight, Clock, CreditCard, PawPrint, Shield, Star, Users, Camera, RefreshCw, ShieldCheck, XCircle } from 'lucide-react';
 import { useNav } from '../contexts/NavContext';
 
 export default function LandingPage() {
@@ -13,7 +13,12 @@ export default function LandingPage() {
             <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#2D5016' }}>
               <PawPrint size={16} className="text-white" />
             </div>
-            <span className="font-bold text-lg text-[#1A1A1A]">North Paws</span>
+            <span className="font-bold text-lg text-[#1A1A1A]">Pawsh</span>
+          </div>
+          <div className="hidden md:flex items-center gap-6 text-sm font-medium text-gray-600">
+            <a href="#pricing" className="hover:text-[#1A1A1A] transition-colors">Pricing</a>
+            <a href="#how-it-works" className="hover:text-[#1A1A1A] transition-colors">How it Works</a>
+            <a href="#policies" className="hover:text-[#1A1A1A] transition-colors">Policies</a>
           </div>
           <div className="flex items-center gap-3">
             <button
@@ -55,7 +60,7 @@ export default function LandingPage() {
                 className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-white font-semibold text-base transition-opacity hover:opacity-90"
                 style={{ backgroundColor: '#2D5016' }}
               >
-                Request Access
+                Create Free Account
                 <ChevronRight size={18} />
               </button>
               <button
@@ -120,7 +125,7 @@ export default function LandingPage() {
               {
                 icon: Shield,
                 title: 'Trusted & Vetted Walkers',
-                desc: 'Every walker on North Paws is personally reviewed and approved by our admin team before accepting bookings.',
+                desc: 'Every walker on Pawsh is reviewed by our team. Accounts are active right away, and we keep an eye on new signups.',
               },
               {
                 icon: Clock,
@@ -145,68 +150,49 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* Pricing */}
+      <section id="pricing" className="py-20">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-[#1A1A1A] mb-3">Simple, transparent pricing</h2>
+            <p className="text-gray-500 max-w-xl mx-auto">Pay per walk. No subscriptions, no hidden fees. Charged securely to your card only when a walk is booked.</p>
+          </div>
+          <div className="grid sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
+            <div className="bg-white rounded-2xl border-2 p-7 text-center" style={{ borderColor: '#e5e5e5' }}>
+              <div className="text-sm font-semibold text-gray-500 mb-2">30-Minute Walk</div>
+              <div className="text-4xl font-black text-[#1A1A1A] mb-1">$25</div>
+              <div className="text-xs text-gray-400 mb-5">per walk</div>
+              <ul className="text-sm text-gray-500 space-y-2 text-left">
+                <li className="flex items-center gap-2"><CheckCircle size={14} style={{ color: '#2D5016' }} /> Great for potty breaks & short walks</li>
+                <li className="flex items-center gap-2"><CheckCircle size={14} style={{ color: '#2D5016' }} /> Photo report after every walk</li>
+              </ul>
+            </div>
+            <div className="rounded-2xl p-7 text-center text-white relative" style={{ backgroundColor: '#2D5016' }}>
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 text-xs font-bold px-3 py-1 rounded-full" style={{ backgroundColor: '#C9A84C', color: '#1A1A1A' }}>
+                MOST POPULAR
+              </div>
+              <div className="text-sm font-semibold text-white/70 mb-2">60-Minute Walk</div>
+              <div className="text-4xl font-black mb-1">$45</div>
+              <div className="text-xs text-white/60 mb-5">per walk</div>
+              <ul className="text-sm text-white/80 space-y-2 text-left">
+                <li className="flex items-center gap-2"><CheckCircle size={14} /> Full exercise for high-energy dogs</li>
+                <li className="flex items-center gap-2"><CheckCircle size={14} /> Photo report after every walk</li>
+              </ul>
+            </div>
+          </div>
+          <p className="text-center text-xs text-gray-400 mt-6">
+            Pricing may vary slightly by region and is confirmed at checkout before you pay.
+          </p>
+        </div>
+      </section>
+
       {/* How it works */}
-      <section className="py-20">
+      <section id="how-it-works" className="bg-[#FAF7F2] py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-[#1A1A1A] mb-3">Simple from start to finish</h2>
-            <p className="text-gray-500">Book a walk in under two minutes.</p>
+            <p className="text-gray-500">Create your account and book your first walk in under two minutes.</p>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
             {[
-              { step: '01', title: 'Request Access', desc: 'Submit a quick request. Our team reviews and approves you within 1–2 business days.' },
-              { step: '02', title: 'Book a Walk', desc: 'Pick your dog, date, time, and duration. Pay securely with your card via Stripe.' },
-              { step: '03', title: 'Relax', desc: 'Your walker handles everything. Receive a photo report and check-in updates after the walk.' },
-            ].map(({ step, title, desc }) => (
-              <div key={step} className="relative">
-                <div className="text-5xl font-black mb-4 leading-none" style={{ color: '#f0f4e8' }}>{step}</div>
-                <h3 className="font-semibold text-[#1A1A1A] mb-2">{title}</h3>
-                <p className="text-sm text-gray-500 leading-relaxed">{desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Walker recruitment */}
-      <section className="bg-[#2D5016] py-16">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold mb-5 bg-white/10 text-white/80">
-            <Users size={12} />
-            For Dog Walkers
-          </div>
-          <h2 className="text-3xl font-bold text-white mb-4">Love dogs? Join our team.</h2>
-          <p className="text-white/70 max-w-xl mx-auto mb-8 leading-relaxed">
-            Walk dogs on your schedule, build a loyal client base, and track your earnings and ratings all in one place.
-          </p>
-          <button
-            onClick={() => navigate('request-access')}
-            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-[#2D5016] bg-white hover:bg-gray-50 transition-colors"
-          >
-            Apply as a Walker
-            <ChevronRight size={18} />
-          </button>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="bg-white border-t border-gray-100 py-8">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded-md flex items-center justify-center" style={{ backgroundColor: '#2D5016' }}>
-              <PawPrint size={12} className="text-white" />
-            </div>
-            <span className="font-semibold text-sm text-[#1A1A1A]">North Paws</span>
-          </div>
-          <p className="text-xs text-gray-400">Professional Dog Walking</p>
-          <button
-            onClick={() => navigate('login')}
-            className="text-xs font-medium text-gray-500 hover:text-gray-700 transition-colors"
-          >
-            Sign In
-          </button>
-        </div>
-      </footer>
-    </div>
-  );
-}
+              { step: '01', title: 'Create Your Account', desc: 'Sign up
