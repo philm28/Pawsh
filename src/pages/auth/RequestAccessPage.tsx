@@ -1,84 +1,49 @@
 import { useState } from 'react';
-import { PawPrint, ArrowLeft, CheckCircle } from 'lucide-react';
+import { PawPrint, ArrowLeft, Eye, EyeOff } from 'lucide-react';
 import { useNav } from '../../contexts/NavContext';
 import { useToast } from '../../contexts/ToastContext';
-import { supabase } from '../../lib/supabase';
+import { useAuth } from '../../contexts/AuthContext';
 
 export default function RequestAccessPage() {
   const { navigate } = useNav();
   const { toast } = useToast();
+  const { signUp } = useAuth();
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [role, setRole] = useState<'client' | 'walker'>('client');
+  const [agreed, setAgreed] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setLoading(true);
-    const { error } = await supabase.from('access_requests').insert({
-      full_name: fullName,
-      email,
-      phone: phone || null,
-      requested_role: role,
-    });
-    setLoading(false);
-    if (error) {
-      toast('Something went wrong. Please try again.', 'error');
+    if (password.length < 8) {
+      toast('Password must be at least 8 characters.', 'error');
       return;
     }
-
-    // Fire-and-forget email notifications — don't block on delivery
-    fetch(
-      `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/send-access-request-email`,
-      {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          full_name: fullName,
-          email,
-          phone: phone || null,
-          requested_role: role,
-        }),
-      },
-    ).catch(() => {/* email failure is non-fatal */});
-
-    setSubmitted(true);
-  }
-
-  if (submitted) {
-    return (
-      <div className="min-h-screen bg-[#FAF7F2] flex items-center justify-center px-4">
-        <div className="text-center max-w-sm">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-2xl mb-4">
-            <CheckCircle size={32} className="text-green-600" />
-          </div>
-          <h2 className="text-2xl font-bold text-[#1A1A1A] mb-2">Request Submitted!</h2>
-          <p className="text-gray-500 text-sm mb-6">
-            We've received your request. Our team will review it and reach out to you at <strong>{email}</strong>.
-          </p>
-          <button
-            onClick={() => navigate('login')}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white transition-colors"
-            style={{ backgroundColor: '#2D5016' }}
-          >
-            <ArrowLeft size={16} />
-            Back to Sign In
-          </button>
-        </div>
-      </div>
-    );
+    if (!agreed) {
+      toast('Please agree to the Pawsh policies to continue.', 'error');
+      return;
+    }
+    setLoading(true);
+    const { error } = await signUp({ email, password, fullName, phone, role });
+    setLoading(false);
+    if (error) {
+      toast(error.message || 'Something went wrong. Please try again.', 'error');
+      return;
+    }
+    toast(`Welcome to Pawsh, ${fullName.split(' ')[0]}!`, 'success');
+    // AuthContext/App router will redirect to the right dashboard automatically
+    // once the profile finishes loading.
   }
 
   return (
     <div className="min-h-screen bg-[#FAF7F2] flex items-center justify-center px-4 py-8">
       <div className="w-full max-w-sm">
         <div className="flex items-center gap-3 mb-6">
-          <button onClick={() => navigate('login')} className="p-1.5 rounded-lg hover:bg-gray-100 transition-colors text-gray-600">
+          <button onClick={() => navigate('landing')} className="p-1.5 rounded-lg hover:bg-gray-100 transition-colors text-gray-600">
             <ArrowLeft size={20} />
           </button>
           <div className="flex items-center gap-2">
@@ -88,10 +53,30 @@ export default function RequestAccessPage() {
         </div>
 
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-          <h2 className="text-lg font-semibold text-[#1A1A1A] mb-1">Request Access</h2>
-          <p className="text-sm text-gray-500 mb-5">Fill in your details and our team will get back to you.</p>
+          <h2 className="text-lg font-semibold text-[#1A1A1A] mb-1">Create your account</h2>
+          <p className="text-sm text-gray-500 mb-5">Get started in under a minute — no waiting on approval.</p>
 
           <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">I am a…</label>
+              <div className="grid grid-cols-2 gap-2">
+                {(['client', 'walker'] as const).map(r => (
+                  <button
+                    key={r}
+                    type="button"
+                    onClick={() => setRole(r)}
+                    className={`py-2.5 px-4 rounded-xl text-sm font-medium border-2 transition-all ${
+                      role === r
+                        ? 'border-forest-500 bg-forest-50 text-forest-500'
+                        : 'border-gray-200 text-gray-600 hover:border-gray-300'
+                    }`}
+                    style={role === r ? { borderColor: '#2D5016', color: '#2D5016', backgroundColor: '#f0f4e8' } : {}}
+                  >
+                    {r === 'client' ? 'Dog Owner' : 'Dog Walker'}
+                  </button>
+                ))}
+              </div>
+            </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1.5">Full Name</label>
               <input
@@ -125,34 +110,65 @@ export default function RequestAccessPage() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">I am a…</label>
-              <div className="grid grid-cols-2 gap-2">
-                {(['client', 'walker'] as const).map(r => (
-                  <button
-                    key={r}
-                    type="button"
-                    onClick={() => setRole(r)}
-                    className={`py-2.5 px-4 rounded-xl text-sm font-medium border-2 transition-all ${
-                      role === r
-                        ? 'border-forest-500 bg-forest-50 text-forest-500'
-                        : 'border-gray-200 text-gray-600 hover:border-gray-300'
-                    }`}
-                    style={role === r ? { borderColor: '#2D5016', color: '#2D5016', backgroundColor: '#f0f4e8' } : {}}
-                  >
-                    {r === 'client' ? 'Dog Owner' : 'Dog Walker'}
-                  </button>
-                ))}
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">Password</label>
+              <div className="relative">
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  required
+                  minLength={8}
+                  value={password}
+                  onChange={e => setPassword(e.target.value)}
+                  placeholder="At least 8 characters"
+                  className="w-full px-3.5 py-2.5 pr-10 rounded-xl border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-forest-500/30 focus:border-forest-500 transition-all"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(s => !s)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                >
+                  {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                </button>
               </div>
             </div>
+
+            <label className="flex items-start gap-2.5 pt-1">
+              <input
+                type="checkbox"
+                checked={agreed}
+                onChange={e => setAgreed(e.target.checked)}
+                className="mt-0.5 w-4 h-4 rounded border-gray-300 text-forest-500 focus:ring-forest-500/30"
+                style={{ accentColor: '#2D5016' }}
+              />
+              <span className="text-xs text-gray-500 leading-relaxed">
+                I agree to Pawsh's{' '}
+                <button type="button" onClick={() => navigate('landing')} className="underline font-medium" style={{ color: '#2D5016' }}>
+                  pricing, policies &amp; payment terms
+                </button>.
+              </span>
+            </label>
+
             <button
               type="submit"
               disabled={loading}
               className="w-full py-2.5 rounded-xl text-white text-sm font-semibold transition-colors disabled:opacity-60 disabled:cursor-not-allowed mt-2"
               style={{ backgroundColor: '#2D5016' }}
             >
-              {loading ? 'Submitting…' : 'Submit Request'}
+              {loading ? 'Creating account…' : 'Create Account'}
             </button>
+
+            {role === 'walker' && (
+              <p className="text-xs text-gray-400 text-center leading-relaxed">
+                Walker accounts are active immediately but reviewed by our team — you can browse the app right away, and we'll follow up if we need anything else from you.
+              </p>
+            )}
           </form>
+
+          <p className="text-center text-sm text-gray-500 mt-5">
+            Already have an account?{' '}
+            <button onClick={() => navigate('login')} className="font-semibold" style={{ color: '#2D5016' }}>
+              Sign in
+            </button>
+          </p>
         </div>
       </div>
     </div>
