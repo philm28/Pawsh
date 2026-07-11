@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import { PawPrint, Search, X } from 'lucide-react';
+import { PawPrint, Search, X, ShieldOff, ShieldCheck } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import { Profile } from '../../lib/types';
 import StarRating from '../../components/ui/StarRating';
 import LoadingSpinner from '../../components/ui/LoadingSpinner';
+import { useToast } from '../../contexts/ToastContext';
 
 interface WalkerWithStats extends Profile {
   walk_count: number;
@@ -13,9 +14,11 @@ interface WalkerWithStats extends Profile {
 }
 
 export default function AdminWalkers() {
+  const { toast } = useToast();
   const [walkers, setWalkers] = useState<WalkerWithStats[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
+  const [updating, setUpdating] = useState<string | null>(null);
 
   useEffect(() => {
     async function load() {
@@ -56,6 +59,21 @@ export default function AdminWalkers() {
     }
     load();
   }, []);
+
+  async function toggleActive(walker: WalkerWithStats) {
+    setUpdating(walker.id);
+    const { error } = await supabase
+      .from('profiles')
+      .update({ active: !walker.active })
+      .eq('id', walker.id);
+    setUpdating(null);
+    if (error) {
+      toast('Failed to update walker status.', 'error');
+      return;
+    }
+    setWalkers(prev => prev.map(w => (w.id === walker.id ? { ...w, active: !w.active } : w)));
+    toast(walker.active ? `${walker.full_name ?? 'Walker'} suspended.` : `${walker.full_name ?? 'Walker'} reactivated.`, 'success');
+  }
 
   const filtered = search.trim()
     ? walkers.filter(w => {
@@ -103,13 +121,18 @@ export default function AdminWalkers() {
           {filtered.map((walker, i) => (
             <div
               key={walker.id}
-              className={`flex items-center gap-4 px-4 py-4 ${i < filtered.length - 1 ? 'border-b border-gray-50' : ''}`}
+              className={`flex items-center gap-4 px-4 py-4 ${i < filtered.length - 1 ? 'border-b border-gray-50' : ''} ${!walker.active ? 'opacity-60' : ''}`}
             >
               <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 font-semibold text-sm" style={{ backgroundColor: '#f0f4e8', color: '#2D5016' }}>
                 {(walker.full_name ?? walker.email).charAt(0).toUpperCase()}
               </div>
               <div className="flex-1 min-w-0">
-                <div className="font-medium text-sm text-[#1A1A1A] truncate">{walker.full_name ?? '—'}</div>
+                <div className="flex items-center gap-2">
+                  <div className="font-medium text-sm text-[#1A1A1A] truncate">{walker.full_name ?? '—'}</div>
+                  {!walker.active && (
+                    <span className="text-xs font-medium px-1.5 py-0.5 rounded-full bg-red-50 text-red-600 shrink-0">Suspended</span>
+                  )}
+                </div>
                 <div className="text-xs text-gray-500 truncate">{walker.email}</div>
                 {walker.phone && <div className="text-xs text-gray-400">{walker.phone}</div>}
                 {walker.avg_rating !== null && (
@@ -125,6 +148,16 @@ export default function AdminWalkers() {
                 <div className="text-sm font-semibold text-[#1A1A1A]">{walker.completed_count}</div>
                 <div className="text-xs text-gray-400">completed</div>
               </div>
+              <button
+                onClick={() => toggleActive(walker)}
+                disabled={updating === walker.id}
+                title={walker.active ? 'Suspend this walker' : 'Reactivate this walker'}
+                className={`shrink-0 p-2 rounded-lg transition-colors disabled:opacity-50 ${
+                  walker.active ? 'text-gray-400 hover:text-red-600 hover:bg-red-50' : 'text-gray-400 hover:text-green-600 hover:bg-green-50'
+                }`}
+              >
+                {walker.active ? <ShieldOff size={16} /> : <ShieldCheck size={16} />}
+              </button>
             </div>
           ))}
         </div>
