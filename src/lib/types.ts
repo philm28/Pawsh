@@ -7,6 +7,7 @@ export interface Profile {
   full_name: string | null;
   phone: string | null;
   role: Role;
+  active: boolean;
   created_at: string;
 }
 
@@ -67,7 +68,7 @@ export interface AccessRequest {
   email: string;
   phone: string | null;
   requested_role: 'client' | 'walker';
-  status: 'pending' | 'approved' | 'rejected';
+  status: 'pending' | 'approved' | 'rejected' | 'auto_approved';
   created_at: string;
 }
 
