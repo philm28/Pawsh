@@ -10,8 +10,8 @@ export default function LandingPage() {
       <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#2D5016' }}>
-              <PawPrint size={16} className="text-white" />
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#F2C94C' }}>
+              <PawPrint size={16} className="text-[#1A1A1A]" />
             </div>
             <span className="font-bold text-lg text-[#1A1A1A]">Pawsh</span>
           </div>
@@ -29,8 +29,8 @@ export default function LandingPage() {
             </button>
             <button
               onClick={() => navigate('request-access')}
-              className="text-sm font-semibold px-4 py-2 rounded-xl text-white transition-opacity hover:opacity-90"
-              style={{ backgroundColor: '#2D5016' }}
+              className="text-sm font-semibold px-4 py-2 rounded-xl text-[#1A1A1A] transition-opacity hover:opacity-90"
+              style={{ backgroundColor: '#F2C94C' }}
             >
               Get Started
             </button>
@@ -42,13 +42,13 @@ export default function LandingPage() {
       <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-16 pb-20 md:pt-24 md:pb-28">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold mb-6 border" style={{ backgroundColor: '#f0f4e8', color: '#2D5016', borderColor: '#d1e0b8' }}>
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold mb-6 border" style={{ backgroundColor: '#FFF5B8', color: '#B8860B', borderColor: '#F2DA8A' }}>
               <div className="w-1.5 h-1.5 rounded-full bg-current" />
               Professional Dog Walking
             </div>
             <h1 className="text-4xl md:text-5xl font-bold text-[#1A1A1A] leading-tight mb-5">
               Your dog deserves{' '}
-              <span style={{ color: '#2D5016' }}>the best care</span>{' '}
+              <span style={{ color: '#B8860B' }}>the best care</span>{' '}
               on every walk
             </h1>
             <p className="text-lg text-gray-500 leading-relaxed mb-8">
@@ -57,8 +57,8 @@ export default function LandingPage() {
             <div className="flex flex-col sm:flex-row gap-3">
               <button
                 onClick={() => navigate('request-access')}
-                className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-white font-semibold text-base transition-opacity hover:opacity-90"
-                style={{ backgroundColor: '#2D5016' }}
+                className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-[#1A1A1A] font-semibold text-base transition-opacity hover:opacity-90"
+                style={{ backgroundColor: '#F2C94C' }}
               >
                 Create Free Account
                 <ChevronRight size={18} />
@@ -84,19 +84,19 @@ export default function LandingPage() {
             </div>
           </div>
           <div className="relative hidden md:block">
-            <div className="aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl" style={{ backgroundColor: '#e8f0d8' }}>
+            <div className="aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl" style={{ backgroundColor: '#FBEFA8' }}>
               <img
                 src="https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg?auto=compress&cs=tinysrgb&w=800"
                 alt="Happy dog"
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#2D5016]/20 to-transparent rounded-3xl" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#F2C94C]/20 to-transparent rounded-3xl" />
             </div>
             {/* Floating card */}
             <div className="absolute -bottom-4 -left-6 bg-white rounded-2xl shadow-xl border border-gray-100 p-4 w-52">
               <div className="flex items-center gap-3 mb-2">
-                <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0" style={{ backgroundColor: '#f0f4e8' }}>
-                  <CheckCircle size={18} style={{ color: '#2D5016' }} />
+                <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0" style={{ backgroundColor: '#FFF5B8' }}>
+                  <CheckCircle size={18} style={{ color: '#B8860B' }} />
                 </div>
                 <div>
                   <div className="text-xs font-semibold text-[#1A1A1A]">Walk Completed</div>
@@ -139,8 +139,8 @@ export default function LandingPage() {
               },
             ].map(({ icon: Icon, title, desc }) => (
               <div key={title} className="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
-                <div className="w-11 h-11 rounded-xl flex items-center justify-center mb-4" style={{ backgroundColor: '#f0f4e8' }}>
-                  <Icon size={20} style={{ color: '#2D5016' }} />
+                <div className="w-11 h-11 rounded-xl flex items-center justify-center mb-4" style={{ backgroundColor: '#FFF5B8' }}>
+                  <Icon size={20} style={{ color: '#B8860B' }} />
                 </div>
                 <h3 className="font-semibold text-[#1A1A1A] mb-2">{title}</h3>
                 <p className="text-sm text-gray-500 leading-relaxed">{desc}</p>
@@ -163,11 +163,11 @@ export default function LandingPage() {
               <div className="text-4xl font-black text-[#1A1A1A] mb-1">$25</div>
               <div className="text-xs text-gray-400 mb-5">per walk</div>
               <ul className="text-sm text-gray-500 space-y-2 text-left">
-                <li className="flex items-center gap-2"><CheckCircle size={14} style={{ color: '#2D5016' }} /> Great for potty breaks & short walks</li>
-                <li className="flex items-center gap-2"><CheckCircle size={14} style={{ color: '#2D5016' }} /> Photo report after every walk</li>
+                <li className="flex items-center gap-2"><CheckCircle size={14} style={{ color: '#B8860B' }} /> Great for potty breaks & short walks</li>
+                <li className="flex items-center gap-2"><CheckCircle size={14} style={{ color: '#B8860B' }} /> Photo report after every walk</li>
               </ul>
             </div>
-            <div className="rounded-2xl p-7 text-center text-white relative" style={{ backgroundColor: '#2D5016' }}>
+            <div className="rounded-2xl p-7 text-center text-[#1A1A1A] relative" style={{ backgroundColor: '#F2C94C' }}>
               <div className="absolute -top-3 left-1/2 -translate-x-1/2 text-xs font-bold px-3 py-1 rounded-full" style={{ backgroundColor: '#C9A84C', color: '#1A1A1A' }}>
                 MOST POPULAR
               </div>
@@ -251,8 +251,8 @@ export default function LandingPage() {
             ].map(({ icon: Icon, title, desc }) => (
               <div key={title} className="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
                 <div className="flex items-center gap-3 mb-3">
-                  <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0" style={{ backgroundColor: '#f0f4e8' }}>
-                    <Icon size={17} style={{ color: '#2D5016' }} />
+                  <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0" style={{ backgroundColor: '#FFF5B8' }}>
+                    <Icon size={17} style={{ color: '#B8860B' }} />
                   </div>
                   <h3 className="font-semibold text-[#1A1A1A]">{title}</h3>
                 </div>
@@ -264,19 +264,19 @@ export default function LandingPage() {
       </section>
 
       {/* Walker recruitment */}
-      <section className="bg-[#2D5016] py-16">
+      <section className="bg-[#F2C94C] py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold mb-5 bg-white/10 text-white/80">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold mb-5 bg-white/10 text-[#1A1A1A]/80">
             <Users size={12} />
             For Dog Walkers
           </div>
           <h2 className="text-3xl font-bold text-white mb-4">Love dogs? Join our team.</h2>
-          <p className="text-white/70 max-w-xl mx-auto mb-8 leading-relaxed">
+          <p className="text-[#1A1A1A]/70 max-w-xl mx-auto mb-8 leading-relaxed">
             Walk dogs on your schedule, build a loyal client base, and track your earnings and ratings all in one place.
           </p>
           <button
             onClick={() => navigate('request-access')}
-            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-[#2D5016] bg-white hover:bg-gray-50 transition-colors"
+            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-[#F2C94C] bg-white hover:bg-gray-50 transition-colors"
           >
             Apply as a Walker
             <ChevronRight size={18} />
@@ -288,8 +288,8 @@ export default function LandingPage() {
       <footer className="bg-white border-t border-gray-100 py-8">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded-md flex items-center justify-center" style={{ backgroundColor: '#2D5016' }}>
-              <PawPrint size={12} className="text-white" />
+            <div className="w-6 h-6 rounded-md flex items-center justify-center" style={{ backgroundColor: '#F2C94C' }}>
+              <PawPrint size={12} className="text-[#1A1A1A]" />
             </div>
             <span className="font-semibold text-sm text-[#1A1A1A]">Pawsh</span>
           </div>

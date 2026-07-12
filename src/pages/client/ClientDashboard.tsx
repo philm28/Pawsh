@@ -67,8 +67,8 @@ export default function ClientDashboard() {
       {/* Schedule CTA */}
       <button
         onClick={() => navigate('client-walks')}
-        className="w-full flex items-center justify-between px-5 py-4 rounded-2xl text-white shadow-md transition-transform active:scale-[0.98]"
-        style={{ background: 'linear-gradient(135deg, #2D5016 0%, #3d6820 100%)' }}
+        className="w-full flex items-center justify-between px-5 py-4 rounded-2xl text-[#1A1A1A] shadow-md transition-transform active:scale-[0.98]"
+        style={{ background: 'linear-gradient(135deg, #F2C94C 0%, #B8860B 100%)' }}
       >
         <div className="flex items-center gap-3">
           <div className="p-2 bg-white/20 rounded-xl">
@@ -108,8 +108,8 @@ export default function ClientDashboard() {
                 <div key={walk.id} className="bg-white rounded-2xl border border-gray-100 p-4 shadow-sm">
                   <div className="flex items-start justify-between gap-2">
                     <div className="flex items-center gap-3 min-w-0">
-                      <div className="w-10 h-10 rounded-xl bg-forest-50 flex items-center justify-center shrink-0" style={{ backgroundColor: '#f0f4e8' }}>
-                        <Dog size={18} style={{ color: '#2D5016' }} />
+                      <div className="w-10 h-10 rounded-xl bg-[#FFF5B8] flex items-center justify-center shrink-0" style={{ backgroundColor: '#FFF5B8' }}>
+                        <Dog size={18} style={{ color: '#B8860B' }} />
                       </div>
                       <div className="min-w-0">
                         <div className="font-semibold text-[#1A1A1A] text-sm">{walk.dog?.name}</div>
@@ -153,8 +153,8 @@ export default function ClientDashboard() {
             <p className="text-gray-500 text-sm">No dogs added yet.</p>
             <button
               onClick={() => navigate('client-dogs')}
-              className="mt-3 px-4 py-2 rounded-xl text-white text-sm font-medium"
-              style={{ backgroundColor: '#2D5016' }}
+              className="mt-3 px-4 py-2 rounded-xl text-[#1A1A1A] text-sm font-medium"
+              style={{ backgroundColor: '#F2C94C' }}
             >
               Add a Dog
             </button>
@@ -170,8 +170,8 @@ export default function ClientDashboard() {
                 {dog.photo_url ? (
                   <img src={dog.photo_url} alt={dog.name} className="w-12 h-12 rounded-xl object-cover mb-2" />
                 ) : (
-                  <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-2" style={{ backgroundColor: '#f0f4e8' }}>
-                    <Dog size={22} style={{ color: '#2D5016' }} />
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-2" style={{ backgroundColor: '#FFF5B8' }}>
+                    <Dog size={22} style={{ color: '#B8860B' }} />
                   </div>
                 )}
                 <div className="font-semibold text-sm text-[#1A1A1A]">{dog.name}</div>

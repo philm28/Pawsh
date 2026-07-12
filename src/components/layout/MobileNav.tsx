@@ -51,7 +51,7 @@ export default function MobileNav() {
               key={item.page}
               onClick={() => navigate(item.page)}
               className={`flex flex-col items-center gap-0.5 px-2 py-2 transition-colors min-w-0 flex-1 ${
-                active ? 'text-forest-500' : 'text-gray-400'
+                active ? 'text-[#B8860B]' : 'text-gray-400'
               }`}
             >
               <Icon size={20} />

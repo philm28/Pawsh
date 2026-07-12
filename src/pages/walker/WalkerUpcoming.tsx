@@ -82,8 +82,8 @@ export default function WalkerUpcoming() {
                         {walk.dog?.photo_url ? (
                           <img src={walk.dog.photo_url} alt={walk.dog.name} className="w-11 h-11 rounded-xl object-cover" />
                         ) : (
-                          <div className="w-11 h-11 rounded-xl flex items-center justify-center" style={{ backgroundColor: '#f0f4e8' }}>
-                            <Dog size={20} style={{ color: '#2D5016' }} />
+                          <div className="w-11 h-11 rounded-xl flex items-center justify-center" style={{ backgroundColor: '#FFF5B8' }}>
+                            <Dog size={20} style={{ color: '#B8860B' }} />
                           </div>
                         )}
                         <div>

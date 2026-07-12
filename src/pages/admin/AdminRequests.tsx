@@ -100,7 +100,7 @@ export default function AdminRequests() {
       <div className="flex items-center justify-between mb-5">
         <h1 className="text-2xl font-bold text-[#1A1A1A]">Access Requests</h1>
         {pendingCount > 0 && (
-          <span className="text-xs font-semibold px-2.5 py-1 rounded-full text-white" style={{ backgroundColor: '#C9A84C' }}>
+          <span className="text-xs font-semibold px-2.5 py-1 rounded-full text-[#1A1A1A]" style={{ backgroundColor: '#C9A84C' }}>
             {pendingCount} pending
           </span>
         )}
@@ -134,7 +134,7 @@ export default function AdminRequests() {
             <div key={req.id} className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4">
               <div className="flex items-start justify-between gap-3 mb-3">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 font-semibold text-sm" style={{ backgroundColor: '#f0f4e8', color: '#2D5016' }}>
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 font-semibold text-sm" style={{ backgroundColor: '#FFF5B8', color: '#B8860B' }}>
                     {req.full_name.charAt(0).toUpperCase()}
                   </div>
                   <div>
@@ -176,8 +176,8 @@ export default function AdminRequests() {
                   <button
                     onClick={() => handleApprove(req)}
                     disabled={processing === req.id}
-                    className="flex-[2] flex items-center justify-center gap-1.5 py-2.5 rounded-xl text-white text-sm font-semibold transition-colors disabled:opacity-50"
-                    style={{ backgroundColor: '#2D5016' }}
+                    className="flex-[2] flex items-center justify-center gap-1.5 py-2.5 rounded-xl text-[#1A1A1A] text-sm font-semibold transition-colors disabled:opacity-50"
+                    style={{ backgroundColor: '#F2C94C' }}
                   >
                     <CheckCircle size={14} />
                     {processing === req.id ? 'Processing…' : 'Approve & Send Login'}

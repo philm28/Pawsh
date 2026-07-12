@@ -47,7 +47,7 @@ export default function RequestAccessPage() {
             <ArrowLeft size={20} />
           </button>
           <div className="flex items-center gap-2">
-            <PawPrint size={22} className="text-forest-500" style={{ color: '#2D5016' }} fill="#2D5016" />
+            <PawPrint size={22} className="text-[#B8860B]" style={{ color: '#B8860B' }} fill="#B8860B" />
             <span className="font-bold text-lg text-[#1A1A1A]">Pawsh</span>
           </div>
         </div>
@@ -67,10 +67,10 @@ export default function RequestAccessPage() {
                     onClick={() => setRole(r)}
                     className={`py-2.5 px-4 rounded-xl text-sm font-medium border-2 transition-all ${
                       role === r
-                        ? 'border-forest-500 bg-forest-50 text-forest-500'
+                        ? 'border-forest-500 bg-[#FFF5B8] text-[#B8860B]'
                         : 'border-gray-200 text-gray-600 hover:border-gray-300'
                     }`}
-                    style={role === r ? { borderColor: '#2D5016', color: '#2D5016', backgroundColor: '#f0f4e8' } : {}}
+                    style={role === r ? { borderColor: '#F2C94C', color: '#B8860B', backgroundColor: '#FFF5B8' } : {}}
                   >
                     {r === 'client' ? 'Dog Owner' : 'Dog Walker'}
                   </button>
@@ -136,12 +136,12 @@ export default function RequestAccessPage() {
                 type="checkbox"
                 checked={agreed}
                 onChange={e => setAgreed(e.target.checked)}
-                className="mt-0.5 w-4 h-4 rounded border-gray-300 text-forest-500 focus:ring-forest-500/30"
-                style={{ accentColor: '#2D5016' }}
+                className="mt-0.5 w-4 h-4 rounded border-gray-300 text-[#B8860B] focus:ring-forest-500/30"
+                style={{ accentColor: '#F2C94C' }}
               />
               <span className="text-xs text-gray-500 leading-relaxed">
                 I agree to Pawsh's{' '}
-                <button type="button" onClick={() => navigate('landing')} className="underline font-medium" style={{ color: '#2D5016' }}>
+                <button type="button" onClick={() => navigate('landing')} className="underline font-medium" style={{ color: '#B8860B' }}>
                   pricing, policies &amp; payment terms
                 </button>.
               </span>
@@ -150,8 +150,8 @@ export default function RequestAccessPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-2.5 rounded-xl text-white text-sm font-semibold transition-colors disabled:opacity-60 disabled:cursor-not-allowed mt-2"
-              style={{ backgroundColor: '#2D5016' }}
+              className="w-full py-2.5 rounded-xl text-[#1A1A1A] text-sm font-semibold transition-colors disabled:opacity-60 disabled:cursor-not-allowed mt-2"
+              style={{ backgroundColor: '#F2C94C' }}
             >
               {loading ? 'Creating account…' : 'Create Account'}
             </button>
@@ -165,7 +165,7 @@ export default function RequestAccessPage() {
 
           <p className="text-center text-sm text-gray-500 mt-5">
             Already have an account?{' '}
-            <button onClick={() => navigate('login')} className="font-semibold" style={{ color: '#2D5016' }}>
+            <button onClick={() => navigate('login')} className="font-semibold" style={{ color: '#B8860B' }}>
               Sign in
             </button>
           </p>

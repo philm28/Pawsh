@@ -64,8 +64,8 @@ export default function AdminSettings() {
       <form onSubmit={save} className="space-y-5">
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
           <div className="flex items-center gap-2 mb-5">
-            <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#f0f4e8' }}>
-              <DollarSign size={15} style={{ color: '#2D5016' }} />
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#FFF5B8' }}>
+              <DollarSign size={15} style={{ color: '#B8860B' }} />
             </div>
             <div>
               <h2 className="font-semibold text-sm text-[#1A1A1A]">Walk Pricing</h2>
@@ -106,8 +106,8 @@ export default function AdminSettings() {
         <button
           type="submit"
           disabled={saving}
-          className="w-full py-3.5 rounded-2xl text-white font-semibold text-sm disabled:opacity-60 transition-opacity flex items-center justify-center gap-2"
-          style={{ backgroundColor: '#2D5016' }}
+          className="w-full py-3.5 rounded-2xl text-[#1A1A1A] font-semibold text-sm disabled:opacity-60 transition-opacity flex items-center justify-center gap-2"
+          style={{ backgroundColor: '#F2C94C' }}
         >
           <Save size={16} />
           {saving ? 'Saving…' : 'Save Settings'}
@@ -117,8 +117,8 @@ export default function AdminSettings() {
       {/* Email / Integrations info */}
       <div className="mt-6 bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
         <div className="flex items-center gap-2 mb-4">
-          <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#f0f4e8' }}>
-            <Mail size={15} style={{ color: '#2D5016' }} />
+          <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#FFF5B8' }}>
+            <Mail size={15} style={{ color: '#B8860B' }} />
           </div>
           <div>
             <h2 className="font-semibold text-sm text-[#1A1A1A]">Email Notifications</h2>

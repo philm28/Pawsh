@@ -126,9 +126,9 @@ export default function WalkerAvailability() {
               <div className="flex items-center gap-4 px-4 py-3.5">
                 <div
                   className={`w-10 h-10 rounded-xl flex items-center justify-center font-semibold text-sm shrink-0 transition-colors ${
-                    enabled ? 'text-white' : 'bg-gray-100 text-gray-400'
+                    enabled ? 'text-[#1A1A1A]' : 'bg-gray-100 text-gray-400'
                   }`}
-                  style={enabled ? { backgroundColor: '#2D5016' } : {}}
+                  style={enabled ? { backgroundColor: '#F2C94C' } : {}}
                 >
                   {day.label}
                 </div>
@@ -140,7 +140,7 @@ export default function WalkerAvailability() {
                   className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors shrink-0 focus:outline-none ${
                     enabled ? '' : 'bg-gray-200'
                   }`}
-                  style={enabled ? { backgroundColor: '#2D5016' } : {}}
+                  style={enabled ? { backgroundColor: '#F2C94C' } : {}}
                 >
                   <span
                     className={`inline-block h-4 w-4 rounded-full bg-white shadow transition-transform ${
@@ -183,8 +183,8 @@ export default function WalkerAvailability() {
         <button
           onClick={save}
           disabled={saving}
-          className="w-full py-3.5 rounded-2xl text-white font-semibold text-sm disabled:opacity-60 transition-opacity shadow-lg md:shadow-none"
-          style={{ backgroundColor: '#2D5016' }}
+          className="w-full py-3.5 rounded-2xl text-[#1A1A1A] font-semibold text-sm disabled:opacity-60 transition-opacity shadow-lg md:shadow-none"
+          style={{ backgroundColor: '#F2C94C' }}
         >
           {saving
             ? 'Saving…'

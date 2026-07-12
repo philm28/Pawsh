@@ -89,7 +89,7 @@ export default function AdminClients() {
               key={client.id}
               className={`flex items-center gap-4 px-4 py-3.5 ${i < filtered.length - 1 ? 'border-b border-gray-50' : ''}`}
             >
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 font-semibold text-sm" style={{ backgroundColor: '#f0f4e8', color: '#2D5016' }}>
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 font-semibold text-sm" style={{ backgroundColor: '#FFF5B8', color: '#B8860B' }}>
                 {(client.full_name ?? client.email).charAt(0).toUpperCase()}
               </div>
               <div className="flex-1 min-w-0">

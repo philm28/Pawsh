@@ -55,23 +55,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return () => subscription.unsubscribe();
   }, []);
 
-async function signIn(email: string, password: string) {
+  async function signIn(email: string, password: string) {
     const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-    if (error) return { error };
-    if (data.user) {
-      setUser(data.user);
-      let found = false;
-      for (let i = 0; i < 5; i++) {
-        await fetchProfile(data.user.id);
-        const { data: check } = await supabase.from('profiles').select('*').eq('id', data.user.id).maybeSingle();
-        if (check) { setProfile(check as Profile); found = true; break; }
-        await new Promise(r => setTimeout(r, 400));
-      }
-      if (!found) {
-        return { error: new Error('Your account is missing some setup — contact support and we\'ll fix it right away.') };
-      }
-    }
-    return { error: null };
+    if (data.user) await fetchProfile(data.user.id);
+    return { error };
   }
 
   async function signUp(params: { email: string; password: string; fullName: string; phone?: string; role: 'client' | 'walker' }) {
@@ -85,7 +72,7 @@ async function signIn(email: string, password: string) {
     });
     if (error) return { error };
 
-// Log for admin visibility. Account is already active — this is a
+    // Log for admin visibility. Account is already active — this is a
     // review flag, not a gate. Non-fatal if it fails.
     supabase.from('access_requests').insert({
       full_name: fullName,
@@ -93,16 +80,6 @@ async function signIn(email: string, password: string) {
       phone: phone || null,
       requested_role: role,
       status: 'auto_approved',
-    }).then(() => {});
-
-    // Notify admin + applicant by email. Non-fatal if it fails.
-    supabase.functions.invoke('send-access-request-email', {
-      body: { full_name: fullName, email, phone: phone || null, requested_role: role },
-    }).then(() => {});
-
-    // Notify admin + applicant by email. Non-fatal if it fails.
-    supabase.functions.invoke('send-access-request-email', {
-      body: { full_name: fullName, email, phone: phone || null, requested_role: role },
     }).then(() => {});
 
     if (data.user) {

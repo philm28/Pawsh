@@ -245,8 +245,8 @@ export default function ClientWalks() {
       {verifyingPayment && (
         <div className="fixed inset-0 z-50 bg-[#FAF7F2]/80 backdrop-blur-sm flex items-center justify-center">
           <div className="bg-white rounded-2xl border border-gray-100 shadow-xl p-8 text-center max-w-xs mx-4">
-            <div className="w-12 h-12 rounded-2xl flex items-center justify-center mx-auto mb-4" style={{ backgroundColor: '#f0f4e8' }}>
-              <CreditCard size={22} style={{ color: '#2D5016' }} />
+            <div className="w-12 h-12 rounded-2xl flex items-center justify-center mx-auto mb-4" style={{ backgroundColor: '#FFF5B8' }}>
+              <CreditCard size={22} style={{ color: '#B8860B' }} />
             </div>
             <div className="font-semibold text-[#1A1A1A] mb-1">Confirming Payment</div>
             <p className="text-sm text-gray-500">Please wait a moment…</p>
@@ -258,8 +258,8 @@ export default function ClientWalks() {
         <h1 className="text-2xl font-bold text-[#1A1A1A]">Walks</h1>
         <button
           onClick={() => setShowSchedule(true)}
-          className="flex items-center gap-2 px-4 py-2 rounded-xl text-white text-sm font-semibold"
-          style={{ backgroundColor: '#2D5016' }}
+          className="flex items-center gap-2 px-4 py-2 rounded-xl text-[#1A1A1A] text-sm font-semibold"
+          style={{ backgroundColor: '#F2C94C' }}
         >
           <Plus size={16} />
           Schedule
@@ -348,7 +348,7 @@ export default function ClientWalks() {
                         <button
                           onClick={() => retryPayment(walk)}
                           disabled={checkingOut}
-                          className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl text-white text-xs font-semibold disabled:opacity-60 transition-opacity"
+                          className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl text-[#1A1A1A] text-xs font-semibold disabled:opacity-60 transition-opacity"
                           style={{ backgroundColor: '#C9A84C' }}
                         >
                           <CreditCard size={12} />
@@ -485,8 +485,8 @@ export default function ClientWalks() {
             form="rating-form"
             type="submit"
             disabled={submittingRating || ratingValue === 0}
-            className="w-full py-3 rounded-xl text-white font-semibold disabled:opacity-60"
-            style={{ backgroundColor: '#2D5016' }}
+            className="w-full py-3 rounded-xl text-[#1A1A1A] font-semibold disabled:opacity-60"
+            style={{ backgroundColor: '#F2C94C' }}
           >
             {submittingRating ? 'Submitting…' : 'Submit Rating'}
           </button>
@@ -539,8 +539,8 @@ export default function ClientWalks() {
             form="schedule-form"
             type="submit"
             disabled={checkingOut}
-            className="w-full py-3 rounded-xl text-white font-semibold disabled:opacity-60 flex items-center justify-center gap-2"
-            style={{ backgroundColor: '#2D5016' }}
+            className="w-full py-3 rounded-xl text-[#1A1A1A] font-semibold disabled:opacity-60 flex items-center justify-center gap-2"
+            style={{ backgroundColor: '#F2C94C' }}
           >
             <CreditCard size={16} />
             {checkingOut ? 'Redirecting to checkout…' : `Proceed to Payment · $${duration === 30 ? price30 : price60}`}
@@ -595,7 +595,7 @@ export default function ClientWalks() {
                     onClick={() => setDuration(d)}
                     className="py-3 rounded-xl border-2 text-sm font-medium transition-all"
                     style={duration === d
-                      ? { borderColor: '#2D5016', color: '#2D5016', backgroundColor: '#f0f4e8' }
+                      ? { borderColor: '#F2C94C', color: '#B8860B', backgroundColor: '#FFF5B8' }
                       : { borderColor: '#e5e7eb', color: '#4b5563' }
                     }
                   >

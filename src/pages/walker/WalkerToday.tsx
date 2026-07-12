@@ -128,8 +128,8 @@ export default function WalkerToday() {
                     {walk.dog?.photo_url ? (
                       <img src={walk.dog.photo_url} alt={walk.dog.name} className="w-12 h-12 rounded-xl object-cover shrink-0" />
                     ) : (
-                      <div className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0" style={{ backgroundColor: '#f0f4e8' }}>
-                        <Dog size={22} style={{ color: '#2D5016' }} />
+                      <div className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0" style={{ backgroundColor: '#FFF5B8' }}>
+                        <Dog size={22} style={{ color: '#B8860B' }} />
                       </div>
                     )}
                     <div>
@@ -203,10 +203,10 @@ export default function WalkerToday() {
                 {walk.status === 'assigned' && (
                   <button
                     onClick={() => startWalk(walk)}
-                    className="w-full flex items-center justify-center gap-2 py-3 rounded-xl text-white font-semibold"
+                    className="w-full flex items-center justify-center gap-2 py-3 rounded-xl text-[#1A1A1A] font-semibold"
                     style={{ backgroundColor: '#C9A84C' }}
                   >
-                    <Play size={16} fill="white" />
+                    <Play size={16} fill="#1A1A1A" />
                     Start Walk
                   </button>
                 )}
@@ -224,8 +224,8 @@ export default function WalkerToday() {
                     </div>
                     <button
                       onClick={() => setCompleteWalk(walk)}
-                      className="w-full flex items-center justify-center gap-2 py-3 rounded-xl text-white font-semibold"
-                      style={{ backgroundColor: '#2D5016' }}
+                      className="w-full flex items-center justify-center gap-2 py-3 rounded-xl text-[#1A1A1A] font-semibold"
+                      style={{ backgroundColor: '#F2C94C' }}
                     >
                       <CheckCircle size={16} />
                       Complete Walk
@@ -247,8 +247,8 @@ export default function WalkerToday() {
           <button
             onClick={finishWalk}
             disabled={completing}
-            className="w-full py-3 rounded-xl text-white font-semibold disabled:opacity-60"
-            style={{ backgroundColor: '#2D5016' }}
+            className="w-full py-3 rounded-xl text-[#1A1A1A] font-semibold disabled:opacity-60"
+            style={{ backgroundColor: '#F2C94C' }}
           >
             {completing ? 'Completing…' : 'Mark as Completed'}
           </button>

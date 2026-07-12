@@ -74,8 +74,8 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-2.5 rounded-xl bg-forest-500 text-white text-sm font-semibold hover:bg-forest-600 active:bg-forest-700 transition-colors disabled:opacity-60 disabled:cursor-not-allowed mt-2"
-              style={{ backgroundColor: '#2D5016' }}
+              className="w-full py-2.5 rounded-xl bg-forest-500 text-[#1A1A1A] text-sm font-semibold hover:bg-forest-600 active:bg-forest-700 transition-colors disabled:opacity-60 disabled:cursor-not-allowed mt-2"
+              style={{ backgroundColor: '#F2C94C' }}
             >
               {loading ? 'Signing in…' : 'Sign In'}
             </button>
