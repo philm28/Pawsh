@@ -7,10 +7,14 @@ import Header from './components/layout/Header';
 import MobileNav from './components/layout/MobileNav';
 import LoadingSpinner from './components/ui/LoadingSpinner';
 import LandingPage from './pages/LandingPage';
+import AboutPage from './pages/AboutPage';
+import ContactPage from './pages/ContactPage';
+import TermsPage from './pages/TermsPage';
 import LoginPage from './pages/auth/LoginPage';
 import RequestAccessPage from './pages/auth/RequestAccessPage';
 import ClientDashboard from './pages/client/ClientDashboard';
 import ClientWalks from './pages/client/ClientWalks';
+import ClientMembership from './pages/client/ClientMembership';
 import ClientDogs from './pages/client/ClientDogs';
 import ClientProfile from './pages/client/ClientProfile';
 import WalkerToday from './pages/walker/WalkerToday';
@@ -21,6 +25,7 @@ import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminClients from './pages/admin/AdminClients';
 import AdminWalkers from './pages/admin/AdminWalkers';
 import AdminRequests from './pages/admin/AdminRequests';
+import AdminMemberships from './pages/admin/AdminMemberships';
 import AdminSettings from './pages/admin/AdminSettings';
 
 function AppRouter() {
@@ -30,7 +35,7 @@ function AppRouter() {
   useEffect(() => {
     if (loading) return;
     if (!user || !profile) {
-      if (page !== 'request-access' && page !== 'login' && page !== 'landing') {
+      if (!['request-access', 'login', 'landing', 'about', 'contact', 'terms'].includes(page)) {
         navigate('landing');
       }
       return;
@@ -40,6 +45,8 @@ function AppRouter() {
       const params = new URLSearchParams(window.location.search);
       if (params.get('payment') && profile.role === 'client') {
         navigate('client-walks');
+      } else if ((params.get('membership') || params.get('dogsitting')) && profile.role === 'client') {
+        navigate('client-membership');
       } else {
         navigate(homePages[profile.role]);
       }
@@ -51,6 +58,9 @@ function AppRouter() {
   if (!user || !profile) {
     if (page === 'request-access') return <RequestAccessPage />;
     if (page === 'login') return <LoginPage />;
+    if (page === 'about') return <AboutPage />;
+    if (page === 'contact') return <ContactPage />;
+    if (page === 'terms') return <TermsPage />;
     return <LandingPage />;
   }
 
@@ -59,10 +69,14 @@ function AppRouter() {
   const isAdmin = profile.role === 'admin';
 
   function renderPage() {
+    if (page === 'about') return <AboutPage />;
+    if (page === 'contact') return <ContactPage />;
+    if (page === 'terms') return <TermsPage />;
     if (isClient) {
       switch (page) {
         case 'client-dashboard': return <ClientDashboard />;
         case 'client-walks': return <ClientWalks />;
+        case 'client-membership': return <ClientMembership />;
         case 'client-dogs': return <ClientDogs />;
         case 'client-profile': return <ClientProfile />;
         default: return <ClientDashboard />;
@@ -83,6 +97,7 @@ function AppRouter() {
         case 'admin-clients': return <AdminClients />;
         case 'admin-walkers': return <AdminWalkers />;
         case 'admin-requests': return <AdminRequests />;
+        case 'admin-memberships': return <AdminMemberships />;
         case 'admin-settings': return <AdminSettings />;
         default: return <AdminDashboard />;
       }

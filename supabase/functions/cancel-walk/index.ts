@@ -52,7 +52,7 @@ Deno.serve(async (req: Request) => {
 
     const { data: walk, error: walkErr } = await admin
       .from("walks")
-      .select("id, status, payment_status, stripe_session_id, price, client_id")
+      .select("id, status, payment_status, stripe_session_id, price, client_id, scheduled_date, scheduled_time")
       .eq("id", walk_id)
       .eq("client_id", user.id)
       .maybeSingle();
@@ -67,6 +67,15 @@ Deno.serve(async (req: Request) => {
     if (!["scheduled", "assigned"].includes(walk.status)) {
       return new Response(
         JSON.stringify({ error: `Cannot cancel a walk with status '${walk.status}'` }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } },
+      );
+    }
+
+    const scheduledAt = new Date(`${walk.scheduled_date}T${walk.scheduled_time}`);
+    const hoursUntilWalk = (scheduledAt.getTime() - Date.now()) / (1000 * 60 * 60);
+    if (hoursUntilWalk < 24) {
+      return new Response(
+        JSON.stringify({ error: "Cancellations must be made at least 24 hours in advance." }),
         { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } },
       );
     }

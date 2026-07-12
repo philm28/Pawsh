@@ -8,8 +8,8 @@ export default function AdminSettings() {
   const { toast } = useToast();
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [price30, setPrice30] = useState('25.00');
-  const [price60, setPrice60] = useState('45.00');
+  const [price30, setPrice30] = useState('35.00');
+  const [price45, setPrice45] = useState('50.00');
 
   useEffect(() => {
     async function load() {
@@ -17,7 +17,7 @@ export default function AdminSettings() {
       if (data) {
         for (const row of data) {
           if (row.key === 'price_30min') setPrice30(row.value);
-          if (row.key === 'price_60min') setPrice60(row.value);
+          if (row.key === 'price_45min') setPrice45(row.value);
         }
       }
       setLoading(false);
@@ -28,8 +28,8 @@ export default function AdminSettings() {
   async function save(e: React.FormEvent) {
     e.preventDefault();
     const p30 = parseFloat(price30);
-    const p60 = parseFloat(price60);
-    if (isNaN(p30) || isNaN(p60) || p30 < 0 || p60 < 0) {
+    const p45 = parseFloat(price45);
+    if (isNaN(p30) || isNaN(p45) || p30 < 0 || p45 < 0) {
       toast('Please enter valid prices.', 'error');
       return;
     }
@@ -39,15 +39,15 @@ export default function AdminSettings() {
         .update({ value: p30.toFixed(2), updated_at: new Date().toISOString() })
         .eq('key', 'price_30min'),
       supabase.from('app_settings')
-        .update({ value: p60.toFixed(2), updated_at: new Date().toISOString() })
-        .eq('key', 'price_60min'),
+        .update({ value: p45.toFixed(2), updated_at: new Date().toISOString() })
+        .eq('key', 'price_45min'),
     ]);
     setSaving(false);
     if (r1.error || r2.error) {
       toast('Failed to save settings.', 'error');
     } else {
       setPrice30(p30.toFixed(2));
-      setPrice60(p60.toFixed(2));
+      setPrice45(p45.toFixed(2));
       toast('Settings saved!', 'success');
     }
   }
@@ -76,7 +76,7 @@ export default function AdminSettings() {
           <div className="grid grid-cols-2 gap-4">
             {[
               { label: '30 min walk', value: price30, onChange: setPrice30 },
-              { label: '60 min walk', value: price60, onChange: setPrice60 },
+              { label: '45 min walk', value: price45, onChange: setPrice45 },
             ].map(({ label, value, onChange }) => (
               <div key={label}>
                 <label className="block text-sm font-medium text-gray-700 mb-1.5">{label}</label>

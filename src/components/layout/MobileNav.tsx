@@ -1,4 +1,4 @@
-import { type LucideIcon, PawPrint, LayoutDashboard, Calendar, Dog, User, ClipboardList, Inbox, Clock, Settings } from 'lucide-react';
+import { type LucideIcon, PawPrint, LayoutDashboard, Calendar, Dog, User, ClipboardList, Inbox, Clock, Settings, Wallet } from 'lucide-react';
 import { useNav } from '../../contexts/NavContext';
 import { useAuth } from '../../contexts/AuthContext';
 import { Page } from '../../lib/types';
@@ -12,6 +12,7 @@ interface NavItem {
 const clientNav: NavItem[] = [
   { page: 'client-dashboard', label: 'Home', icon: LayoutDashboard },
   { page: 'client-walks', label: 'Walks', icon: PawPrint },
+  { page: 'client-membership', label: 'Plan', icon: Wallet },
   { page: 'client-dogs', label: 'Dogs', icon: Dog },
   { page: 'client-profile', label: 'Profile', icon: User },
 ];

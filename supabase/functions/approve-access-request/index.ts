@@ -17,19 +17,19 @@ function welcomeHtml(fullName: string, role: string, resetLink: string): string 
     <tr><td align="center">
       <table width="100%" cellpadding="0" cellspacing="0" style="max-width:520px;">
         <tr><td style="padding-bottom:24px;text-align:center;">
-          <span style="display:block;font-size:20px;font-weight:700;color:#1A1A1A;margin-top:8px;">North Paws</span>
+          <span style="display:block;font-size:20px;font-weight:700;color:#1A1A1A;margin-top:8px;">Pawsh</span>
         </td></tr>
         <tr><td style="background:#fff;border-radius:16px;border:1px solid #E8E4DC;padding:36px 32px;">
           <h1 style="margin:0 0 8px;font-size:22px;font-weight:700;color:#1A1A1A;">You're approved!</h1>
           <p style="margin:0 0 20px;font-size:15px;color:#6B7280;line-height:1.6;">
-            Hi ${fullName}, welcome to North Paws! Your account has been approved as a <strong style="color:#2D5016;">${roleLabel}</strong>.
+            Hi ${fullName}, welcome to Pawsh! Your account has been approved as a <strong style="color:#B8860B;">${roleLabel}</strong>.
           </p>
           <div style="background:#F0F4E8;border-radius:12px;padding:20px 24px;margin-bottom:24px;">
-            <p style="margin:0;font-size:14px;color:#2D5016;font-weight:600;">Set your password to get started</p>
+            <p style="margin:0;font-size:14px;color:#B8860B;font-weight:600;">Set your password to get started</p>
             <p style="margin:8px 0 16px;font-size:14px;color:#4B5563;line-height:1.6;">
               Click the button below to create your password and access your account. This link expires in 24 hours.
             </p>
-            <a href="${resetLink}" style="display:inline-block;padding:12px 28px;background:#2D5016;color:#fff;font-size:14px;font-weight:600;border-radius:10px;text-decoration:none;">
+            <a href="${resetLink}" style="display:inline-block;padding:12px 28px;background:#B8860B;color:#fff;font-size:14px;font-weight:600;border-radius:10px;text-decoration:none;">
               Set My Password
             </a>
           </div>
@@ -38,7 +38,7 @@ function welcomeHtml(fullName: string, role: string, resetLink: string): string 
           </p>
         </td></tr>
         <tr><td style="padding-top:20px;text-align:center;">
-          <p style="margin:0;font-size:12px;color:#9CA3AF;">North Paws &mdash; Professional Dog Walking</p>
+          <p style="margin:0;font-size:12px;color:#9CA3AF;">Pawsh &mdash; Professional Dog Walking</p>
         </td></tr>
       </table>
     </td></tr>
@@ -56,19 +56,19 @@ function rejectionHtml(fullName: string): string {
     <tr><td align="center">
       <table width="100%" cellpadding="0" cellspacing="0" style="max-width:520px;">
         <tr><td style="padding-bottom:24px;text-align:center;">
-          <span style="display:block;font-size:20px;font-weight:700;color:#1A1A1A;margin-top:8px;">North Paws</span>
+          <span style="display:block;font-size:20px;font-weight:700;color:#1A1A1A;margin-top:8px;">Pawsh</span>
         </td></tr>
         <tr><td style="background:#fff;border-radius:16px;border:1px solid #E8E4DC;padding:36px 32px;">
           <h1 style="margin:0 0 8px;font-size:22px;font-weight:700;color:#1A1A1A;">Request Update</h1>
           <p style="margin:0 0 20px;font-size:15px;color:#6B7280;line-height:1.6;">
-            Hi ${fullName}, thank you for your interest in North Paws. Unfortunately, we're unable to approve your request at this time.
+            Hi ${fullName}, thank you for your interest in Pawsh. Unfortunately, we're unable to approve your request at this time.
           </p>
           <p style="margin:0;font-size:14px;color:#6B7280;line-height:1.6;">
             If you believe this is an error or have questions, please reply to this email and we'll be happy to help.
           </p>
         </td></tr>
         <tr><td style="padding-top:20px;text-align:center;">
-          <p style="margin:0;font-size:12px;color:#9CA3AF;">North Paws &mdash; Professional Dog Walking</p>
+          <p style="margin:0;font-size:12px;color:#9CA3AF;">Pawsh &mdash; Professional Dog Walking</p>
         </td></tr>
       </table>
     </td></tr>
@@ -86,7 +86,7 @@ Deno.serve(async (req: Request) => {
     const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
     const serviceRoleKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const resendKey = Deno.env.get("RESEND_API_KEY");
-    const fromAddress = Deno.env.get("FROM_EMAIL") ?? "North Paws <onboarding@resend.dev>";
+    const fromAddress = Deno.env.get("FROM_EMAIL") ?? "Pawsh <onboarding@resend.dev>";
 
     const admin = createClient(supabaseUrl, serviceRoleKey, {
       auth: { autoRefreshToken: false, persistSession: false },
@@ -130,7 +130,7 @@ Deno.serve(async (req: Request) => {
           body: JSON.stringify({
             from: fromAddress,
             to: [email],
-            subject: "Update on your North Paws request",
+            subject: "Update on your Pawsh request",
             html: rejectionHtml(full_name),
           }),
         });
@@ -175,7 +175,7 @@ Deno.serve(async (req: Request) => {
         body: JSON.stringify({
           from: fromAddress,
           to: [email],
-          subject: "You're approved — Welcome to North Paws!",
+          subject: "You're approved — Welcome to Pawsh!",
           html: welcomeHtml(full_name, requested_role, linkData.properties.action_link),
         }),
       });

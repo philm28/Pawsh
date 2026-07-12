@@ -82,6 +82,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       status: 'auto_approved',
     }).then(() => {});
 
+    // Notify admin + applicant by email. Non-fatal if it fails.
+    supabase.functions.invoke('send-access-request-email', {
+      body: { full_name: fullName, email, phone: phone || null, requested_role: role },
+    }).then(() => {});
+
     if (data.user) {
       setUser(data.user);
       // The handle_new_user DB trigger creates the profile row; it can lag

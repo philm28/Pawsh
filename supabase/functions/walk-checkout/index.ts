@@ -58,6 +58,15 @@ Deno.serve(async (req: Request) => {
       });
     }
 
+    const scheduledAt = new Date(`${scheduled_date}T${scheduled_time}`);
+    const daysUntilWalk = (scheduledAt.getTime() - Date.now()) / (1000 * 60 * 60 * 24);
+    if (daysUntilWalk < 0 || daysUntilWalk > 7) {
+      return new Response(JSON.stringify({ error: "Walks can only be booked up to 7 days in advance." }), {
+        status: 400,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
     const admin = createClient(supabaseUrl, serviceRoleKey, {
       auth: { autoRefreshToken: false, persistSession: false },
     });

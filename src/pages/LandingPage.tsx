@@ -19,6 +19,8 @@ export default function LandingPage() {
             <a href="#pricing" className="hover:text-[#1A1A1A] transition-colors">Pricing</a>
             <a href="#how-it-works" className="hover:text-[#1A1A1A] transition-colors">How it Works</a>
             <a href="#policies" className="hover:text-[#1A1A1A] transition-colors">Policies</a>
+            <button onClick={() => navigate('about')} className="hover:text-[#1A1A1A] transition-colors">About</button>
+            <button onClick={() => navigate('contact')} className="hover:text-[#1A1A1A] transition-colors">Contact</button>
           </div>
           <div className="flex items-center gap-3">
             <button
@@ -221,12 +223,12 @@ export default function LandingPage() {
               {
                 icon: Clock,
                 title: 'Booking & Scheduling',
-                desc: 'Book walks any time through the app. We recommend booking at least a few hours ahead so a walker can be matched to your request.',
+                desc: 'Book walks up to 7 days in advance through the app, so your walker has time to plan around your schedule.',
               },
               {
                 icon: RefreshCw,
                 title: 'Cancellations & Refunds',
-                desc: 'Cancel from your dashboard before a walker is assigned for a full refund. Once a walker is en route, cancellations are handled case-by-case — just reach out.',
+                desc: 'Cancel from your dashboard up to 24 hours before a scheduled walk for a full refund. Cancellations inside that window aren\'t available in the app — just reach out to us directly.',
               },
               {
                 icon: XCircle,
@@ -237,6 +239,11 @@ export default function LandingPage() {
                 icon: Camera,
                 title: 'Walk Verification',
                 desc: 'Every walk includes a GPS-stamped check-in/check-out and a photo report, so you always know your dog was walked as scheduled.',
+              },
+              {
+                icon: PawPrint,
+                title: 'More Than Just Walks',
+                desc: 'A "walk" booking can also cover a quick check-in, feeding, or giving medicine — just add a note when you schedule so your walker knows what to expect.',
               },
               {
                 icon: ShieldCheck,
@@ -294,12 +301,23 @@ export default function LandingPage() {
             <span className="font-semibold text-sm text-[#1A1A1A]">Pawsh</span>
           </div>
           <p className="text-xs text-gray-400">Professional Dog Walking</p>
-          <button
-            onClick={() => navigate('login')}
-            className="text-xs font-medium text-gray-500 hover:text-gray-700 transition-colors"
-          >
-            Sign In
-          </button>
+          <div className="flex items-center gap-5">
+            <button onClick={() => navigate('about')} className="text-xs font-medium text-gray-500 hover:text-gray-700 transition-colors">
+              About
+            </button>
+            <button onClick={() => navigate('contact')} className="text-xs font-medium text-gray-500 hover:text-gray-700 transition-colors">
+              Contact
+            </button>
+            <button onClick={() => navigate('terms')} className="text-xs font-medium text-gray-500 hover:text-gray-700 transition-colors">
+              Terms & Policies
+            </button>
+            <button
+              onClick={() => navigate('login')}
+              className="text-xs font-medium text-gray-500 hover:text-gray-700 transition-colors"
+            >
+              Sign In
+            </button>
+          </div>
         </div>
       </footer>
     </div>

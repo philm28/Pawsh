@@ -34,7 +34,7 @@ function walkerAssignedHtml(
     <tr><td align="center">
       <table width="100%" cellpadding="0" cellspacing="0" style="max-width:520px;">
         <tr><td style="padding-bottom:24px;text-align:center;">
-          <span style="display:block;font-size:20px;font-weight:700;color:#1A1A1A;margin-top:8px;">North Paws</span>
+          <span style="display:block;font-size:20px;font-weight:700;color:#1A1A1A;margin-top:8px;">Pawsh</span>
         </td></tr>
         <tr><td style="background:#fff;border-radius:16px;border:1px solid #E8E4DC;padding:36px 32px;">
           <h1 style="margin:0 0 8px;font-size:22px;font-weight:700;color:#1A1A1A;">New Walk Assigned</h1>
@@ -43,7 +43,7 @@ function walkerAssignedHtml(
           </p>
           <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #E8E4DC;border-radius:12px;overflow:hidden;margin-bottom:24px;">
             <tr style="background:#F0F4E8;">
-              <td style="padding:12px 16px;font-size:13px;font-weight:600;color:#2D5016;width:40%;">Dog</td>
+              <td style="padding:12px 16px;font-size:13px;font-weight:600;color:#B8860B;width:40%;">Dog</td>
               <td style="padding:12px 16px;font-size:13px;color:#1A1A1A;">${dogName}${dogBreed ? ` <span style="color:#6B7280;">(${dogBreed})</span>` : ""}</td>
             </tr>
             <tr>
@@ -65,11 +65,11 @@ function walkerAssignedHtml(
             </tr>` : ""}
           </table>
           <p style="margin:0;font-size:13px;color:#9CA3AF;line-height:1.6;">
-            Open the North Paws app to view this walk in your schedule.
+            Open the Pawsh app to view this walk in your schedule.
           </p>
         </td></tr>
         <tr><td style="padding-top:20px;text-align:center;">
-          <p style="margin:0;font-size:12px;color:#9CA3AF;">North Paws &mdash; Professional Dog Walking</p>
+          <p style="margin:0;font-size:12px;color:#9CA3AF;">Pawsh &mdash; Professional Dog Walking</p>
         </td></tr>
       </table>
     </td></tr>
@@ -87,7 +87,7 @@ Deno.serve(async (req: Request) => {
     const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
     const serviceRoleKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const resendKey = Deno.env.get("RESEND_API_KEY");
-    const fromAddress = Deno.env.get("FROM_EMAIL") ?? "North Paws <onboarding@resend.dev>";
+    const fromAddress = Deno.env.get("FROM_EMAIL") ?? "Pawsh <onboarding@resend.dev>";
 
     // Verify admin caller
     const authHeader = req.headers.get("Authorization");

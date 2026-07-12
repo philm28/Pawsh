@@ -25,7 +25,7 @@ function reminderHtml(clientName: string, dogName: string, scheduledDate: string
     <tr><td align="center">
       <table width="100%" cellpadding="0" cellspacing="0" style="max-width:520px;">
         <tr><td style="padding-bottom:24px;text-align:center;">
-          <span style="display:block;font-size:20px;font-weight:700;color:#1A1A1A;margin-top:8px;">North Paws</span>
+          <span style="display:block;font-size:20px;font-weight:700;color:#1A1A1A;margin-top:8px;">Pawsh</span>
         </td></tr>
         <tr><td style="background:#fff;border-radius:16px;border:1px solid #E8E4DC;padding:36px 32px;">
           <h1 style="margin:0 0 8px;font-size:22px;font-weight:700;color:#1A1A1A;">Walk Reminder</h1>
@@ -36,27 +36,27 @@ function reminderHtml(clientName: string, dogName: string, scheduledDate: string
             <table width="100%" cellpadding="0" cellspacing="0">
               <tr>
                 <td style="font-size:13px;color:#4B5563;padding-bottom:8px;">
-                  <strong style="color:#2D5016;">Date</strong><br>${date}
+                  <strong style="color:#B8860B;">Date</strong><br>${date}
                 </td>
               </tr>
               <tr>
                 <td style="font-size:13px;color:#4B5563;padding-bottom:8px;">
-                  <strong style="color:#2D5016;">Time</strong><br>${time} &middot; ${durationMinutes} min
+                  <strong style="color:#B8860B;">Time</strong><br>${time} &middot; ${durationMinutes} min
                 </td>
               </tr>
               ${walkerName ? `<tr>
                 <td style="font-size:13px;color:#4B5563;">
-                  <strong style="color:#2D5016;">Walker</strong><br>${walkerName}
+                  <strong style="color:#B8860B;">Walker</strong><br>${walkerName}
                 </td>
               </tr>` : ""}
             </table>
           </div>
           <p style="margin:0;font-size:13px;color:#9CA3AF;line-height:1.6;">
-            Need to cancel? Log in to the North Paws app to manage your walks.
+            Need to cancel? Log in to the Pawsh app to manage your walks.
           </p>
         </td></tr>
         <tr><td style="padding-top:20px;text-align:center;">
-          <p style="margin:0;font-size:12px;color:#9CA3AF;">North Paws &mdash; Professional Dog Walking</p>
+          <p style="margin:0;font-size:12px;color:#9CA3AF;">Pawsh &mdash; Professional Dog Walking</p>
         </td></tr>
       </table>
     </td></tr>
@@ -74,7 +74,7 @@ Deno.serve(async (req: Request) => {
     const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
     const serviceRoleKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const resendKey = Deno.env.get("RESEND_API_KEY");
-    const fromAddress = Deno.env.get("FROM_EMAIL") ?? "North Paws <onboarding@resend.dev>";
+    const fromAddress = Deno.env.get("FROM_EMAIL") ?? "Pawsh <onboarding@resend.dev>";
 
     // Verify admin caller
     const authHeader = req.headers.get("Authorization");

@@ -1,12 +1,14 @@
 import { useState } from 'react';
-import { User, Save, LogOut } from 'lucide-react';
+import { User, Save, LogOut, HelpCircle, FileText, ChevronRight } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { useToast } from '../../contexts/ToastContext';
+import { useNav } from '../../contexts/NavContext';
 import { supabase } from '../../lib/supabase';
 
 export default function ClientProfile() {
   const { profile, refreshProfile, signOut } = useAuth();
   const { toast } = useToast();
+  const { navigate } = useNav();
   const [fullName, setFullName] = useState(profile?.full_name ?? '');
   const [phone, setPhone] = useState(profile?.phone ?? '');
   const [saving, setSaving] = useState(false);
@@ -82,6 +84,25 @@ export default function ClientProfile() {
             {saving ? 'Saving…' : 'Save Changes'}
           </button>
         </form>
+      </div>
+
+      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden mb-3">
+        <button
+          onClick={() => navigate('contact')}
+          className="w-full flex items-center gap-3 px-5 py-4 hover:bg-gray-50 transition-colors border-b border-gray-50"
+        >
+          <HelpCircle size={16} className="text-gray-400" />
+          <span className="flex-1 text-left text-sm font-medium text-gray-700">Help & Contact</span>
+          <ChevronRight size={16} className="text-gray-300" />
+        </button>
+        <button
+          onClick={() => navigate('terms')}
+          className="w-full flex items-center gap-3 px-5 py-4 hover:bg-gray-50 transition-colors"
+        >
+          <FileText size={16} className="text-gray-400" />
+          <span className="flex-1 text-left text-sm font-medium text-gray-700">Terms & Policies</span>
+          <ChevronRight size={16} className="text-gray-300" />
+        </button>
       </div>
 
       <button

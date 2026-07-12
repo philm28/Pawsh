@@ -18,8 +18,8 @@ export default function ClientWalks() {
   const [walks, setWalks] = useState<Walk[]>([]);
   const [dogs, setDogs] = useState<Dog[]>([]);
   const [ratings, setRatings] = useState<Map<string, WalkRating>>(new Map());
-  const [price30, setPrice30] = useState(25);
-  const [price60, setPrice60] = useState(45);
+  const [price30, setPrice30] = useState(35);
+  const [price45, setPrice45] = useState(50);
   const [loading, setLoading] = useState(true);
   const [verifyingPayment, setVerifyingPayment] = useState(false);
   const [showSchedule, setShowSchedule] = useState(false);
@@ -36,7 +36,7 @@ export default function ClientWalks() {
   const [dogId, setDogId] = useState('');
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
-  const [duration, setDuration] = useState<30 | 60>(30);
+  const [duration, setDuration] = useState<30 | 45>(30);
   const [clientNotes, setClientNotes] = useState('');
 
   async function loadData() {
@@ -49,7 +49,7 @@ export default function ClientWalks() {
         .order('scheduled_time', { ascending: false }),
       supabase.from('dogs').select('*').eq('owner_id', profile!.id).order('name'),
       supabase.from('walk_ratings').select('*').eq('client_id', profile!.id),
-      supabase.from('app_settings').select('key, value').in('key', ['price_30min', 'price_60min']),
+      supabase.from('app_settings').select('key, value').in('key', ['price_30min', 'price_45min']),
     ]);
     if (walksRes.data) setWalks(walksRes.data as Walk[]);
     if (dogsRes.data) {
@@ -64,7 +64,7 @@ export default function ClientWalks() {
     if (settingsRes.data) {
       for (const s of settingsRes.data) {
         if (s.key === 'price_30min') setPrice30(parseFloat(s.value));
-        if (s.key === 'price_60min') setPrice60(parseFloat(s.value));
+        if (s.key === 'price_45min') setPrice45(parseFloat(s.value));
       }
     }
     setLoading(false);
@@ -167,7 +167,7 @@ export default function ClientWalks() {
     if (!dogId || !date || !time) return;
     setCheckingOut(true);
 
-    const price = duration === 60 ? price60 : price30;
+    const price = duration === 45 ? price45 : price30;
     const origin = window.location.origin;
     const successUrl = `${origin}/?payment=success&walk_id=WALK_ID_PLACEHOLDER&session_id={CHECKOUT_SESSION_ID}`;
     const cancelUrl = `${origin}/?payment=cancelled&walk_id=WALK_ID_PLACEHOLDER`;
@@ -228,6 +228,13 @@ export default function ClientWalks() {
   }
 
   const today = new Date().toISOString().split('T')[0];
+
+  function isPastCancelDeadline(walk: Walk) {
+    const scheduledAt = new Date(`${walk.scheduled_date}T${walk.scheduled_time}`);
+    const hoursUntilWalk = (scheduledAt.getTime() - Date.now()) / (1000 * 60 * 60);
+    return hoursUntilWalk < 24;
+  }
+
   const upcomingWalks = walks.filter(w => w.scheduled_date >= today && w.status !== 'completed' && w.status !== 'cancelled');
   const historyWalks = walks.filter(w => w.status === 'completed' || w.status === 'cancelled' || w.scheduled_date < today);
   const displayed = tab === 'upcoming' ? upcomingWalks : historyWalks;
@@ -366,13 +373,20 @@ export default function ClientWalks() {
 
                   {!isPending && (walk.status === 'scheduled' || walk.status === 'assigned') && (
                     <div className="mt-3 pt-3 border-t border-gray-50">
-                      <button
-                        onClick={() => setCancellingWalk(walk)}
-                        className="flex items-center gap-1.5 text-xs font-medium text-red-400 hover:text-red-600 transition-colors"
-                      >
-                        <XCircle size={13} />
-                        Cancel walk
-                      </button>
+                      {isPastCancelDeadline(walk) ? (
+                        <p className="text-xs text-gray-400 flex items-center gap-1.5">
+                          <AlertCircle size={13} />
+                          Cancellations must be made at least 24 hours in advance.
+                        </p>
+                      ) : (
+                        <button
+                          onClick={() => setCancellingWalk(walk)}
+                          className="flex items-center gap-1.5 text-xs font-medium text-red-400 hover:text-red-600 transition-colors"
+                        >
+                          <XCircle size={13} />
+                          Cancel walk
+                        </button>
+                      )}
                     </div>
                   )}
                 </div>
@@ -543,7 +557,7 @@ export default function ClientWalks() {
             style={{ backgroundColor: '#F2C94C' }}
           >
             <CreditCard size={16} />
-            {checkingOut ? 'Redirecting to checkout…' : `Proceed to Payment · $${duration === 30 ? price30 : price60}`}
+            {checkingOut ? 'Redirecting to checkout…' : `Proceed to Payment · $${duration === 30 ? price30 : price45}`}
           </button>
         }
       >
@@ -570,10 +584,12 @@ export default function ClientWalks() {
                 type="date"
                 required
                 min={new Date().toISOString().split('T')[0]}
+                max={new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]}
                 value={date}
                 onChange={e => setDate(e.target.value)}
                 className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:border-forest-500"
               />
+              <p className="text-xs text-gray-400 mt-1">Walks can be booked up to 7 days in advance.</p>
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1.5">Time</label>
@@ -588,7 +604,7 @@ export default function ClientWalks() {
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1.5">Duration</label>
               <div className="grid grid-cols-2 gap-2">
-                {([30, 60] as const).map(d => (
+                {([30, 45] as const).map(d => (
                   <button
                     key={d}
                     type="button"
@@ -600,7 +616,7 @@ export default function ClientWalks() {
                     }
                   >
                     <div>{d} min</div>
-                    <div className="text-xs opacity-70 mt-0.5">${d === 30 ? price30 : price60}</div>
+                    <div className="text-xs opacity-70 mt-0.5">${d === 30 ? price30 : price45}</div>
                   </button>
                 ))}
               </div>
@@ -612,7 +628,7 @@ export default function ClientWalks() {
               <textarea
                 value={clientNotes}
                 onChange={e => setClientNotes(e.target.value)}
-                placeholder="e.g. Use the side gate, she needs to be on leash at all times…"
+                placeholder="e.g. Use the side gate, she needs to be on leash. Let us know if this visit is actually a check-in, feeding, or medicine instead of a walk."
                 rows={3}
                 maxLength={500}
                 className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:border-forest-500 resize-none"

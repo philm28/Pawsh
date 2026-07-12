@@ -23,7 +23,7 @@ function bookingConfirmationHtml(
     <tr><td align="center">
       <table width="100%" cellpadding="0" cellspacing="0" style="max-width:520px;">
         <tr><td style="padding-bottom:24px;text-align:center;">
-          <span style="display:block;font-size:20px;font-weight:700;color:#1A1A1A;">North Paws</span>
+          <span style="display:block;font-size:20px;font-weight:700;color:#1A1A1A;">Pawsh</span>
           <span style="display:block;font-size:13px;color:#9CA3AF;margin-top:4px;">Professional Dog Walking</span>
         </td></tr>
         <tr><td style="background:#fff;border-radius:16px;border:1px solid #E8E4DC;padding:36px 32px;">
@@ -52,18 +52,18 @@ function bookingConfirmationHtml(
               <td style="padding:12px 16px;font-size:13px;color:#1A1A1A;border-top:1px solid #E8E4DC;">${durationMinutes} minutes</td>
             </tr>
             <tr style="background:#F0F4E8;">
-              <td style="padding:12px 16px;font-size:13px;font-weight:700;color:#2D5016;border-top:1px solid #E8E4DC;">Amount Paid</td>
-              <td style="padding:12px 16px;font-size:13px;font-weight:700;color:#2D5016;border-top:1px solid #E8E4DC;">$${price.toFixed(2)}</td>
+              <td style="padding:12px 16px;font-size:13px;font-weight:700;color:#B8860B;border-top:1px solid #E8E4DC;">Amount Paid</td>
+              <td style="padding:12px 16px;font-size:13px;font-weight:700;color:#B8860B;border-top:1px solid #E8E4DC;">$${price.toFixed(2)}</td>
             </tr>
           </table>
           <div style="background:#F0F4E8;border-radius:12px;padding:16px 20px;">
-            <p style="margin:0;font-size:13px;color:#2D5016;line-height:1.6;">
+            <p style="margin:0;font-size:13px;color:#B8860B;line-height:1.6;">
               A walker will be assigned to your booking shortly. You'll receive another notification once assigned.
             </p>
           </div>
         </td></tr>
         <tr><td style="padding-top:20px;text-align:center;">
-          <p style="margin:0;font-size:12px;color:#9CA3AF;">North Paws &mdash; Professional Dog Walking</p>
+          <p style="margin:0;font-size:12px;color:#9CA3AF;">Pawsh &mdash; Professional Dog Walking</p>
         </td></tr>
       </table>
     </td></tr>
@@ -170,7 +170,7 @@ Deno.serve(async (req: Request) => {
 
     // Send booking confirmation email (best-effort)
     const resendKey = Deno.env.get("RESEND_API_KEY");
-    const fromAddress = Deno.env.get("FROM_EMAIL") ?? "North Paws <onboarding@resend.dev>";
+    const fromAddress = Deno.env.get("FROM_EMAIL") ?? "Pawsh <onboarding@resend.dev>";
 
     if (resendKey && user.email) {
       try {

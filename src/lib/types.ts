@@ -35,7 +35,7 @@ export interface Walk {
   walker_id: string | null;
   scheduled_date: string;
   scheduled_time: string;
-  duration_minutes: 30 | 60;
+  duration_minutes: 30 | 45;
   status: WalkStatus;
   check_in_time: string | null;
   check_out_time: string | null;
@@ -88,10 +88,14 @@ export interface AppSetting {
 
 export type Page =
   | 'landing'
+  | 'about'
+  | 'contact'
+  | 'terms'
   | 'login'
   | 'request-access'
   | 'client-dashboard'
   | 'client-walks'
+  | 'client-membership'
   | 'client-dogs'
   | 'client-profile'
   | 'walker-today'
@@ -102,4 +106,44 @@ export type Page =
   | 'admin-clients'
   | 'admin-walkers'
   | 'admin-requests'
+  | 'admin-memberships'
   | 'admin-settings';
+
+export interface ClientBundleSubscription {
+  id: string;
+  client_id: string;
+  tier: 'bundle_5' | 'bundle_10' | 'bundle_20';
+  status: 'incomplete' | 'active' | 'past_due' | 'paused' | 'canceled';
+  stripe_subscription_id: string | null;
+  current_period_start: string | null;
+  current_period_end: string | null;
+  paused_until: string | null;
+}
+
+export interface CreditLot {
+  id: string;
+  client_id: string;
+  amount: number;
+  remaining: number;
+  granted_at: string;
+  expires_at: string;
+  source: 'subscription_grant' | 'admin_adjustment';
+  voided_at: string | null;
+}
+
+export interface DogSittingBooking {
+  id: string;
+  client_id: string;
+  dog_id: string;
+  visit_type: 'day' | 'overnight';
+  scheduled_date: string;
+  price_cents: number;
+  credits_used: number;
+  cash_charged_cents: number;
+  payment_status: 'pending' | 'paid' | 'failed';
+  stripe_session_id: string | null;
+  status: 'scheduled' | 'completed' | 'cancelled';
+  client_notes: string | null;
+  created_at: string;
+  dog?: Dog;
+}
