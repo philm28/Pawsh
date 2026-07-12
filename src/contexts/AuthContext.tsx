@@ -72,7 +72,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     });
     if (error) return { error };
 
-    // Log for admin visibility. Account is already active — this is a
+// Log for admin visibility. Account is already active — this is a
     // review flag, not a gate. Non-fatal if it fails.
     supabase.from('access_requests').insert({
       full_name: fullName,
@@ -80,6 +80,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       phone: phone || null,
       requested_role: role,
       status: 'auto_approved',
+    }).then(() => {});
+
+    // Notify admin + applicant by email. Non-fatal if it fails.
+    supabase.functions.invoke('send-access-request-email', {
+      body: { full_name: fullName, email, phone: phone || null, requested_role: role },
+    }).then(() => {});
+
+    // Notify admin + applicant by email. Non-fatal if it fails.
+    supabase.functions.invoke('send-access-request-email', {
+      body: { full_name: fullName, email, phone: phone || null, requested_role: role },
     }).then(() => {});
 
     if (data.user) {
