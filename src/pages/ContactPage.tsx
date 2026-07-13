@@ -1,5 +1,6 @@
-import { ChevronLeft, Mail, MessageCircle, PawPrint, Phone } from 'lucide-react';
+import { ChevronLeft, Mail, MessageCircle, Phone } from 'lucide-react';
 import { useNav } from '../contexts/NavContext';
+import PawLogo from '../components/ui/PawLogo';
 
 export default function ContactPage() {
   const { navigate } = useNav();
@@ -17,7 +18,7 @@ export default function ContactPage() {
           </button>
           <div className="flex items-center gap-2.5 ml-2">
             <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#F2C94C' }}>
-              <PawPrint size={16} className="text-[#1A1A1A]" />
+              <PawLogo size={16} color="#1A1A1A" />
             </div>
             <span className="font-bold text-lg text-[#1A1A1A]">Pawsh</span>
           </div>

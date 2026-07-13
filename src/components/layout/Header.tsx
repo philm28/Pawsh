@@ -1,4 +1,5 @@
 import { type LucideIcon, PawPrint, LogOut, LayoutDashboard, Calendar, Dog, User, ClipboardList, Inbox, Clock, Settings, Wallet } from 'lucide-react';
+import PawLogo from '../ui/PawLogo';
 import { useAuth } from '../../contexts/AuthContext';
 import { useNav } from '../../contexts/NavContext';
 import { Page } from '../../lib/types';
@@ -54,7 +55,7 @@ export default function Header() {
         onClick={() => navigate(homePages[profile?.role ?? 'client'])}
         className="flex items-center gap-2 font-bold text-xl text-[#B8860B] mr-8 transition-opacity hover:opacity-80"
       >
-        <PawPrint size={26} className="text-[#B8860B]" fill="#B8860B" />
+        <PawLogo size={26} color="#B8860B" />
         <span>Pawsh</span>
       </button>
 

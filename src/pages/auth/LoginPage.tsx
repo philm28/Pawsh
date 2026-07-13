@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { PawPrint, Eye, EyeOff } from 'lucide-react';
+import { Eye, EyeOff } from 'lucide-react';
+import PawLogo from '../../components/ui/PawLogo';
 import { useAuth } from '../../contexts/AuthContext';
 import { useNav } from '../../contexts/NavContext';
 import { useToast } from '../../contexts/ToastContext';
@@ -31,7 +32,7 @@ export default function LoginPage() {
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-forest-500 rounded-2xl mb-4 shadow-lg">
-            <PawPrint size={32} className="text-[#1A1A1A]" fill="#1A1A1A" />
+            <PawLogo size={32} color="#1A1A1A" />
           </div>
           <h1 className="text-3xl font-bold text-[#1A1A1A]">Pawsh</h1>
           <p className="text-gray-500 mt-1 text-sm">Professional dog walking services</p>

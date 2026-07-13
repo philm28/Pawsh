@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { PawPrint, ArrowLeft, Eye, EyeOff } from 'lucide-react';
+import { ArrowLeft, Eye, EyeOff } from 'lucide-react';
+import PawLogo from '../../components/ui/PawLogo';
 import { useNav } from '../../contexts/NavContext';
 import { useToast } from '../../contexts/ToastContext';
 import { useAuth } from '../../contexts/AuthContext';
@@ -47,7 +48,7 @@ export default function RequestAccessPage() {
             <ArrowLeft size={20} />
           </button>
           <div className="flex items-center gap-2">
-            <PawPrint size={22} className="text-[#B8860B]" style={{ color: '#B8860B' }} fill="#B8860B" />
+            <PawLogo size={22} color="#B8860B" />
             <span className="font-bold text-lg text-[#1A1A1A]">Pawsh</span>
           </div>
         </div>

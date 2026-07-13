@@ -1,5 +1,6 @@
 import { CheckCircle, ChevronRight, Clock, CreditCard, PawPrint, Shield, Star, Users, Camera, RefreshCw, ShieldCheck, XCircle } from 'lucide-react';
 import { useNav } from '../contexts/NavContext';
+import PawLogo from '../components/ui/PawLogo';
 
 export default function LandingPage() {
   const { navigate } = useNav();
@@ -11,7 +12,7 @@ export default function LandingPage() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2.5">
             <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#F2C94C' }}>
-              <PawPrint size={16} className="text-[#1A1A1A]" />
+              <PawLogo size={16} color="#1A1A1A" />
             </div>
             <span className="font-bold text-lg text-[#1A1A1A]">Pawsh</span>
           </div>
@@ -296,7 +297,7 @@ export default function LandingPage() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <div className="w-6 h-6 rounded-md flex items-center justify-center" style={{ backgroundColor: '#F2C94C' }}>
-              <PawPrint size={12} className="text-[#1A1A1A]" />
+              <PawLogo size={12} color="#1A1A1A" />
             </div>
             <span className="font-semibold text-sm text-[#1A1A1A]">Pawsh</span>
           </div>
