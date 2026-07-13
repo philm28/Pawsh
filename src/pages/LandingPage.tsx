@@ -157,12 +157,12 @@ export default function LandingPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-[#1A1A1A] mb-3">Simple, transparent pricing</h2>
-            <p className="text-gray-500 max-w-xl mx-auto">Pay per walk. No subscriptions, no hidden fees. Charged securely to your card only when a walk is booked.</p>
+            <p className="text-gray-500 max-w-xl mx-auto">Pay per walk, or save with a monthly bundle. Charged securely to your card — single walks only when booked, bundles on the 1st of each month.</p>
           </div>
           <div className="grid sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
             <div className="bg-white rounded-2xl border-2 p-7 text-center" style={{ borderColor: '#e5e5e5' }}>
               <div className="text-sm font-semibold text-gray-500 mb-2">30-Minute Walk</div>
-              <div className="text-4xl font-black text-[#1A1A1A] mb-1">$25</div>
+              <div className="text-4xl font-black text-[#1A1A1A] mb-1">$35</div>
               <div className="text-xs text-gray-400 mb-5">per walk</div>
               <ul className="text-sm text-gray-500 space-y-2 text-left">
                 <li className="flex items-center gap-2"><CheckCircle size={14} style={{ color: '#B8860B' }} /> Great for potty breaks & short walks</li>
@@ -173,17 +173,17 @@ export default function LandingPage() {
               <div className="absolute -top-3 left-1/2 -translate-x-1/2 text-xs font-bold px-3 py-1 rounded-full" style={{ backgroundColor: '#C9A84C', color: '#1A1A1A' }}>
                 MOST POPULAR
               </div>
-              <div className="text-sm font-semibold text-white/70 mb-2">60-Minute Walk</div>
-              <div className="text-4xl font-black mb-1">$45</div>
-              <div className="text-xs text-white/60 mb-5">per walk</div>
-              <ul className="text-sm text-white/80 space-y-2 text-left">
+              <div className="text-sm font-semibold text-[#1A1A1A]/70 mb-2">45-Minute Walk</div>
+              <div className="text-4xl font-black mb-1">$50</div>
+              <div className="text-xs text-[#1A1A1A]/60 mb-5">per walk</div>
+              <ul className="text-sm text-[#1A1A1A]/80 space-y-2 text-left">
                 <li className="flex items-center gap-2"><CheckCircle size={14} /> Full exercise for high-energy dogs</li>
                 <li className="flex items-center gap-2"><CheckCircle size={14} /> Photo report after every walk</li>
               </ul>
             </div>
           </div>
           <p className="text-center text-xs text-gray-400 mt-6">
-            Pricing may vary slightly by region and is confirmed at checkout before you pay.
+            Pricing may vary slightly by region and is confirmed at checkout before you pay. Monthly bundles and dog sitting rates are available after you sign in.
           </p>
         </div>
       </section>
@@ -277,7 +277,7 @@ export default function LandingPage() {
             <Users size={12} />
             For Dog Walkers
           </div>
-          <h2 className="text-3xl font-bold text-white mb-4">Love dogs? Join our team.</h2>
+          <h2 className="text-3xl font-bold text-[#1A1A1A] mb-4">Love dogs? Join our team.</h2>
           <p className="text-[#1A1A1A]/70 max-w-xl mx-auto mb-8 leading-relaxed">
             Walk dogs on your schedule, build a loyal client base, and track your earnings and ratings all in one place.
           </p>

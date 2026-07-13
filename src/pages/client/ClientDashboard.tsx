@@ -71,15 +71,15 @@ export default function ClientDashboard() {
         style={{ background: 'linear-gradient(135deg, #F2C94C 0%, #B8860B 100%)' }}
       >
         <div className="flex items-center gap-3">
-          <div className="p-2 bg-white/20 rounded-xl">
-            <Plus size={20} className="text-white" />
+          <div className="p-2 bg-black/10 rounded-xl">
+            <Plus size={20} className="text-[#1A1A1A]" />
           </div>
           <div className="text-left">
             <div className="font-semibold">Schedule a Walk</div>
-            <div className="text-white/70 text-xs mt-0.5">Book for any of your dogs</div>
+            <div className="text-[#1A1A1A]/70 text-xs mt-0.5">Book for any of your dogs</div>
           </div>
         </div>
-        <ChevronRight size={20} className="text-white/70" />
+        <ChevronRight size={20} className="text-[#1A1A1A]/70" />
       </button>
 
       {/* Upcoming Walks */}
