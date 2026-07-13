@@ -238,7 +238,7 @@ export default function LandingPage() {
               {
                 icon: Camera,
                 title: 'Walk Verification',
-                desc: 'Every walk includes a GPS-stamped check-in/check-out and a photo report, so you always know your dog was walked as scheduled.',
+                desc: 'Every completed walk includes a timestamped check-in/check-out, and walkers can attach a photo report so you know your dog was cared for.',
               },
               {
                 icon: PawPrint,

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { AlertCircle, Camera, CheckCircle, Clock, Dog, FileText, MapPin, PawPrint, Phone, Play } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { useToast } from '../../contexts/ToastContext';
-import { supabase } from '../../lib/supabase';
+import { supabase, callEdgeFunction } from '../../lib/supabase';
 import { Walk } from '../../lib/types';
 import StatusBadge from '../../components/ui/StatusBadge';
 import Modal from '../../components/ui/Modal';
@@ -66,18 +66,23 @@ export default function WalkerToday() {
 
   async function finishWalk() {
     if (!completeWalk) return;
+    if (!photoFile) {
+      toast('A photo is required to complete this walk.', 'error');
+      return;
+    }
     setCompleting(true);
     let photo_url: string | null = null;
 
-    if (photoFile) {
-      const ext = photoFile.name.split('.').pop();
-      const path = `${completeWalk.id}.${ext}`;
-      const { error: upErr } = await supabase.storage.from('walk-photos').upload(path, photoFile, { upsert: true });
-      if (!upErr) {
-        const { data: urlData } = supabase.storage.from('walk-photos').getPublicUrl(path);
-        photo_url = urlData.publicUrl;
-      }
+    const ext = photoFile.name.split('.').pop();
+    const path = `${completeWalk.id}.${ext}`;
+    const { error: upErr } = await supabase.storage.from('walk-photos').upload(path, photoFile, { upsert: true });
+    if (upErr) {
+      toast('Failed to upload photo. Please try again.', 'error');
+      setCompleting(false);
+      return;
     }
+    const { data: urlData } = supabase.storage.from('walk-photos').getPublicUrl(path);
+    photo_url = urlData.publicUrl;
 
     const { error } = await supabase
       .from('walks')
@@ -93,6 +98,20 @@ export default function WalkerToday() {
     if (error) toast('Failed to complete walk.', 'error');
     else {
       toast('Walk completed!', 'success');
+
+      // Notify the client by email — best-effort, doesn't block the flow if it fails
+      const client = completeWalk.client as { email: string; full_name: string | null } | undefined;
+      if (client?.email) {
+        callEdgeFunction('notify-walk-completed', {
+          client_email: client.email,
+          client_name: client.full_name,
+          dog_name: completeWalk.dog?.name ?? 'Your dog',
+          scheduled_date: completeWalk.scheduled_date,
+          walker_notes: notes || null,
+          photo_url,
+        }).catch(() => {});
+      }
+
       setCompleteWalk(null);
       setNotes('');
       setPhotoFile(null);
@@ -246,7 +265,7 @@ export default function WalkerToday() {
         footer={
           <button
             onClick={finishWalk}
-            disabled={completing}
+            disabled={completing || !photoFile}
             className="w-full py-3 rounded-xl text-[#1A1A1A] font-semibold disabled:opacity-60"
             style={{ backgroundColor: '#F2C94C' }}
           >
@@ -266,7 +285,9 @@ export default function WalkerToday() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">Walk Photo</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1.5">
+              Walk Photo <span className="text-red-400 font-normal">(required)</span>
+            </label>
             {photoPreview ? (
               <div className="relative">
                 <img src={photoPreview} alt="Preview" className="w-full h-40 object-cover rounded-xl" />
