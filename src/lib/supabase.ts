@@ -28,9 +28,7 @@ export async function submitWalkerApplication(fields: Record<string, unknown>): 
 
   // Notify admin + applicant by email. Non-fatal if it fails.
   callEdgeFunction('send-access-request-email', {
-    full_name: fields.full_name,
-    email: fields.email,
-    phone: fields.phone ?? null,
+    ...fields,
     requested_role: 'walker',
   }).catch(() => {});
 
