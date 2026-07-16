@@ -195,6 +195,10 @@ function WalkerApplicationForm({ navigate, toast }: any) {
       toast('Please select at least one day and time block.', 'error');
       return;
     }
+    if (earliestStart < new Date().toISOString().split('T')[0]) {
+      toast('Earliest start date must be today or a future date.', 'error');
+      return;
+    }
     setLoading(true);
     const { error } = await submitWalkerApplication({
       full_name: fullName,
@@ -335,7 +339,7 @@ function WalkerApplicationForm({ navigate, toast }: any) {
         </div>
         <div>
           <label className={labelClass}>Earliest start date <span className="text-gray-400 font-normal">(we start late August)</span></label>
-          <input type="date" required value={earliestStart} onChange={e => setEarliestStart(e.target.value)} className={inputClass} />
+          <input type="date" required min={new Date().toISOString().split('T')[0]} value={earliestStart} onChange={e => setEarliestStart(e.target.value)} className={inputClass} />
         </div>
         <div>
           <label className={labelClass}>Do you have experience with dogs?</label>
