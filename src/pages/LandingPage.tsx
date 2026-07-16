@@ -249,7 +249,7 @@ export default function LandingPage() {
               {
                 icon: ShieldCheck,
                 title: 'Walker Screening',
-                desc: 'New walker accounts are active immediately but flagged for admin review — we check every profile and can pause access at any time.',
+                desc: 'Walkers apply through a short application, and our team reviews every submission before an account is created — we follow up by email either way.',
               },
               {
                 icon: CreditCard,

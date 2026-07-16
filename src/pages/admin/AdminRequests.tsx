@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { CheckCircle, XCircle, Clock, UserPlus, Mail, Phone } from 'lucide-react';
+import { CheckCircle, XCircle, Clock, UserPlus, Mail, Phone, ChevronDown, ChevronUp } from 'lucide-react';
 import { useToast } from '../../contexts/ToastContext';
 import { supabase, callEdgeFunction } from '../../lib/supabase';
 import { AccessRequest } from '../../lib/types';
@@ -7,12 +7,55 @@ import LoadingSpinner from '../../components/ui/LoadingSpinner';
 
 type Filter = 'pending' | 'new' | 'all';
 
+function yn(v: boolean | null): string {
+  if (v === null) return '—';
+  return v ? 'Yes' : 'No';
+}
+
+function WalkerApplicationDetails({ req }: { req: AccessRequest }) {
+  const rows: [string, string][] = [
+    ['Date of Birth', req.date_of_birth ?? '—'],
+    ['Reliable Transportation', yn(req.has_transportation)],
+    ['Neighborhood / Commute', req.neighborhood ?? '—'],
+    ['Social Handle', req.social_handle ?? '—'],
+    ['OK Being Featured', req.consent_featured ?? '—'],
+    ['Days Available', req.days_available?.join(', ') || '—'],
+    ['Time Blocks', req.time_blocks?.join(', ') || '—'],
+    ['Hours/Week Wanted', req.hours_per_week ?? '—'],
+    ['Earliest Start Date', req.earliest_start_date ?? '—'],
+    ['Dog Experience', req.dog_experience ?? '—'],
+    ['Owns a Dog', yn(req.owns_dog)],
+    ['Large/High-Energy Breed Comfort', req.large_breed_comfort ?? '—'],
+    ['Reactive/Anxious Dog Comfort', req.reactive_dog_comfort ?? '—'],
+    ['Background Check OK', yn(req.background_check_consent)],
+    ['1099 Agreement OK', yn(req.contractor_agreement_consent)],
+    ['Has Smartphone', yn(req.has_smartphone)],
+  ];
+  return (
+    <div className="bg-gray-50 rounded-xl p-3.5 mb-4 space-y-1.5">
+      {rows.map(([label, value]) => (
+        <div key={label} className="flex justify-between gap-3 text-xs">
+          <span className="text-gray-500">{label}</span>
+          <span className="text-[#1A1A1A] font-medium text-right">{value}</span>
+        </div>
+      ))}
+      {req.why_interested && (
+        <div className="pt-2 mt-2 border-t border-gray-200">
+          <span className="text-gray-500 text-xs block mb-1">Why interested</span>
+          <p className="text-xs text-[#1A1A1A] leading-relaxed">{req.why_interested}</p>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function AdminRequests() {
   const { toast } = useToast();
   const [requests, setRequests] = useState<AccessRequest[]>([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<Filter>('new');
   const [processing, setProcessing] = useState<string | null>(null);
+  const [expanded, setExpanded] = useState<string | null>(null);
 
   async function load() {
     const { data } = await supabase
@@ -147,7 +190,7 @@ export default function AdminRequests() {
                 {statusBadge(req.status)}
               </div>
 
-              <div className="space-y-1.5 mb-4">
+              <div className="space-y-1.5 mb-3">
                 <div className="flex items-center gap-2 text-xs text-gray-500">
                   <Mail size={12} />
                   {req.email}
@@ -162,6 +205,18 @@ export default function AdminRequests() {
                   Submitted {new Date(req.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                 </div>
               </div>
+
+              {req.requested_role === 'walker' && (
+                <button
+                  onClick={() => setExpanded(expanded === req.id ? null : req.id)}
+                  className="flex items-center gap-1 text-xs font-medium mb-3 transition-colors"
+                  style={{ color: '#B8860B' }}
+                >
+                  {expanded === req.id ? <ChevronUp size={13} /> : <ChevronDown size={13} />}
+                  {expanded === req.id ? 'Hide application details' : 'View application details'}
+                </button>
+              )}
+              {req.requested_role === 'walker' && expanded === req.id && <WalkerApplicationDetails req={req} />}
 
               {req.status === 'pending' && (
                 <div className="flex gap-2">

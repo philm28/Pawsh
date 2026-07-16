@@ -11,9 +11,28 @@ export async function callEdgeFunction(path: string, body: object): Promise<Resp
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${session!.access_token}`,
+      Authorization: `Bearer ${session?.access_token ?? supabaseAnonKey}`,
       Apikey: supabaseAnonKey,
     },
     body: JSON.stringify(body),
   });
+}
+
+export async function submitWalkerApplication(fields: Record<string, unknown>): Promise<{ error: string | null }> {
+  const { error } = await supabase.from('access_requests').insert({
+    ...fields,
+    requested_role: 'walker',
+    status: 'pending',
+  });
+  if (error) return { error: error.message };
+
+  // Notify admin + applicant by email. Non-fatal if it fails.
+  callEdgeFunction('send-access-request-email', {
+    full_name: fields.full_name,
+    email: fields.email,
+    phone: fields.phone ?? null,
+    requested_role: 'walker',
+  }).catch(() => {});
+
+  return { error: null };
 }

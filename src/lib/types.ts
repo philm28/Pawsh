@@ -70,6 +70,23 @@ export interface AccessRequest {
   requested_role: 'client' | 'walker';
   status: 'pending' | 'approved' | 'rejected' | 'auto_approved';
   created_at: string;
+  date_of_birth: string | null;
+  has_transportation: boolean | null;
+  neighborhood: string | null;
+  social_handle: string | null;
+  consent_featured: 'yes' | 'no' | 'prefer_not' | null;
+  days_available: string[] | null;
+  time_blocks: string[] | null;
+  hours_per_week: string | null;
+  earliest_start_date: string | null;
+  dog_experience: 'professional' | 'personal' | 'both' | 'none' | null;
+  owns_dog: boolean | null;
+  large_breed_comfort: 'yes' | 'no' | 'somewhat' | null;
+  reactive_dog_comfort: 'yes' | 'no' | 'somewhat' | null;
+  background_check_consent: boolean | null;
+  contractor_agreement_consent: boolean | null;
+  has_smartphone: boolean | null;
+  why_interested: string | null;
 }
 
 export interface WalkerAvailability {
