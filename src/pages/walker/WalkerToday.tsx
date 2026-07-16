@@ -55,10 +55,30 @@ export default function WalkerToday() {
     };
   }, [profile]);
 
+  function getLocation(): Promise<{ lat: number; lng: number } | null> {
+    return new Promise(resolve => {
+      if (!navigator.geolocation) {
+        resolve(null);
+        return;
+      }
+      navigator.geolocation.getCurrentPosition(
+        pos => resolve({ lat: pos.coords.latitude, lng: pos.coords.longitude }),
+        () => resolve(null), // permission denied or unavailable — don't block the walk
+        { timeout: 5000, maximumAge: 30000 },
+      );
+    });
+  }
+
   async function startWalk(walk: Walk) {
+    const loc = await getLocation();
     const { error } = await supabase
       .from('walks')
-      .update({ status: 'in_progress', check_in_time: new Date().toISOString() })
+      .update({
+        status: 'in_progress',
+        check_in_time: new Date().toISOString(),
+        check_in_lat: loc?.lat ?? null,
+        check_in_lng: loc?.lng ?? null,
+      })
       .eq('id', walk.id);
     if (error) toast('Failed to start walk.', 'error');
     else { toast('Walk started!', 'success'); await loadWalks(); }
@@ -71,6 +91,7 @@ export default function WalkerToday() {
       return;
     }
     setCompleting(true);
+    const loc = await getLocation();
     let photo_url: string | null = null;
 
     const ext = photoFile.name.split('.').pop();
@@ -89,6 +110,8 @@ export default function WalkerToday() {
       .update({
         status: 'completed',
         check_out_time: new Date().toISOString(),
+        check_out_lat: loc?.lat ?? null,
+        check_out_lng: loc?.lng ?? null,
         walker_notes: notes || null,
         photo_url,
       })

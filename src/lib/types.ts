@@ -39,6 +39,10 @@ export interface Walk {
   status: WalkStatus;
   check_in_time: string | null;
   check_out_time: string | null;
+  check_in_lat: number | null;
+  check_in_lng: number | null;
+  check_out_lat: number | null;
+  check_out_lng: number | null;
   walker_notes: string | null;
   client_notes: string | null;
   photo_url: string | null;

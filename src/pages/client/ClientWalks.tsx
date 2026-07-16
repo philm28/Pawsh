@@ -401,6 +401,16 @@ export default function ClientWalks() {
                           <div className="font-medium text-gray-700">
                             {new Date(walk.check_in_time).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}
                           </div>
+                          {walk.check_in_lat && walk.check_in_lng && (
+                            <a
+                              href={`https://www.google.com/maps?q=${walk.check_in_lat},${walk.check_in_lng}`}
+                              target="_blank" rel="noopener noreferrer"
+                              className="text-[11px] font-medium underline"
+                              style={{ color: '#B8860B' }}
+                            >
+                              View on map
+                            </a>
+                          )}
                         </div>
                       )}
                       {walk.check_out_time && (
@@ -409,6 +419,16 @@ export default function ClientWalks() {
                           <div className="font-medium text-gray-700">
                             {new Date(walk.check_out_time).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}
                           </div>
+                          {walk.check_out_lat && walk.check_out_lng && (
+                            <a
+                              href={`https://www.google.com/maps?q=${walk.check_out_lat},${walk.check_out_lng}`}
+                              target="_blank" rel="noopener noreferrer"
+                              className="text-[11px] font-medium underline"
+                              style={{ color: '#B8860B' }}
+                            >
+                              View on map
+                            </a>
+                          )}
                         </div>
                       )}
                     </div>
