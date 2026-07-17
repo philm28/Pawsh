@@ -77,11 +77,17 @@ export default function TermsPage() {
           ))}
         </div>
 
-        <div className="mt-14 pt-8 border-t border-gray-100">
+        <div className="mt-14 pt-8 border-t border-gray-100 space-y-2">
           <p className="text-sm text-gray-500">
             Questions about these terms?{' '}
             <button onClick={() => navigate('contact')} className="font-semibold" style={{ color: '#B8860B' }}>
               Contact us
+            </button>
+          </p>
+          <p className="text-sm text-gray-500">
+            Read our{' '}
+            <button onClick={() => navigate('privacy')} className="font-semibold" style={{ color: '#B8860B' }}>
+              Privacy Policy
             </button>
           </p>
         </div>

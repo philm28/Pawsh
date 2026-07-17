@@ -112,6 +112,7 @@ export type Page =
   | 'about'
   | 'contact'
   | 'terms'
+  | 'privacy'
   | 'login'
   | 'request-access'
   | 'client-dashboard'

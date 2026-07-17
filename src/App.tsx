@@ -10,6 +10,7 @@ import LandingPage from './pages/LandingPage';
 import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
 import TermsPage from './pages/TermsPage';
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
 import LoginPage from './pages/auth/LoginPage';
 import RequestAccessPage from './pages/auth/RequestAccessPage';
 import ClientDashboard from './pages/client/ClientDashboard';
@@ -35,7 +36,7 @@ function AppRouter() {
   useEffect(() => {
     if (loading) return;
     if (!user || !profile) {
-      if (!['request-access', 'login', 'landing', 'about', 'contact', 'terms'].includes(page)) {
+      if (!['request-access', 'login', 'landing', 'about', 'contact', 'terms', 'privacy'].includes(page)) {
         navigate('landing');
       }
       return;
@@ -61,6 +62,7 @@ function AppRouter() {
     if (page === 'about') return <AboutPage />;
     if (page === 'contact') return <ContactPage />;
     if (page === 'terms') return <TermsPage />;
+    if (page === 'privacy') return <PrivacyPolicyPage />;
     return <LandingPage />;
   }
 
@@ -72,6 +74,7 @@ function AppRouter() {
     if (page === 'about') return <AboutPage />;
     if (page === 'contact') return <ContactPage />;
     if (page === 'terms') return <TermsPage />;
+    if (page === 'privacy') return <PrivacyPolicyPage />;
     if (isClient) {
       switch (page) {
         case 'client-dashboard': return <ClientDashboard />;

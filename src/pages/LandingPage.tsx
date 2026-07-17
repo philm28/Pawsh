@@ -312,6 +312,9 @@ export default function LandingPage() {
             <button onClick={() => navigate('terms')} className="text-xs font-medium text-gray-500 hover:text-gray-700 transition-colors">
               Terms & Policies
             </button>
+            <button onClick={() => navigate('privacy')} className="text-xs font-medium text-gray-500 hover:text-gray-700 transition-colors">
+              Privacy
+            </button>
             <button
               onClick={() => navigate('login')}
               className="text-xs font-medium text-gray-500 hover:text-gray-700 transition-colors"
