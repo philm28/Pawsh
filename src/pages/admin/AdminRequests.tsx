@@ -29,6 +29,7 @@ function WalkerApplicationDetails({ req }: { req: AccessRequest }) {
     ['Reactive/Anxious Dog Comfort', req.reactive_dog_comfort ?? '—'],
     ['Background Check OK', yn(req.background_check_consent)],
     ['1099 Agreement OK', yn(req.contractor_agreement_consent)],
+    ['Non-Solicitation Agreed', yn(req.non_solicitation_agreed)],
     ['Has Smartphone', yn(req.has_smartphone)],
   ];
   return (
@@ -36,13 +37,13 @@ function WalkerApplicationDetails({ req }: { req: AccessRequest }) {
       {rows.map(([label, value]) => (
         <div key={label} className="flex justify-between gap-3 text-xs">
           <span className="text-gray-500">{label}</span>
-          <span className="text-[#1A1A1A] font-medium text-right">{value}</span>
+          <span className="text-[#2B2620] font-medium text-right">{value}</span>
         </div>
       ))}
       {req.why_interested && (
         <div className="pt-2 mt-2 border-t border-gray-200">
           <span className="text-gray-500 text-xs block mb-1">Why interested</span>
-          <p className="text-xs text-[#1A1A1A] leading-relaxed">{req.why_interested}</p>
+          <p className="text-xs text-[#2B2620] leading-relaxed">{req.why_interested}</p>
         </div>
       )}
     </div>
@@ -141,9 +142,9 @@ export default function AdminRequests() {
   return (
     <div className="px-4 py-6 max-w-3xl mx-auto pb-24 md:pb-8">
       <div className="flex items-center justify-between mb-5">
-        <h1 className="text-2xl font-bold text-[#1A1A1A]">Access Requests</h1>
+        <h1 className="font-serif text-2xl font-bold text-[#2B2620]">Access Requests</h1>
         {pendingCount > 0 && (
-          <span className="text-xs font-semibold px-2.5 py-1 rounded-full text-[#1A1A1A]" style={{ backgroundColor: '#C9A84C' }}>
+          <span className="text-xs font-semibold px-2.5 py-1 rounded-full text-[#2B2620]" style={{ backgroundColor: '#D9BE7C' }}>
             {pendingCount} pending
           </span>
         )}
@@ -156,7 +157,7 @@ export default function AdminRequests() {
             key={f}
             onClick={() => setFilter(f)}
             className={`flex-1 py-2 rounded-lg text-sm font-medium transition-all ${
-              filter === f ? 'bg-white text-[#1A1A1A] shadow-sm' : 'text-gray-500'
+              filter === f ? 'bg-white text-[#2B2620] shadow-sm' : 'text-gray-500'
             }`}
           >
             {f === 'new' ? `New${newCount > 0 ? ` (${newCount})` : ''}` : f === 'pending' ? `Pending${pendingCount > 0 ? ` (${pendingCount})` : ''}` : 'All'}
@@ -177,11 +178,11 @@ export default function AdminRequests() {
             <div key={req.id} className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4">
               <div className="flex items-start justify-between gap-3 mb-3">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 font-semibold text-sm" style={{ backgroundColor: '#FFF5B8', color: '#B8860B' }}>
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 font-semibold text-sm" style={{ backgroundColor: '#FBF1D9', color: '#9C7A3C' }}>
                     {req.full_name.charAt(0).toUpperCase()}
                   </div>
                   <div>
-                    <div className="font-semibold text-sm text-[#1A1A1A]">{req.full_name}</div>
+                    <div className="font-semibold text-sm text-[#2B2620]">{req.full_name}</div>
                     <div className="text-xs text-gray-500 capitalize">
                       {req.requested_role === 'walker' ? 'Dog Walker' : 'Dog Owner'}
                     </div>
@@ -210,7 +211,7 @@ export default function AdminRequests() {
                 <button
                   onClick={() => setExpanded(expanded === req.id ? null : req.id)}
                   className="flex items-center gap-1 text-xs font-medium mb-3 transition-colors"
-                  style={{ color: '#B8860B' }}
+                  style={{ color: '#9C7A3C' }}
                 >
                   {expanded === req.id ? <ChevronUp size={13} /> : <ChevronDown size={13} />}
                   {expanded === req.id ? 'Hide application details' : 'View application details'}
@@ -231,8 +232,8 @@ export default function AdminRequests() {
                   <button
                     onClick={() => handleApprove(req)}
                     disabled={processing === req.id}
-                    className="flex-[2] flex items-center justify-center gap-1.5 py-2.5 rounded-xl text-[#1A1A1A] text-sm font-semibold transition-colors disabled:opacity-50"
-                    style={{ backgroundColor: '#F2C94C' }}
+                    className="flex-[2] flex items-center justify-center gap-1.5 py-2.5 rounded-xl text-[#2B2620] text-sm font-semibold transition-colors disabled:opacity-50"
+                    style={{ backgroundColor: '#E8CB80' }}
                   >
                     <CheckCircle size={14} />
                     {processing === req.id ? 'Processing…' : 'Approve & Send Login'}

@@ -24,6 +24,10 @@ const sections = [
     body: 'Walker accounts are reviewed by our team. While we make reasonable efforts to screen walkers, Pawsh does not guarantee the conduct of any walker and encourages owners to communicate any special instructions clearly through the notes field on each booking.',
   },
   {
+    title: '5a. Walker Independent Contractor & Non-Solicitation Terms',
+    body: 'Walkers engage with Pawsh as 1099 independent contractors, not employees. As part of that agreement, walkers may not perform dog walking, pet sitting, or related pet care services — independently, through another company, or for off-app cash payment — for any client they were introduced to through Pawsh, both during their time walking for Pawsh and for 12 months afterward. Soliciting or diverting Pawsh clientele in this way is a breach of the walker\'s contractor agreement and may result in removal from the platform and legal action to recover damages.',
+  },
+  {
     title: '6. Your Dog & Property',
     body: 'You are responsible for providing accurate information about your dog\'s temperament, medical needs, and any risks a walker should be aware of. You are responsible for ensuring your home and yard are reasonably safe for a walker to access as needed for the visit.',
   },
@@ -50,28 +54,28 @@ export default function TermsPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 h-16 flex items-center gap-3">
           <button
             onClick={() => navigate('landing')}
-            className="flex items-center gap-1.5 text-sm font-medium text-gray-600 hover:text-[#1A1A1A] transition-colors"
+            className="flex items-center gap-1.5 text-sm font-medium text-gray-600 hover:text-[#2B2620] transition-colors"
           >
             <ChevronLeft size={18} />
             Back
           </button>
           <div className="flex items-center gap-2.5 ml-2">
-            <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#F2C94C' }}>
-              <PawLogo size={16} color="#1A1A1A" />
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#E8CB80' }}>
+              <PawLogo size={16} color="#2B2620" />
             </div>
-            <span className="font-bold text-lg text-[#1A1A1A]">Pawsh</span>
+            <span className="font-bold text-lg text-[#2B2620]">Pawsh</span>
           </div>
         </div>
       </nav>
 
       <div className="max-w-2xl mx-auto px-4 sm:px-6 py-16">
-        <h1 className="text-4xl font-bold text-[#1A1A1A] mb-2">Terms & Policies</h1>
+        <h1 className="font-serif text-4xl font-bold text-[#2B2620] mb-2">Terms & Policies</h1>
         <p className="text-gray-400 text-sm mb-10">Last updated July 2026</p>
 
         <div className="space-y-8">
           {sections.map(({ title, body }) => (
             <div key={title}>
-              <h2 className="font-semibold text-[#1A1A1A] mb-2">{title}</h2>
+              <h2 className="font-semibold text-[#2B2620] mb-2">{title}</h2>
               <p className="text-sm text-gray-600 leading-relaxed">{body}</p>
             </div>
           ))}
@@ -80,13 +84,13 @@ export default function TermsPage() {
         <div className="mt-14 pt-8 border-t border-gray-100 space-y-2">
           <p className="text-sm text-gray-500">
             Questions about these terms?{' '}
-            <button onClick={() => navigate('contact')} className="font-semibold" style={{ color: '#B8860B' }}>
+            <button onClick={() => navigate('contact')} className="font-semibold" style={{ color: '#9C7A3C' }}>
               Contact us
             </button>
           </p>
           <p className="text-sm text-gray-500">
             Read our{' '}
-            <button onClick={() => navigate('privacy')} className="font-semibold" style={{ color: '#B8860B' }}>
+            <button onClick={() => navigate('privacy')} className="font-semibold" style={{ color: '#9C7A3C' }}>
               Privacy Policy
             </button>
           </p>

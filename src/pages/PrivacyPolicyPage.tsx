@@ -50,28 +50,28 @@ export default function PrivacyPolicyPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 h-16 flex items-center gap-3">
           <button
             onClick={() => navigate('landing')}
-            className="flex items-center gap-1.5 text-sm font-medium text-gray-600 hover:text-[#1A1A1A] transition-colors"
+            className="flex items-center gap-1.5 text-sm font-medium text-gray-600 hover:text-[#2B2620] transition-colors"
           >
             <ChevronLeft size={18} />
             Back
           </button>
           <div className="flex items-center gap-2.5 ml-2">
-            <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#F2C94C' }}>
-              <PawLogo size={16} color="#1A1A1A" />
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#E8CB80' }}>
+              <PawLogo size={16} color="#2B2620" />
             </div>
-            <span className="font-bold text-lg text-[#1A1A1A]">Pawsh</span>
+            <span className="font-bold text-lg text-[#2B2620]">Pawsh</span>
           </div>
         </div>
       </nav>
 
       <div className="max-w-2xl mx-auto px-4 sm:px-6 py-16">
-        <h1 className="text-4xl font-bold text-[#1A1A1A] mb-2">Privacy Policy</h1>
+        <h1 className="font-serif text-4xl font-bold text-[#2B2620] mb-2">Privacy Policy</h1>
         <p className="text-gray-400 text-sm mb-10">Last updated July 2026</p>
 
         <div className="space-y-8">
           {sections.map(({ title, body }) => (
             <div key={title}>
-              <h2 className="font-semibold text-[#1A1A1A] mb-2">{title}</h2>
+              <h2 className="font-semibold text-[#2B2620] mb-2">{title}</h2>
               <p className="text-sm text-gray-600 leading-relaxed">{body}</p>
             </div>
           ))}
@@ -80,7 +80,7 @@ export default function PrivacyPolicyPage() {
         <div className="mt-14 pt-8 border-t border-gray-100">
           <p className="text-sm text-gray-500">
             Questions about your data?{' '}
-            <button onClick={() => navigate('contact')} className="font-semibold" style={{ color: '#B8860B' }}>
+            <button onClick={() => navigate('contact')} className="font-semibold" style={{ color: '#9C7A3C' }}>
               Contact us
             </button>
           </p>

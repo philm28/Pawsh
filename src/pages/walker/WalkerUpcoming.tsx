@@ -59,7 +59,7 @@ export default function WalkerUpcoming() {
 
   return (
     <div className="px-4 py-6 max-w-2xl mx-auto pb-24 md:pb-8">
-      <h1 className="text-2xl font-bold text-[#1A1A1A] mb-5">Upcoming Walks</h1>
+      <h1 className="font-serif text-2xl font-bold text-[#2B2620] mb-5">Upcoming Walks</h1>
 
       {walks.length === 0 ? (
         <div className="text-center py-16">
@@ -82,12 +82,12 @@ export default function WalkerUpcoming() {
                         {walk.dog?.photo_url ? (
                           <img src={walk.dog.photo_url} alt={walk.dog.name} className="w-11 h-11 rounded-xl object-cover" />
                         ) : (
-                          <div className="w-11 h-11 rounded-xl flex items-center justify-center" style={{ backgroundColor: '#FFF5B8' }}>
-                            <Dog size={20} style={{ color: '#B8860B' }} />
+                          <div className="w-11 h-11 rounded-xl flex items-center justify-center" style={{ backgroundColor: '#FBF1D9' }}>
+                            <Dog size={20} style={{ color: '#9C7A3C' }} />
                           </div>
                         )}
                         <div>
-                          <div className="font-semibold text-sm text-[#1A1A1A]">{walk.dog?.name}</div>
+                          <div className="font-semibold text-sm text-[#2B2620]">{walk.dog?.name}</div>
                           <div className="text-xs text-gray-500">{walk.dog?.breed}</div>
                         </div>
                       </div>

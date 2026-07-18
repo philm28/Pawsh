@@ -57,7 +57,7 @@ export default function AdminClients() {
   return (
     <div className="px-4 py-6 max-w-3xl mx-auto pb-24 md:pb-8">
       <div className="flex items-center justify-between mb-5">
-        <h1 className="text-2xl font-bold text-[#1A1A1A]">Clients</h1>
+        <h1 className="font-serif text-2xl font-bold text-[#2B2620]">Clients</h1>
         <div className="text-sm text-gray-500">{clients.length} total</div>
       </div>
 
@@ -89,11 +89,11 @@ export default function AdminClients() {
               key={client.id}
               className={`flex items-center gap-4 px-4 py-3.5 ${i < filtered.length - 1 ? 'border-b border-gray-50' : ''}`}
             >
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 font-semibold text-sm" style={{ backgroundColor: '#FFF5B8', color: '#B8860B' }}>
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 font-semibold text-sm" style={{ backgroundColor: '#FBF1D9', color: '#9C7A3C' }}>
                 {(client.full_name ?? client.email).charAt(0).toUpperCase()}
               </div>
               <div className="flex-1 min-w-0">
-                <div className="font-medium text-sm text-[#1A1A1A] truncate">{client.full_name ?? '—'}</div>
+                <div className="font-medium text-sm text-[#2B2620] truncate">{client.full_name ?? '—'}</div>
                 <div className="text-xs text-gray-500 truncate">{client.email}</div>
                 {client.phone && <div className="text-xs text-gray-400">{client.phone}</div>}
               </div>

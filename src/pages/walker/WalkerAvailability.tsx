@@ -109,7 +109,7 @@ export default function WalkerAvailability() {
   return (
     <div className="px-4 py-6 max-w-2xl mx-auto pb-32 md:pb-8">
       <div className="mb-5">
-        <h1 className="text-2xl font-bold text-[#1A1A1A]">Availability</h1>
+        <h1 className="font-serif text-2xl font-bold text-[#2B2620]">Availability</h1>
         <p className="text-gray-500 text-sm mt-0.5">Set the days and hours you're available to walk dogs.</p>
       </div>
 
@@ -126,13 +126,13 @@ export default function WalkerAvailability() {
               <div className="flex items-center gap-4 px-4 py-3.5">
                 <div
                   className={`w-10 h-10 rounded-xl flex items-center justify-center font-semibold text-sm shrink-0 transition-colors ${
-                    enabled ? 'text-[#1A1A1A]' : 'bg-gray-100 text-gray-400'
+                    enabled ? 'text-[#2B2620]' : 'bg-gray-100 text-gray-400'
                   }`}
-                  style={enabled ? { backgroundColor: '#F2C94C' } : {}}
+                  style={enabled ? { backgroundColor: '#E8CB80' } : {}}
                 >
                   {day.label}
                 </div>
-                <span className={`flex-1 font-medium text-sm transition-colors ${enabled ? 'text-[#1A1A1A]' : 'text-gray-400'}`}>
+                <span className={`flex-1 font-medium text-sm transition-colors ${enabled ? 'text-[#2B2620]' : 'text-gray-400'}`}>
                   {day.full}
                 </span>
                 <button
@@ -140,7 +140,7 @@ export default function WalkerAvailability() {
                   className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors shrink-0 focus:outline-none ${
                     enabled ? '' : 'bg-gray-200'
                   }`}
-                  style={enabled ? { backgroundColor: '#F2C94C' } : {}}
+                  style={enabled ? { backgroundColor: '#E8CB80' } : {}}
                 >
                   <span
                     className={`inline-block h-4 w-4 rounded-full bg-white shadow transition-transform ${
@@ -183,8 +183,8 @@ export default function WalkerAvailability() {
         <button
           onClick={save}
           disabled={saving}
-          className="w-full py-3.5 rounded-2xl text-[#1A1A1A] font-semibold text-sm disabled:opacity-60 transition-opacity shadow-lg md:shadow-none"
-          style={{ backgroundColor: '#F2C94C' }}
+          className="w-full py-3.5 rounded-2xl text-[#2B2620] font-semibold text-sm disabled:opacity-60 transition-opacity shadow-lg md:shadow-none"
+          style={{ backgroundColor: '#E8CB80' }}
         >
           {saving
             ? 'Saving…'

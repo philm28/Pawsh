@@ -30,17 +30,17 @@ export default function ClientProfile() {
 
   return (
     <div className="px-4 py-6 max-w-lg mx-auto pb-24 md:pb-8">
-      <h1 className="text-2xl font-bold text-[#1A1A1A] mb-6">Profile</h1>
+      <h1 className="font-serif text-2xl font-bold text-[#2B2620] mb-6">Profile</h1>
 
       <div className="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm mb-4">
         <div className="flex items-center gap-4 mb-5 pb-5 border-b border-gray-50">
-          <div className="w-14 h-14 rounded-2xl flex items-center justify-center shrink-0" style={{ backgroundColor: '#FFF5B8' }}>
-            <User size={24} style={{ color: '#B8860B' }} />
+          <div className="w-14 h-14 rounded-2xl flex items-center justify-center shrink-0" style={{ backgroundColor: '#FBF1D9' }}>
+            <User size={24} style={{ color: '#9C7A3C' }} />
           </div>
           <div>
-            <div className="font-semibold text-[#1A1A1A]">{profile?.full_name || 'No name set'}</div>
+            <div className="font-semibold text-[#2B2620]">{profile?.full_name || 'No name set'}</div>
             <div className="text-sm text-gray-500">{profile?.email}</div>
-            <div className="text-xs mt-0.5 capitalize px-2 py-0.5 rounded-full inline-block" style={{ backgroundColor: '#FFF5B8', color: '#B8860B' }}>
+            <div className="text-xs mt-0.5 capitalize px-2 py-0.5 rounded-full inline-block" style={{ backgroundColor: '#FBF1D9', color: '#9C7A3C' }}>
               {profile?.role}
             </div>
           </div>
@@ -77,8 +77,8 @@ export default function ClientProfile() {
           <button
             type="submit"
             disabled={saving}
-            className="w-full flex items-center justify-center gap-2 py-3 rounded-xl text-[#1A1A1A] font-semibold disabled:opacity-60"
-            style={{ backgroundColor: '#F2C94C' }}
+            className="w-full flex items-center justify-center gap-2 py-3 rounded-xl text-[#2B2620] font-semibold disabled:opacity-60"
+            style={{ backgroundColor: '#E8CB80' }}
           >
             <Save size={16} />
             {saving ? 'Saving…' : 'Save Changes'}

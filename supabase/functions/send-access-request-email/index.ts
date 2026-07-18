@@ -88,6 +88,7 @@ function adminHtml(fields: Record<string, any>): string {
       ["Reactive/Anxious Dog Comfort", yn(fields.reactive_dog_comfort)],
       ["Background Check OK", yn(fields.background_check_consent)],
       ["1099 Agreement OK", yn(fields.contractor_agreement_consent)],
+      ["Non-Solicitation Agreed", yn(fields.non_solicitation_agreed)],
       ["Has Smartphone", yn(fields.has_smartphone)],
     ];
     walkerRows = rows.map(([label, value], i) => detailRow(label, value, i % 2 === 1)).join("");

@@ -89,6 +89,7 @@ export interface AccessRequest {
   reactive_dog_comfort: 'yes' | 'no' | 'somewhat' | null;
   background_check_consent: boolean | null;
   contractor_agreement_consent: boolean | null;
+  non_solicitation_agreed: boolean | null;
   has_smartphone: boolean | null;
   why_interested: string | null;
 }
@@ -157,7 +158,7 @@ export interface DogSittingBooking {
   id: string;
   client_id: string;
   dog_id: string;
-  visit_type: 'day' | 'overnight';
+  visit_type: 'checkin' | 'day' | 'overnight';
   scheduled_date: string;
   price_cents: number;
   credits_used: number;

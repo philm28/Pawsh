@@ -27,8 +27,8 @@ export default function RequestAccessPage() {
             <ArrowLeft size={20} />
           </button>
           <div className="flex items-center gap-2">
-            <PawLogo size={22} color="#B8860B" />
-            <span className="font-bold text-lg text-[#1A1A1A]">Pawsh</span>
+            <PawLogo size={22} color="#9C7A3C" />
+            <span className="font-bold text-lg text-[#2B2620]">Pawsh</span>
           </div>
         </div>
 
@@ -42,7 +42,7 @@ export default function RequestAccessPage() {
                   type="button"
                   onClick={() => setRole(r)}
                   className="py-2.5 px-4 rounded-xl text-sm font-medium border-2 transition-all"
-                  style={role === r ? { borderColor: '#F2C94C', color: '#B8860B', backgroundColor: '#FFF5B8' } : { borderColor: '#e5e7eb', color: '#4b5563' }}
+                  style={role === r ? { borderColor: '#E8CB80', color: '#9C7A3C', backgroundColor: '#FBF1D9' } : { borderColor: '#e5e7eb', color: '#4b5563' }}
                 >
                   {r === 'client' ? 'Dog Owner' : 'Dog Walker'}
                 </button>
@@ -58,7 +58,7 @@ export default function RequestAccessPage() {
 
           <p className="text-center text-sm text-gray-500 mt-5">
             Already have an account?{' '}
-            <button onClick={() => navigate('login')} className="font-semibold" style={{ color: '#B8860B' }}>
+            <button onClick={() => navigate('login')} className="font-semibold" style={{ color: '#9C7A3C' }}>
               Sign in
             </button>
           </p>
@@ -99,7 +99,7 @@ function ClientSignupForm({ navigate, toast, signUp }: any) {
 
   return (
     <>
-      <h2 className="text-lg font-semibold text-[#1A1A1A] mb-1">Create your account</h2>
+      <h2 className="text-lg font-semibold text-[#2B2620] mb-1">Create your account</h2>
       <p className="text-sm text-gray-500 mb-5">Get started in under a minute — no waiting on approval.</p>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
@@ -143,20 +143,20 @@ function ClientSignupForm({ navigate, toast, signUp }: any) {
         <label className="flex items-start gap-2.5 pt-1">
           <input
             type="checkbox" checked={agreed} onChange={e => setAgreed(e.target.checked)}
-            className="mt-0.5 w-4 h-4 rounded border-gray-300 text-[#B8860B] focus:ring-forest-500/30"
-            style={{ accentColor: '#F2C94C' }}
+            className="mt-0.5 w-4 h-4 rounded border-gray-300 text-[#9C7A3C] focus:ring-forest-500/30"
+            style={{ accentColor: '#E8CB80' }}
           />
           <span className="text-xs text-gray-500 leading-relaxed">
             I agree to Pawsh's{' '}
-            <button type="button" onClick={() => navigate('landing')} className="underline font-medium" style={{ color: '#B8860B' }}>
+            <button type="button" onClick={() => navigate('landing')} className="underline font-medium" style={{ color: '#9C7A3C' }}>
               pricing, policies &amp; payment terms
             </button>.
           </span>
         </label>
         <button
           type="submit" disabled={loading}
-          className="w-full py-2.5 rounded-xl text-[#1A1A1A] text-sm font-semibold transition-colors disabled:opacity-60 disabled:cursor-not-allowed mt-2"
-          style={{ backgroundColor: '#F2C94C' }}
+          className="w-full py-2.5 rounded-xl text-[#2B2620] text-sm font-semibold transition-colors disabled:opacity-60 disabled:cursor-not-allowed mt-2"
+          style={{ backgroundColor: '#E8CB80' }}
         >
           {loading ? 'Creating account…' : 'Create Account'}
         </button>
@@ -184,6 +184,7 @@ function WalkerApplicationForm({ navigate, toast }: any) {
   const [reactiveComfort, setReactiveComfort] = useState<'yes' | 'no' | 'somewhat' | ''>('');
   const [backgroundCheck, setBackgroundCheck] = useState<'yes' | 'no' | ''>('');
   const [contractorAgreement, setContractorAgreement] = useState<'yes' | 'no' | ''>('');
+  const [nonSolicitationAgreed, setNonSolicitationAgreed] = useState(false);
   const [hasSmartphone, setHasSmartphone] = useState<'yes' | 'no' | ''>('');
   const [whyInterested, setWhyInterested] = useState('');
   const [loading, setLoading] = useState(false);
@@ -197,6 +198,10 @@ function WalkerApplicationForm({ navigate, toast }: any) {
     }
     if (earliestStart < new Date().toISOString().split('T')[0]) {
       toast('Earliest start date must be today or a future date.', 'error');
+      return;
+    }
+    if (!nonSolicitationAgreed) {
+      toast('Please review and agree to the non-solicitation terms to continue.', 'error');
       return;
     }
     setLoading(true);
@@ -219,6 +224,7 @@ function WalkerApplicationForm({ navigate, toast }: any) {
       reactive_dog_comfort: reactiveComfort,
       background_check_consent: backgroundCheck === 'yes',
       contractor_agreement_consent: contractorAgreement === 'yes',
+      non_solicitation_agreed: nonSolicitationAgreed,
       has_smartphone: hasSmartphone === 'yes',
       why_interested: whyInterested,
     });
@@ -233,14 +239,14 @@ function WalkerApplicationForm({ navigate, toast }: any) {
   if (submitted) {
     return (
       <div className="text-center py-6">
-        <div className="w-12 h-12 rounded-full bg-[#FFF5B8] flex items-center justify-center mx-auto mb-4">
-          <CheckCircle2 size={22} style={{ color: '#B8860B' }} />
+        <div className="w-12 h-12 rounded-full bg-[#FBF1D9] flex items-center justify-center mx-auto mb-4">
+          <CheckCircle2 size={22} style={{ color: '#9C7A3C' }} />
         </div>
-        <h2 className="font-semibold text-[#1A1A1A] mb-1.5">Application received!</h2>
+        <h2 className="font-semibold text-[#2B2620] mb-1.5">Application received!</h2>
         <p className="text-sm text-gray-500 leading-relaxed mb-6">
           Thanks for applying to walk for Pawsh. We'll review your application and follow up by email if it looks like a good match.
         </p>
-        <button onClick={() => navigate('landing')} className="text-sm font-semibold" style={{ color: '#B8860B' }}>
+        <button onClick={() => navigate('landing')} className="text-sm font-semibold" style={{ color: '#9C7A3C' }}>
           Back to home
         </button>
       </div>
@@ -255,7 +261,7 @@ function WalkerApplicationForm({ navigate, toast }: any) {
         <button
           key={o.value} type="button" onClick={() => setValue(o.value)}
           className="py-2 rounded-lg text-xs font-medium border-2 transition-all"
-          style={value === o.value ? { borderColor: '#F2C94C', color: '#B8860B', backgroundColor: '#FFF5B8' } : { borderColor: '#e5e7eb', color: '#4b5563' }}
+          style={value === o.value ? { borderColor: '#E8CB80', color: '#9C7A3C', backgroundColor: '#FBF1D9' } : { borderColor: '#e5e7eb', color: '#4b5563' }}
         >
           {o.label}
         </button>
@@ -268,7 +274,7 @@ function WalkerApplicationForm({ navigate, toast }: any) {
 
   return (
     <>
-      <h2 className="text-lg font-semibold text-[#1A1A1A] mb-1">Walker Application</h2>
+      <h2 className="text-lg font-semibold text-[#2B2620] mb-1">Walker Application</h2>
       <p className="text-sm text-gray-500 mb-5">
         Tell us a bit about yourself — we review every application and follow up if it's a good fit.
       </p>
@@ -312,7 +318,7 @@ function WalkerApplicationForm({ navigate, toast }: any) {
               <button
                 key={d} type="button" onClick={() => setDaysAvailable(a => toggleInArray(a, d))}
                 className="py-2 rounded-lg text-xs font-medium border-2 transition-all text-left px-3"
-                style={daysAvailable.includes(d) ? { borderColor: '#F2C94C', color: '#B8860B', backgroundColor: '#FFF5B8' } : { borderColor: '#e5e7eb', color: '#4b5563' }}
+                style={daysAvailable.includes(d) ? { borderColor: '#E8CB80', color: '#9C7A3C', backgroundColor: '#FBF1D9' } : { borderColor: '#e5e7eb', color: '#4b5563' }}
               >
                 {d}
               </button>
@@ -326,7 +332,7 @@ function WalkerApplicationForm({ navigate, toast }: any) {
               <button
                 key={t} type="button" onClick={() => setTimeBlocks(a => toggleInArray(a, t))}
                 className="py-2 rounded-lg text-xs font-medium border-2 transition-all"
-                style={timeBlocks.includes(t) ? { borderColor: '#F2C94C', color: '#B8860B', backgroundColor: '#FFF5B8' } : { borderColor: '#e5e7eb', color: '#4b5563' }}
+                style={timeBlocks.includes(t) ? { borderColor: '#E8CB80', color: '#9C7A3C', backgroundColor: '#FBF1D9' } : { borderColor: '#e5e7eb', color: '#4b5563' }}
               >
                 {t}
               </button>
@@ -365,6 +371,29 @@ function WalkerApplicationForm({ navigate, toast }: any) {
           <label className={labelClass}>Comfortable signing a 1099 independent contractor agreement?</label>
           {radioGroup(contractorAgreement, setContractorAgreement, [{ value: 'yes', label: 'Yes' }, { value: 'no', label: 'No' }])}
         </div>
+        <div className="bg-[#FBF1D9] rounded-xl p-4">
+          <p className="text-xs font-semibold text-[#2B2620] mb-1.5">Non-Solicitation & Exclusivity Terms</p>
+          <p className="text-xs text-gray-600 leading-relaxed mb-3">
+            As a 1099 independent contractor, you agree that for as long as you walk for Pawsh and for 12 months
+            afterward, you will not perform dog walking, pet sitting, or related pet care services — on your own,
+            through another company, or for cash — for any client you were introduced to through Pawsh, outside of
+            the Pawsh platform. This includes accepting direct payment from a Pawsh client to "cut out" the app.
+            Soliciting or diverting Pawsh clientele this way is a breach of your contractor agreement and may
+            result in removal from the platform and legal action to recover damages.
+          </p>
+          <label className="flex items-start gap-2.5 cursor-pointer">
+            <input
+              type="checkbox"
+              required
+              checked={nonSolicitationAgreed}
+              onChange={e => setNonSolicitationAgreed(e.target.checked)}
+              className="mt-0.5 w-4 h-4 rounded border-gray-300 accent-[#9C7A3C]"
+            />
+            <span className="text-xs text-gray-700 leading-snug">
+              I have read and agree to the non-solicitation and exclusivity terms above.
+            </span>
+          </label>
+        </div>
         <div>
           <label className={labelClass}>Smartphone with GPS/data for tracking and photo updates?</label>
           {radioGroup(hasSmartphone, setHasSmartphone, [{ value: 'yes', label: 'Yes' }, { value: 'no', label: 'No' }])}
@@ -375,8 +404,8 @@ function WalkerApplicationForm({ navigate, toast }: any) {
         </div>
         <button
           type="submit" disabled={loading}
-          className="w-full py-2.5 rounded-xl text-[#1A1A1A] text-sm font-semibold transition-colors disabled:opacity-60 disabled:cursor-not-allowed mt-2"
-          style={{ backgroundColor: '#F2C94C' }}
+          className="w-full py-2.5 rounded-xl text-[#2B2620] text-sm font-semibold transition-colors disabled:opacity-60 disabled:cursor-not-allowed mt-2"
+          style={{ backgroundColor: '#E8CB80' }}
         >
           {loading ? 'Submitting…' : 'Submit Application'}
         </button>

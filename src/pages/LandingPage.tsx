@@ -1,6 +1,7 @@
 import { CheckCircle, ChevronRight, Clock, CreditCard, PawPrint, Shield, Star, Users, Camera, RefreshCw, ShieldCheck, XCircle } from 'lucide-react';
 import { useNav } from '../contexts/NavContext';
 import PawLogo from '../components/ui/PawLogo';
+import { BUNDLE_TIERS, DOG_SITTING_RATES } from '../lib/bundles';
 
 export default function LandingPage() {
   const { navigate } = useNav();
@@ -11,29 +12,29 @@ export default function LandingPage() {
       <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#F2C94C' }}>
-              <PawLogo size={16} color="#1A1A1A" />
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#E8CB80' }}>
+              <PawLogo size={16} color="#2B2620" />
             </div>
-            <span className="font-bold text-lg text-[#1A1A1A]">Pawsh</span>
+            <span className="font-bold text-lg text-[#2B2620]">Pawsh</span>
           </div>
           <div className="hidden md:flex items-center gap-6 text-sm font-medium text-gray-600">
-            <a href="#pricing" className="hover:text-[#1A1A1A] transition-colors">Pricing</a>
-            <a href="#how-it-works" className="hover:text-[#1A1A1A] transition-colors">How it Works</a>
-            <a href="#policies" className="hover:text-[#1A1A1A] transition-colors">Policies</a>
-            <button onClick={() => navigate('about')} className="hover:text-[#1A1A1A] transition-colors">About</button>
-            <button onClick={() => navigate('contact')} className="hover:text-[#1A1A1A] transition-colors">Contact</button>
+            <a href="#pricing" className="hover:text-[#2B2620] transition-colors">Pricing</a>
+            <a href="#how-it-works" className="hover:text-[#2B2620] transition-colors">How it Works</a>
+            <a href="#policies" className="hover:text-[#2B2620] transition-colors">Policies</a>
+            <button onClick={() => navigate('about')} className="hover:text-[#2B2620] transition-colors">About</button>
+            <button onClick={() => navigate('contact')} className="hover:text-[#2B2620] transition-colors">Contact</button>
           </div>
           <div className="flex items-center gap-3">
             <button
               onClick={() => navigate('login')}
-              className="text-sm font-medium text-gray-600 hover:text-[#1A1A1A] transition-colors px-3 py-2"
+              className="text-sm font-medium text-gray-600 hover:text-[#2B2620] transition-colors px-3 py-2"
             >
               Sign In
             </button>
             <button
               onClick={() => navigate('request-access')}
-              className="text-sm font-semibold px-4 py-2 rounded-xl text-[#1A1A1A] transition-opacity hover:opacity-90"
-              style={{ backgroundColor: '#F2C94C' }}
+              className="text-sm font-semibold px-4 py-2 rounded-xl text-[#2B2620] transition-opacity hover:opacity-90"
+              style={{ backgroundColor: '#E8CB80' }}
             >
               Get Started
             </button>
@@ -45,13 +46,13 @@ export default function LandingPage() {
       <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-16 pb-20 md:pt-24 md:pb-28">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold mb-6 border" style={{ backgroundColor: '#FFF5B8', color: '#B8860B', borderColor: '#F2DA8A' }}>
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold mb-6 border" style={{ backgroundColor: '#FBF1D9', color: '#9C7A3C', borderColor: '#F2DA8A' }}>
               <div className="w-1.5 h-1.5 rounded-full bg-current" />
               Professional Dog Walking
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold text-[#1A1A1A] leading-tight mb-5">
+            <h1 className="text-4xl md:font-serif text-5xl font-bold text-[#2B2620] leading-tight mb-5">
               Your dog deserves{' '}
-              <span style={{ color: '#B8860B' }}>the best care</span>{' '}
+              <span style={{ color: '#9C7A3C' }}>the best care</span>{' '}
               on every walk
             </h1>
             <p className="text-lg text-gray-500 leading-relaxed mb-8">
@@ -60,8 +61,8 @@ export default function LandingPage() {
             <div className="flex flex-col sm:flex-row gap-3">
               <button
                 onClick={() => navigate('request-access')}
-                className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-[#1A1A1A] font-semibold text-base transition-opacity hover:opacity-90"
-                style={{ backgroundColor: '#F2C94C' }}
+                className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-[#2B2620] font-semibold text-base transition-opacity hover:opacity-90"
+                style={{ backgroundColor: '#E8CB80' }}
               >
                 Create Free Account
                 <ChevronRight size={18} />
@@ -80,7 +81,7 @@ export default function LandingPage() {
                 { value: 'Real-time', label: 'Walk updates' },
               ].map(({ value, label }) => (
                 <div key={label}>
-                  <div className="font-bold text-[#1A1A1A]">{value}</div>
+                  <div className="font-bold text-[#2B2620]">{value}</div>
                   <div className="text-xs text-gray-400">{label}</div>
                 </div>
               ))}
@@ -93,22 +94,22 @@ export default function LandingPage() {
                 alt="Happy dog"
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#F2C94C]/20 to-transparent rounded-3xl" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#E8CB80]/20 to-transparent rounded-3xl" />
             </div>
             {/* Floating card */}
             <div className="absolute -bottom-4 -left-6 bg-white rounded-2xl shadow-xl border border-gray-100 p-4 w-52">
               <div className="flex items-center gap-3 mb-2">
-                <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0" style={{ backgroundColor: '#FFF5B8' }}>
-                  <CheckCircle size={18} style={{ color: '#B8860B' }} />
+                <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0" style={{ backgroundColor: '#FBF1D9' }}>
+                  <CheckCircle size={18} style={{ color: '#9C7A3C' }} />
                 </div>
                 <div>
-                  <div className="text-xs font-semibold text-[#1A1A1A]">Walk Completed</div>
+                  <div className="text-xs font-semibold text-[#2B2620]">Walk Completed</div>
                   <div className="text-xs text-gray-400">Today, 2:30 PM</div>
                 </div>
               </div>
               <div className="flex gap-0.5">
                 {[1,2,3,4,5].map(i => (
-                  <Star key={i} size={12} className="fill-current" style={{ color: '#C9A84C' }} />
+                  <Star key={i} size={12} className="fill-current" style={{ color: '#D9BE7C' }} />
                 ))}
               </div>
             </div>
@@ -120,7 +121,7 @@ export default function LandingPage() {
       <section className="bg-[#FAF7F2] py-20">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-[#1A1A1A] mb-3">Everything you need, nothing you don't</h2>
+            <h2 className="font-serif text-3xl font-bold text-[#2B2620] mb-3">Everything you need, nothing you don't</h2>
             <p className="text-gray-500 max-w-xl mx-auto">A simple, polished experience built for busy dog owners and the walkers who care for their pets.</p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
@@ -142,10 +143,10 @@ export default function LandingPage() {
               },
             ].map(({ icon: Icon, title, desc }) => (
               <div key={title} className="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
-                <div className="w-11 h-11 rounded-xl flex items-center justify-center mb-4" style={{ backgroundColor: '#FFF5B8' }}>
-                  <Icon size={20} style={{ color: '#B8860B' }} />
+                <div className="w-11 h-11 rounded-xl flex items-center justify-center mb-4" style={{ backgroundColor: '#FBF1D9' }}>
+                  <Icon size={20} style={{ color: '#9C7A3C' }} />
                 </div>
-                <h3 className="font-semibold text-[#1A1A1A] mb-2">{title}</h3>
+                <h3 className="font-semibold text-[#2B2620] mb-2">{title}</h3>
                 <p className="text-sm text-gray-500 leading-relaxed">{desc}</p>
               </div>
             ))}
@@ -157,34 +158,66 @@ export default function LandingPage() {
       <section id="pricing" className="py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-[#1A1A1A] mb-3">Simple, transparent pricing</h2>
+            <h2 className="font-serif text-3xl font-bold text-[#2B2620] mb-3">Simple, transparent pricing</h2>
             <p className="text-gray-500 max-w-xl mx-auto">Pay per walk, or save with a monthly bundle. Charged securely to your card — single walks only when booked, bundles on the 1st of each month.</p>
           </div>
+
           <div className="grid sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
             <div className="bg-white rounded-2xl border-2 p-7 text-center" style={{ borderColor: '#e5e5e5' }}>
               <div className="text-sm font-semibold text-gray-500 mb-2">30-Minute Walk</div>
-              <div className="text-4xl font-black text-[#1A1A1A] mb-1">$35</div>
+              <div className="text-4xl font-black text-[#2B2620] mb-1">$35</div>
               <div className="text-xs text-gray-400 mb-5">per walk</div>
               <ul className="text-sm text-gray-500 space-y-2 text-left">
-                <li className="flex items-center gap-2"><CheckCircle size={14} style={{ color: '#B8860B' }} /> Great for potty breaks & short walks</li>
-                <li className="flex items-center gap-2"><CheckCircle size={14} style={{ color: '#B8860B' }} /> Photo report after every walk</li>
+                <li className="flex items-center gap-2"><CheckCircle size={14} style={{ color: '#9C7A3C' }} /> Great for potty breaks & short walks</li>
+                <li className="flex items-center gap-2"><CheckCircle size={14} style={{ color: '#9C7A3C' }} /> Photo report after every walk</li>
               </ul>
             </div>
-            <div className="rounded-2xl p-7 text-center text-[#1A1A1A] relative" style={{ backgroundColor: '#F2C94C' }}>
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 text-xs font-bold px-3 py-1 rounded-full" style={{ backgroundColor: '#C9A84C', color: '#1A1A1A' }}>
+            <div className="rounded-2xl p-7 text-center text-[#2B2620] relative" style={{ backgroundColor: '#E8CB80' }}>
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 text-xs font-bold px-3 py-1 rounded-full" style={{ backgroundColor: '#D9BE7C', color: '#2B2620' }}>
                 MOST POPULAR
               </div>
-              <div className="text-sm font-semibold text-[#1A1A1A]/70 mb-2">45-Minute Walk</div>
+              <div className="text-sm font-semibold text-[#2B2620]/70 mb-2">45-Minute Walk</div>
               <div className="text-4xl font-black mb-1">$50</div>
-              <div className="text-xs text-[#1A1A1A]/60 mb-5">per walk</div>
-              <ul className="text-sm text-[#1A1A1A]/80 space-y-2 text-left">
+              <div className="text-xs text-[#2B2620]/60 mb-5">per walk</div>
+              <ul className="text-sm text-[#2B2620]/80 space-y-2 text-left">
                 <li className="flex items-center gap-2"><CheckCircle size={14} /> Full exercise for high-energy dogs</li>
                 <li className="flex items-center gap-2"><CheckCircle size={14} /> Photo report after every walk</li>
               </ul>
             </div>
           </div>
-          <p className="text-center text-xs text-gray-400 mt-6">
-            Pricing may vary slightly by region and is confirmed at checkout before you pay. Monthly bundles and dog sitting rates are available after you sign in.
+
+          {/* Monthly bundles */}
+          <div className="text-center mt-16 mb-8">
+            <h3 className="font-serif text-2xl font-bold text-[#2B2620] mb-2">Monthly walk bundles</h3>
+            <p className="text-gray-500 max-w-xl mx-auto text-sm">Prepay for the month and save on every walk. Billed automatically on the 1st — join mid-month and your first charge is simply prorated for the days remaining.</p>
+          </div>
+          <div className="grid sm:grid-cols-3 gap-5 max-w-3xl mx-auto">
+            {BUNDLE_TIERS.map(tier => (
+              <div key={tier.id} className="bg-white rounded-2xl border-2 p-6 text-center" style={{ borderColor: '#e5e5e5' }}>
+                <div className="text-sm font-semibold text-gray-500 mb-2">{tier.label}</div>
+                <div className="text-3xl font-black text-[#2B2620] mb-1">${(tier.monthlyPriceCents / 100).toFixed(0)}</div>
+                <div className="text-xs text-gray-400">per month</div>
+              </div>
+            ))}
+          </div>
+
+          {/* Dog sitting */}
+          <div className="text-center mt-16 mb-8">
+            <h3 className="font-serif text-2xl font-bold text-[#2B2620] mb-2">Pet sitting & overnight</h3>
+            <p className="text-gray-500 max-w-xl mx-auto text-sm">Drop-in visits and overnight care, bookable right from your client portal.</p>
+          </div>
+          <div className="grid sm:grid-cols-3 gap-5 max-w-3xl mx-auto">
+            {Object.values(DOG_SITTING_RATES).map(rate => (
+              <div key={rate.label} className="bg-white rounded-2xl border-2 p-6 text-center" style={{ borderColor: '#e5e5e5' }}>
+                <div className="text-sm font-semibold text-gray-500 mb-2">{rate.label}</div>
+                <div className="text-3xl font-black text-[#2B2620] mb-1">${(rate.priceCents / 100).toFixed(0)}</div>
+                <div className="text-xs text-gray-400">{rate.desc}</div>
+              </div>
+            ))}
+          </div>
+
+          <p className="text-center text-xs text-gray-400 mt-10">
+            Pricing may vary slightly by region and is confirmed at checkout before you pay. Sign in to manage or switch your billing plan anytime.
           </p>
         </div>
       </section>
@@ -193,7 +226,7 @@ export default function LandingPage() {
       <section id="how-it-works" className="bg-[#FAF7F2] py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-[#1A1A1A] mb-3">Simple from start to finish</h2>
+            <h2 className="font-serif text-3xl font-bold text-[#2B2620] mb-3">Simple from start to finish</h2>
             <p className="text-gray-500">Create your account and book your first walk in under two minutes.</p>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
@@ -204,7 +237,7 @@ export default function LandingPage() {
             ].map(({ step, title, desc }) => (
               <div key={step} className="relative">
                 <div className="text-5xl font-black mb-4 leading-none" style={{ color: '#e5e5e5' }}>{step}</div>
-                <h3 className="font-semibold text-[#1A1A1A] mb-2">{title}</h3>
+                <h3 className="font-semibold text-[#2B2620] mb-2">{title}</h3>
                 <p className="text-sm text-gray-500 leading-relaxed">{desc}</p>
               </div>
             ))}
@@ -216,7 +249,7 @@ export default function LandingPage() {
       <section id="policies" className="py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-[#1A1A1A] mb-3">Policies & procedures</h2>
+            <h2 className="font-serif text-3xl font-bold text-[#2B2620] mb-3">Policies & procedures</h2>
             <p className="text-gray-500 max-w-xl mx-auto">The essentials, up front — so there are no surprises for owners or walkers.</p>
           </div>
           <div className="grid md:grid-cols-2 gap-5">
@@ -259,10 +292,10 @@ export default function LandingPage() {
             ].map(({ icon: Icon, title, desc }) => (
               <div key={title} className="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
                 <div className="flex items-center gap-3 mb-3">
-                  <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0" style={{ backgroundColor: '#FFF5B8' }}>
-                    <Icon size={17} style={{ color: '#B8860B' }} />
+                  <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0" style={{ backgroundColor: '#FBF1D9' }}>
+                    <Icon size={17} style={{ color: '#9C7A3C' }} />
                   </div>
-                  <h3 className="font-semibold text-[#1A1A1A]">{title}</h3>
+                  <h3 className="font-semibold text-[#2B2620]">{title}</h3>
                 </div>
                 <p className="text-sm text-gray-500 leading-relaxed">{desc}</p>
               </div>
@@ -272,19 +305,19 @@ export default function LandingPage() {
       </section>
 
       {/* Walker recruitment */}
-      <section className="bg-[#F2C94C] py-16">
+      <section className="bg-[#E8CB80] py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold mb-5 bg-white/10 text-[#1A1A1A]/80">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold mb-5 bg-white/10 text-[#2B2620]/80">
             <Users size={12} />
             For Dog Walkers
           </div>
-          <h2 className="text-3xl font-bold text-[#1A1A1A] mb-4">Love dogs? Join our team.</h2>
-          <p className="text-[#1A1A1A]/70 max-w-xl mx-auto mb-8 leading-relaxed">
+          <h2 className="font-serif text-3xl font-bold text-[#2B2620] mb-4">Love dogs? Join our team.</h2>
+          <p className="text-[#2B2620]/70 max-w-xl mx-auto mb-8 leading-relaxed">
             Walk dogs on your schedule, build a loyal client base, and track your earnings and ratings all in one place.
           </p>
           <button
             onClick={() => navigate('request-access')}
-            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-[#F2C94C] bg-white hover:bg-gray-50 transition-colors"
+            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-[#E8CB80] bg-white hover:bg-gray-50 transition-colors"
           >
             Apply as a Walker
             <ChevronRight size={18} />
@@ -296,10 +329,10 @@ export default function LandingPage() {
       <footer className="bg-white border-t border-gray-100 py-8">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded-md flex items-center justify-center" style={{ backgroundColor: '#F2C94C' }}>
-              <PawLogo size={12} color="#1A1A1A" />
+            <div className="w-6 h-6 rounded-md flex items-center justify-center" style={{ backgroundColor: '#E8CB80' }}>
+              <PawLogo size={12} color="#2B2620" />
             </div>
-            <span className="font-semibold text-sm text-[#1A1A1A]">Pawsh</span>
+            <span className="font-semibold text-sm text-[#2B2620]">Pawsh</span>
           </div>
           <p className="text-xs text-gray-400">Professional Dog Walking</p>
           <div className="flex items-center gap-5">

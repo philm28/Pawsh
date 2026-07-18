@@ -23,7 +23,7 @@ export default function ClientMembership() {
   const [cancelling, setCancelling] = useState(false);
   const [showSitting, setShowSitting] = useState(false);
   const [sittingDogId, setSittingDogId] = useState('');
-  const [sittingType, setSittingType] = useState<'day' | 'overnight'>('day');
+  const [sittingType, setSittingType] = useState<'checkin' | 'day' | 'overnight'>('checkin');
   const [sittingDate, setSittingDate] = useState('');
   const [sittingNotes, setSittingNotes] = useState('');
   const [bookingSitting, setBookingSitting] = useState(false);
@@ -167,16 +167,16 @@ export default function ClientMembership() {
 
   return (
     <div className="px-4 py-6 max-w-2xl mx-auto pb-24 md:pb-8">
-      <h1 className="text-2xl font-bold text-[#1A1A1A] mb-5">Membership</h1>
+      <h1 className="font-serif text-2xl font-bold text-[#2B2620] mb-5">Membership</h1>
 
       {/* Current status */}
       <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 mb-5">
         <div className="flex items-center gap-3 mb-4">
-          <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ backgroundColor: '#FFF5B8' }}>
-            <Wallet size={18} style={{ color: '#B8860B' }} />
+          <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ backgroundColor: '#FBF1D9' }}>
+            <Wallet size={18} style={{ color: '#9C7A3C' }} />
           </div>
           <div>
-            <div className="font-semibold text-sm text-[#1A1A1A]">
+            <div className="font-semibold text-sm text-[#2B2620]">
               {bundle?.status === 'active' && `${BUNDLE_TIERS.find(t => t.id === bundle.tier)?.label} plan — active`}
               {bundle?.status === 'paused' && 'Membership frozen'}
               {bundle?.status === 'incomplete' && 'Completing checkout…'}
@@ -194,7 +194,7 @@ export default function ClientMembership() {
         {totalCredits > 0 && (
           <div className="bg-gray-50 rounded-xl px-4 py-3 flex items-center justify-between mb-3">
             <div>
-              <div className="text-sm font-semibold text-[#1A1A1A]">{totalCredits} walk credits available</div>
+              <div className="text-sm font-semibold text-[#2B2620]">{totalCredits} walk credits available</div>
               {nextExpiry && (
                 <div className="text-xs text-gray-500 mt-0.5">
                   Next {lots[0].remaining} expire {new Date(nextExpiry).toLocaleDateString()}
@@ -226,7 +226,7 @@ export default function ClientMembership() {
       </div>
 
       {/* Plan tiers */}
-      <h2 className="font-semibold text-sm text-[#1A1A1A] mb-3">
+      <h2 className="font-semibold text-sm text-[#2B2620] mb-3">
         {bundle?.status === 'active' ? 'Switch plans' : 'Choose a monthly plan'}
       </h2>
       <div className="space-y-3 mb-8">
@@ -237,24 +237,24 @@ export default function ClientMembership() {
             <div
               key={tier.id}
               className="bg-white rounded-2xl border-2 shadow-sm p-4 flex items-center justify-between"
-              style={{ borderColor: isCurrent ? '#F2C94C' : '#f3f4f6' }}
+              style={{ borderColor: isCurrent ? '#E8CB80' : '#f3f4f6' }}
             >
               <div>
-                <div className="font-semibold text-sm text-[#1A1A1A]">{tier.label}</div>
+                <div className="font-semibold text-sm text-[#2B2620]">{tier.label}</div>
                 <div className="text-xs text-gray-400 mt-0.5">
                   ${(tier.monthlyPriceCents / 100).toFixed(0)}/mo · save ${savings.toFixed(0)} vs. per-walk pricing
                 </div>
               </div>
               {isCurrent ? (
-                <span className="flex items-center gap-1 text-xs font-semibold px-3 py-1.5 rounded-full" style={{ backgroundColor: '#FFF5B8', color: '#B8860B' }}>
+                <span className="flex items-center gap-1 text-xs font-semibold px-3 py-1.5 rounded-full" style={{ backgroundColor: '#FBF1D9', color: '#9C7A3C' }}>
                   <Check size={12} /> Current
                 </span>
               ) : (
                 <button
                   onClick={() => subscribeTo(tier.id)}
                   disabled={switching === tier.id}
-                  className="text-xs font-semibold px-4 py-2 rounded-xl text-[#1A1A1A] disabled:opacity-60 transition-opacity hover:opacity-90"
-                  style={{ backgroundColor: '#F2C94C' }}
+                  className="text-xs font-semibold px-4 py-2 rounded-xl text-[#2B2620] disabled:opacity-60 transition-opacity hover:opacity-90"
+                  style={{ backgroundColor: '#E8CB80' }}
                 >
                   {switching === tier.id ? 'Loading…' : bundle?.status === 'active' ? 'Switch' : 'Subscribe'}
                 </button>
@@ -269,40 +269,46 @@ export default function ClientMembership() {
 
       {/* Dog sitting */}
       <div className="flex items-center justify-between mb-3">
-        <h2 className="font-semibold text-sm text-[#1A1A1A]">Dog Sitting</h2>
+        <h2 className="font-semibold text-sm text-[#2B2620]">Dog Sitting</h2>
         <button
           onClick={() => { setShowSitting(true); setSittingDogId(dogs[0]?.id ?? ''); }}
           disabled={dogs.length === 0}
-          className="text-xs font-semibold px-3 py-1.5 rounded-xl text-[#1A1A1A] disabled:opacity-40 transition-opacity hover:opacity-90"
-          style={{ backgroundColor: '#F2C94C' }}
+          className="text-xs font-semibold px-3 py-1.5 rounded-xl text-[#2B2620] disabled:opacity-40 transition-opacity hover:opacity-90"
+          style={{ backgroundColor: '#E8CB80' }}
         >
           Book a visit
         </button>
       </div>
-      <div className="grid grid-cols-2 gap-3 mb-8">
+      <div className="grid grid-cols-3 gap-3 mb-8">
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4">
-          <Sun size={16} style={{ color: '#B8860B' }} />
-          <div className="font-semibold text-sm text-[#1A1A1A] mt-2">{DOG_SITTING_RATES.day.label}</div>
-          <div className="text-xs text-gray-400 mt-0.5">{DOG_SITTING_RATES.day.desc}</div>
-          <div className="text-sm font-semibold text-[#1A1A1A] mt-2">${(DOG_SITTING_RATES.day.priceCents / 100).toFixed(0)}</div>
+          <Clock size={16} style={{ color: '#9C7A3C' }} />
+          <div className="font-semibold text-sm text-[#2B2620] mt-2">{DOG_SITTING_RATES.checkin.label}</div>
+          <div className="text-xs text-gray-400 mt-0.5">{DOG_SITTING_RATES.checkin.desc}</div>
+          <div className="text-sm font-semibold text-[#2B2620] mt-2">${(DOG_SITTING_RATES.checkin.priceCents / 100).toFixed(0)}</div>
         </div>
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4">
-          <Moon size={16} style={{ color: '#B8860B' }} />
-          <div className="font-semibold text-sm text-[#1A1A1A] mt-2">{DOG_SITTING_RATES.overnight.label}</div>
+          <Sun size={16} style={{ color: '#9C7A3C' }} />
+          <div className="font-semibold text-sm text-[#2B2620] mt-2">{DOG_SITTING_RATES.day.label}</div>
+          <div className="text-xs text-gray-400 mt-0.5">{DOG_SITTING_RATES.day.desc}</div>
+          <div className="text-sm font-semibold text-[#2B2620] mt-2">${(DOG_SITTING_RATES.day.priceCents / 100).toFixed(0)}</div>
+        </div>
+        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4">
+          <Moon size={16} style={{ color: '#9C7A3C' }} />
+          <div className="font-semibold text-sm text-[#2B2620] mt-2">{DOG_SITTING_RATES.overnight.label}</div>
           <div className="text-xs text-gray-400 mt-0.5">{DOG_SITTING_RATES.overnight.desc}</div>
-          <div className="text-sm font-semibold text-[#1A1A1A] mt-2">${(DOG_SITTING_RATES.overnight.priceCents / 100).toFixed(0)}</div>
+          <div className="text-sm font-semibold text-[#2B2620] mt-2">${(DOG_SITTING_RATES.overnight.priceCents / 100).toFixed(0)}</div>
         </div>
       </div>
 
       {bookings.length > 0 && (
         <>
-          <h2 className="font-semibold text-sm text-[#1A1A1A] mb-3">Sitting History</h2>
+          <h2 className="font-semibold text-sm text-[#2B2620] mb-3">Sitting History</h2>
           <div className="space-y-2">
             {bookings.map(b => (
               <div key={b.id} className="bg-white rounded-xl border border-gray-100 p-3.5 flex items-center justify-between">
                 <div>
-                  <div className="text-sm font-medium text-[#1A1A1A]">
-                    {b.dog?.name} · {b.visit_type === 'day' ? 'Day Sitting' : 'Overnight Sitting'}
+                  <div className="text-sm font-medium text-[#2B2620]">
+                    {b.dog?.name} · {b.visit_type === 'checkin' ? 'Check-In' : b.visit_type === 'day' ? 'Day Sitting' : 'Overnight Sitting'}
                   </div>
                   <div className="text-xs text-gray-400 mt-0.5">
                     {new Date(`${b.scheduled_date}T12:00:00`).toLocaleDateString()}
@@ -330,8 +336,8 @@ export default function ClientMembership() {
           <button
             onClick={freezeAccount}
             disabled={freezing || !freezeDate}
-            className="w-full py-3 rounded-xl text-[#1A1A1A] font-semibold disabled:opacity-60"
-            style={{ backgroundColor: '#F2C94C' }}
+            className="w-full py-3 rounded-xl text-[#2B2620] font-semibold disabled:opacity-60"
+            style={{ backgroundColor: '#E8CB80' }}
           >
             {freezing ? 'Freezing…' : 'Confirm Freeze'}
           </button>
@@ -367,8 +373,8 @@ export default function ClientMembership() {
           <button
             onClick={bookSitting}
             disabled={bookingSitting || !sittingDogId || !sittingDate}
-            className="w-full py-3 rounded-xl text-[#1A1A1A] font-semibold disabled:opacity-60"
-            style={{ backgroundColor: '#F2C94C' }}
+            className="w-full py-3 rounded-xl text-[#2B2620] font-semibold disabled:opacity-60"
+            style={{ backgroundColor: '#E8CB80' }}
           >
             {bookingSitting ? 'Booking…' : previewCashCents > 0 ? `Pay $${(previewCashCents / 100).toFixed(2)}` : 'Confirm (using credits)'}
           </button>
@@ -387,15 +393,15 @@ export default function ClientMembership() {
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1.5">Type</label>
-            <div className="grid grid-cols-2 gap-2">
-              {(['day', 'overnight'] as const).map(t => (
+            <div className="grid grid-cols-3 gap-2">
+              {(['checkin', 'day', 'overnight'] as const).map(t => (
                 <button
                   key={t}
                   type="button"
                   onClick={() => setSittingType(t)}
                   className="py-3 rounded-xl border-2 text-sm font-medium transition-all"
                   style={sittingType === t
-                    ? { borderColor: '#F2C94C', color: '#B8860B', backgroundColor: '#FFF5B8' }
+                    ? { borderColor: '#E8CB80', color: '#9C7A3C', backgroundColor: '#FBF1D9' }
                     : { borderColor: '#e5e7eb', color: '#4b5563' }}
                 >
                   <div>{DOG_SITTING_RATES[t].label}</div>
@@ -429,7 +435,7 @@ export default function ClientMembership() {
           </div>
           <div className="bg-gray-50 rounded-xl px-4 py-3 text-xs text-gray-600">
             {previewCreditsUsed > 0 && <div>{previewCreditsUsed} credit(s) will be applied</div>}
-            <div className="font-semibold text-[#1A1A1A] mt-0.5">
+            <div className="font-semibold text-[#2B2620] mt-0.5">
               {previewCashCents > 0 ? `$${(previewCashCents / 100).toFixed(2)} due at checkout` : 'Fully covered by credits'}
             </div>
           </div>

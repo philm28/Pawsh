@@ -32,14 +32,14 @@ export default function LoginPage() {
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-forest-500 rounded-2xl mb-4 shadow-lg">
-            <PawLogo size={32} color="#1A1A1A" />
+            <PawLogo size={32} color="#2B2620" />
           </div>
-          <h1 className="text-3xl font-bold text-[#1A1A1A]">Pawsh</h1>
+          <h1 className="font-serif text-3xl font-bold text-[#2B2620]">Pawsh</h1>
           <p className="text-gray-500 mt-1 text-sm">Professional dog walking services</p>
         </div>
 
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-          <h2 className="text-lg font-semibold text-[#1A1A1A] mb-5">Welcome back</h2>
+          <h2 className="text-lg font-semibold text-[#2B2620] mb-5">Welcome back</h2>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1.5">Email</label>
@@ -75,8 +75,8 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-2.5 rounded-xl bg-forest-500 text-[#1A1A1A] text-sm font-semibold hover:bg-forest-600 active:bg-forest-700 transition-colors disabled:opacity-60 disabled:cursor-not-allowed mt-2"
-              style={{ backgroundColor: '#F2C94C' }}
+              className="w-full py-2.5 rounded-xl bg-forest-500 text-[#2B2620] text-sm font-semibold hover:bg-forest-600 active:bg-forest-700 transition-colors disabled:opacity-60 disabled:cursor-not-allowed mt-2"
+              style={{ backgroundColor: '#E8CB80' }}
             >
               {loading ? 'Signing in…' : 'Sign In'}
             </button>
@@ -91,7 +91,7 @@ export default function LoginPage() {
           <button
             onClick={() => navigate('request-access')}
             className="font-medium text-gold-400 hover:text-gold-500 transition-colors"
-            style={{ color: '#C9A84C' }}
+            style={{ color: '#D9BE7C' }}
           >
             Create Account
           </button>

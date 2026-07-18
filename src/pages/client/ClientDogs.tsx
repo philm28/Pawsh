@@ -231,8 +231,8 @@ export default function ClientDogs() {
             {form.photo_url ? (
               <img src={form.photo_url} alt={form.name} className="w-20 h-20 rounded-2xl object-cover shadow-sm" />
             ) : (
-              <div className="w-20 h-20 rounded-2xl flex items-center justify-center" style={{ backgroundColor: '#FFF5B8' }}>
-                <DogIcon size={32} style={{ color: '#B8860B' }} />
+              <div className="w-20 h-20 rounded-2xl flex items-center justify-center" style={{ backgroundColor: '#FBF1D9' }}>
+                <DogIcon size={32} style={{ color: '#9C7A3C' }} />
               </div>
             )}
             <button
@@ -254,7 +254,7 @@ export default function ClientDogs() {
             />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-[#1A1A1A]">{editing.name}</h1>
+            <h1 className="font-serif text-2xl font-bold text-[#2B2620]">{editing.name}</h1>
             <p className="text-gray-500 text-sm">{editing.breed ?? 'Unknown breed'}</p>
           </div>
         </div>
@@ -264,8 +264,8 @@ export default function ClientDogs() {
           <button
             type="submit"
             disabled={saving}
-            className="w-full flex items-center justify-center gap-2 py-3 rounded-xl text-[#1A1A1A] font-semibold disabled:opacity-60"
-            style={{ backgroundColor: '#F2C94C' }}
+            className="w-full flex items-center justify-center gap-2 py-3 rounded-xl text-[#2B2620] font-semibold disabled:opacity-60"
+            style={{ backgroundColor: '#E8CB80' }}
           >
             <Save size={16} />
             {saving ? 'Saving…' : 'Save Changes'}
@@ -313,11 +313,11 @@ export default function ClientDogs() {
   return (
     <div className="px-4 py-6 max-w-2xl mx-auto pb-24 md:pb-8">
       <div className="flex items-center justify-between mb-5">
-        <h1 className="text-2xl font-bold text-[#1A1A1A]">My Dogs</h1>
+        <h1 className="font-serif text-2xl font-bold text-[#2B2620]">My Dogs</h1>
         <button
           onClick={openAdd}
-          className="flex items-center gap-2 px-4 py-2 rounded-xl text-[#1A1A1A] text-sm font-semibold"
-          style={{ backgroundColor: '#F2C94C' }}
+          className="flex items-center gap-2 px-4 py-2 rounded-xl text-[#2B2620] text-sm font-semibold"
+          style={{ backgroundColor: '#E8CB80' }}
         >
           <Plus size={16} />
           Add Dog
@@ -331,8 +331,8 @@ export default function ClientDogs() {
           <p className="text-gray-400 text-sm mt-1">Add your first dog to get started.</p>
           <button
             onClick={openAdd}
-            className="mt-4 px-5 py-2.5 rounded-xl text-[#1A1A1A] text-sm font-semibold"
-            style={{ backgroundColor: '#F2C94C' }}
+            className="mt-4 px-5 py-2.5 rounded-xl text-[#2B2620] text-sm font-semibold"
+            style={{ backgroundColor: '#E8CB80' }}
           >
             Add a Dog
           </button>
@@ -348,12 +348,12 @@ export default function ClientDogs() {
               {dog.photo_url ? (
                 <img src={dog.photo_url} alt={dog.name} className="w-14 h-14 rounded-xl object-cover shrink-0" />
               ) : (
-                <div className="w-14 h-14 rounded-xl flex items-center justify-center shrink-0" style={{ backgroundColor: '#FFF5B8' }}>
-                  <DogIcon size={24} style={{ color: '#B8860B' }} />
+                <div className="w-14 h-14 rounded-xl flex items-center justify-center shrink-0" style={{ backgroundColor: '#FBF1D9' }}>
+                  <DogIcon size={24} style={{ color: '#9C7A3C' }} />
                 </div>
               )}
               <div className="flex-1 min-w-0">
-                <div className="font-semibold text-[#1A1A1A]">{dog.name}</div>
+                <div className="font-semibold text-[#2B2620]">{dog.name}</div>
                 <div className="text-sm text-gray-500">{dog.breed ?? 'Unknown breed'}</div>
                 <div className="text-xs text-gray-400 mt-0.5">
                   {[dog.age ? `${dog.age}y` : null, dog.weight ? `${dog.weight} lbs` : null].filter(Boolean).join(' · ')}
@@ -374,8 +374,8 @@ export default function ClientDogs() {
             form="add-dog-form"
             type="submit"
             disabled={saving}
-            className="w-full py-3 rounded-xl text-[#1A1A1A] font-semibold disabled:opacity-60"
-            style={{ backgroundColor: '#F2C94C' }}
+            className="w-full py-3 rounded-xl text-[#2B2620] font-semibold disabled:opacity-60"
+            style={{ backgroundColor: '#E8CB80' }}
           >
             {saving ? 'Adding…' : 'Add Dog'}
           </button>

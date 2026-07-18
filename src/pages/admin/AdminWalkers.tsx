@@ -91,7 +91,7 @@ export default function AdminWalkers() {
   return (
     <div className="px-4 py-6 max-w-3xl mx-auto pb-24 md:pb-8">
       <div className="flex items-center justify-between mb-5">
-        <h1 className="text-2xl font-bold text-[#1A1A1A]">Walkers</h1>
+        <h1 className="font-serif text-2xl font-bold text-[#2B2620]">Walkers</h1>
         <div className="text-sm text-gray-500">{walkers.length} total</div>
       </div>
 
@@ -123,12 +123,12 @@ export default function AdminWalkers() {
               key={walker.id}
               className={`flex items-center gap-4 px-4 py-4 ${i < filtered.length - 1 ? 'border-b border-gray-50' : ''} ${!walker.active ? 'opacity-60' : ''}`}
             >
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 font-semibold text-sm" style={{ backgroundColor: '#FFF5B8', color: '#B8860B' }}>
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 font-semibold text-sm" style={{ backgroundColor: '#FBF1D9', color: '#9C7A3C' }}>
                 {(walker.full_name ?? walker.email).charAt(0).toUpperCase()}
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
-                  <div className="font-medium text-sm text-[#1A1A1A] truncate">{walker.full_name ?? '—'}</div>
+                  <div className="font-medium text-sm text-[#2B2620] truncate">{walker.full_name ?? '—'}</div>
                   {!walker.active && (
                     <span className="text-xs font-medium px-1.5 py-0.5 rounded-full bg-red-50 text-red-600 shrink-0">Suspended</span>
                   )}
@@ -145,7 +145,7 @@ export default function AdminWalkers() {
                 )}
               </div>
               <div className="text-right shrink-0">
-                <div className="text-sm font-semibold text-[#1A1A1A]">{walker.completed_count}</div>
+                <div className="text-sm font-semibold text-[#2B2620]">{walker.completed_count}</div>
                 <div className="text-xs text-gray-400">completed</div>
               </div>
               <button

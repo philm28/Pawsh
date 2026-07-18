@@ -58,7 +58,7 @@ export default function ClientDashboard() {
   return (
     <div className="px-4 py-6 max-w-2xl mx-auto space-y-6 pb-24 md:pb-8">
       <div>
-        <h1 className="text-2xl font-bold text-[#1A1A1A]">
+        <h1 className="font-serif text-2xl font-bold text-[#2B2620]">
           Hello, {profile?.full_name?.split(' ')[0] ?? 'there'}
         </h1>
         <p className="text-gray-500 text-sm mt-0.5">Here's what's happening with your pups.</p>
@@ -67,29 +67,29 @@ export default function ClientDashboard() {
       {/* Schedule CTA */}
       <button
         onClick={() => navigate('client-walks')}
-        className="w-full flex items-center justify-between px-5 py-4 rounded-2xl text-[#1A1A1A] shadow-md transition-transform active:scale-[0.98]"
-        style={{ background: 'linear-gradient(135deg, #F2C94C 0%, #B8860B 100%)' }}
+        className="w-full flex items-center justify-between px-5 py-4 rounded-2xl text-[#2B2620] shadow-md transition-transform active:scale-[0.98]"
+        style={{ background: 'linear-gradient(135deg, #E8CB80 0%, #9C7A3C 100%)' }}
       >
         <div className="flex items-center gap-3">
           <div className="p-2 bg-black/10 rounded-xl">
-            <Plus size={20} className="text-[#1A1A1A]" />
+            <Plus size={20} className="text-[#2B2620]" />
           </div>
           <div className="text-left">
             <div className="font-semibold">Schedule a Walk</div>
-            <div className="text-[#1A1A1A]/70 text-xs mt-0.5">Book for any of your dogs</div>
+            <div className="text-[#2B2620]/70 text-xs mt-0.5">Book for any of your dogs</div>
           </div>
         </div>
-        <ChevronRight size={20} className="text-[#1A1A1A]/70" />
+        <ChevronRight size={20} className="text-[#2B2620]/70" />
       </button>
 
       {/* Upcoming Walks */}
       <section>
         <div className="flex items-center justify-between mb-3">
-          <h2 className="font-semibold text-[#1A1A1A]">Upcoming Walks</h2>
+          <h2 className="font-semibold text-[#2B2620]">Upcoming Walks</h2>
           <button
             onClick={() => navigate('client-walks')}
             className="text-sm text-gold-400 font-medium"
-            style={{ color: '#C9A84C' }}
+            style={{ color: '#D9BE7C' }}
           >
             See all
           </button>
@@ -108,11 +108,11 @@ export default function ClientDashboard() {
                 <div key={walk.id} className="bg-white rounded-2xl border border-gray-100 p-4 shadow-sm">
                   <div className="flex items-start justify-between gap-2">
                     <div className="flex items-center gap-3 min-w-0">
-                      <div className="w-10 h-10 rounded-xl bg-[#FFF5B8] flex items-center justify-center shrink-0" style={{ backgroundColor: '#FFF5B8' }}>
-                        <Dog size={18} style={{ color: '#B8860B' }} />
+                      <div className="w-10 h-10 rounded-xl bg-[#FBF1D9] flex items-center justify-center shrink-0" style={{ backgroundColor: '#FBF1D9' }}>
+                        <Dog size={18} style={{ color: '#9C7A3C' }} />
                       </div>
                       <div className="min-w-0">
-                        <div className="font-semibold text-[#1A1A1A] text-sm">{walk.dog?.name}</div>
+                        <div className="font-semibold text-[#2B2620] text-sm">{walk.dog?.name}</div>
                         <div className="text-xs text-gray-500">{walk.dog?.breed}</div>
                       </div>
                     </div>
@@ -138,11 +138,11 @@ export default function ClientDashboard() {
       {/* Dogs */}
       <section>
         <div className="flex items-center justify-between mb-3">
-          <h2 className="font-semibold text-[#1A1A1A]">Your Dogs</h2>
+          <h2 className="font-semibold text-[#2B2620]">Your Dogs</h2>
           <button
             onClick={() => navigate('client-dogs')}
             className="text-sm font-medium"
-            style={{ color: '#C9A84C' }}
+            style={{ color: '#D9BE7C' }}
           >
             Manage
           </button>
@@ -153,8 +153,8 @@ export default function ClientDashboard() {
             <p className="text-gray-500 text-sm">No dogs added yet.</p>
             <button
               onClick={() => navigate('client-dogs')}
-              className="mt-3 px-4 py-2 rounded-xl text-[#1A1A1A] text-sm font-medium"
-              style={{ backgroundColor: '#F2C94C' }}
+              className="mt-3 px-4 py-2 rounded-xl text-[#2B2620] text-sm font-medium"
+              style={{ backgroundColor: '#E8CB80' }}
             >
               Add a Dog
             </button>
@@ -170,11 +170,11 @@ export default function ClientDashboard() {
                 {dog.photo_url ? (
                   <img src={dog.photo_url} alt={dog.name} className="w-12 h-12 rounded-xl object-cover mb-2" />
                 ) : (
-                  <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-2" style={{ backgroundColor: '#FFF5B8' }}>
-                    <Dog size={22} style={{ color: '#B8860B' }} />
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-2" style={{ backgroundColor: '#FBF1D9' }}>
+                    <Dog size={22} style={{ color: '#9C7A3C' }} />
                   </div>
                 )}
-                <div className="font-semibold text-sm text-[#1A1A1A]">{dog.name}</div>
+                <div className="font-semibold text-sm text-[#2B2620]">{dog.name}</div>
                 <div className="text-xs text-gray-500 mt-0.5">{dog.breed ?? 'Unknown breed'}</div>
               </button>
             ))}

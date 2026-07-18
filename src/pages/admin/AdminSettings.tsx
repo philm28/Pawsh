@@ -57,18 +57,18 @@ export default function AdminSettings() {
   return (
     <div className="px-4 py-6 max-w-2xl mx-auto pb-24 md:pb-8">
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-[#1A1A1A]">Settings</h1>
+        <h1 className="font-serif text-2xl font-bold text-[#2B2620]">Settings</h1>
         <p className="text-gray-500 text-sm mt-0.5">Configure pricing and app defaults.</p>
       </div>
 
       <form onSubmit={save} className="space-y-5">
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
           <div className="flex items-center gap-2 mb-5">
-            <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#FFF5B8' }}>
-              <DollarSign size={15} style={{ color: '#B8860B' }} />
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#FBF1D9' }}>
+              <DollarSign size={15} style={{ color: '#9C7A3C' }} />
             </div>
             <div>
-              <h2 className="font-semibold text-sm text-[#1A1A1A]">Walk Pricing</h2>
+              <h2 className="font-semibold text-sm text-[#2B2620]">Walk Pricing</h2>
               <p className="text-xs text-gray-400">Applied when clients schedule walks</p>
             </div>
           </div>
@@ -106,8 +106,8 @@ export default function AdminSettings() {
         <button
           type="submit"
           disabled={saving}
-          className="w-full py-3.5 rounded-2xl text-[#1A1A1A] font-semibold text-sm disabled:opacity-60 transition-opacity flex items-center justify-center gap-2"
-          style={{ backgroundColor: '#F2C94C' }}
+          className="w-full py-3.5 rounded-2xl text-[#2B2620] font-semibold text-sm disabled:opacity-60 transition-opacity flex items-center justify-center gap-2"
+          style={{ backgroundColor: '#E8CB80' }}
         >
           <Save size={16} />
           {saving ? 'Saving…' : 'Save Settings'}
@@ -117,11 +117,11 @@ export default function AdminSettings() {
       {/* Email / Integrations info */}
       <div className="mt-6 bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
         <div className="flex items-center gap-2 mb-4">
-          <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#FFF5B8' }}>
-            <Mail size={15} style={{ color: '#B8860B' }} />
+          <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#FBF1D9' }}>
+            <Mail size={15} style={{ color: '#9C7A3C' }} />
           </div>
           <div>
-            <h2 className="font-semibold text-sm text-[#1A1A1A]">Email Notifications</h2>
+            <h2 className="font-semibold text-sm text-[#2B2620]">Email Notifications</h2>
             <p className="text-xs text-gray-400">Booking confirmations, walker assignments, reminders</p>
           </div>
         </div>

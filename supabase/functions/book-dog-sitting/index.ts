@@ -9,8 +9,9 @@ const corsHeaders = {
 };
 
 const RATES: Record<string, { priceCents: number; label: string }> = {
+  checkin: { priceCents: 3500, label: "30-Minute Check-In" },
   day: { priceCents: 10000, label: "Day Sitting (4 x 15-min visits)" },
-  overnight: { priceCents: 15000, label: "Overnight Sitting (3 visits + overnight stay)" },
+  overnight: { priceCents: 12500, label: "Overnight Sitting (3 visits + overnight stay)" },
 };
 
 const TIER_CREDIT_RATE_CENTS: Record<string, number> = {

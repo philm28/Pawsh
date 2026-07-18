@@ -200,7 +200,7 @@ export default function AdminDashboard() {
     <div className="px-4 py-6 max-w-5xl mx-auto pb-24 md:pb-8">
       {/* Header */}
       <div className="flex items-center justify-between mb-5">
-        <h1 className="text-2xl font-bold text-[#1A1A1A]">All Walks</h1>
+        <h1 className="font-serif text-2xl font-bold text-[#2B2620]">All Walks</h1>
         {walksTomorrow > 0 && (
           <button
             onClick={sendReminders}
@@ -226,7 +226,7 @@ export default function AdminDashboard() {
               <stat.icon size={16} className="text-gray-400" />
               <span className="text-xs text-gray-500">{stat.label}</span>
             </div>
-            <div className="text-2xl font-bold text-[#1A1A1A]">{stat.value}</div>
+            <div className="font-serif text-2xl font-bold text-[#2B2620]">{stat.value}</div>
           </div>
         ))}
       </div>
@@ -348,7 +348,7 @@ export default function AdminDashboard() {
           <div key={walk.id} className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4">
             <div className="flex items-start justify-between gap-2 mb-2">
               <div>
-                <div className="font-semibold text-sm text-[#1A1A1A]">{walk.dog?.name}</div>
+                <div className="font-semibold text-sm text-[#2B2620]">{walk.dog?.name}</div>
                 <div className="text-xs text-gray-500">{walk.client?.full_name}</div>
               </div>
               <div className="flex items-center gap-1.5 shrink-0">

@@ -149,7 +149,7 @@ export default function AdminMemberships() {
   return (
     <div className="px-4 py-6 max-w-3xl mx-auto pb-24 md:pb-8">
       <div className="flex items-center justify-between mb-5">
-        <h1 className="text-2xl font-bold text-[#1A1A1A]">Memberships</h1>
+        <h1 className="font-serif text-2xl font-bold text-[#2B2620]">Memberships</h1>
         <div className="text-sm text-gray-500">{memberCount} active</div>
       </div>
 
@@ -175,11 +175,11 @@ export default function AdminMemberships() {
             key={client.id}
             className={`flex items-center gap-3 px-4 py-3.5 ${i < filtered.length - 1 ? 'border-b border-gray-50' : ''}`}
           >
-            <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 font-semibold text-sm" style={{ backgroundColor: '#FFF5B8', color: '#B8860B' }}>
+            <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 font-semibold text-sm" style={{ backgroundColor: '#FBF1D9', color: '#9C7A3C' }}>
               {(client.full_name ?? client.email).charAt(0).toUpperCase()}
             </div>
             <div className="flex-1 min-w-0">
-              <div className="font-medium text-sm text-[#1A1A1A] truncate">{client.full_name ?? '—'}</div>
+              <div className="font-medium text-sm text-[#2B2620] truncate">{client.full_name ?? '—'}</div>
               <div className="text-xs text-gray-500 truncate">{client.email}</div>
               <div className="flex items-center gap-2 mt-1 flex-wrap">
                 {client.bundle ? (
@@ -222,19 +222,19 @@ export default function AdminMemberships() {
         )}
       </div>
 
-      <h2 className="font-semibold text-sm text-[#1A1A1A] mb-3">Recent Dog Sitting Bookings</h2>
+      <h2 className="font-semibold text-sm text-[#2B2620] mb-3">Recent Dog Sitting Bookings</h2>
       {bookings.length === 0 ? (
         <p className="text-sm text-gray-400">No dog sitting bookings yet.</p>
       ) : (
         <div className="space-y-2">
           {bookings.map(b => (
             <div key={b.id} className="bg-white rounded-xl border border-gray-100 p-3.5 flex items-center gap-3">
-              <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0" style={{ backgroundColor: '#FFF5B8' }}>
-                <PawPrint size={13} style={{ color: '#B8860B' }} />
+              <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0" style={{ backgroundColor: '#FBF1D9' }}>
+                <PawPrint size={13} style={{ color: '#9C7A3C' }} />
               </div>
               <div className="flex-1 min-w-0">
-                <div className="text-sm font-medium text-[#1A1A1A] truncate">
-                  {(b as any).client?.full_name ?? 'Client'} · {b.dog?.name} · {b.visit_type === 'day' ? 'Day' : 'Overnight'}
+                <div className="text-sm font-medium text-[#2B2620] truncate">
+                  {(b as any).client?.full_name ?? 'Client'} · {b.dog?.name} · {b.visit_type === 'checkin' ? 'Check-In' : b.visit_type === 'day' ? 'Day' : 'Overnight'}
                 </div>
                 <div className="text-xs text-gray-400 mt-0.5">
                   {new Date(`${b.scheduled_date}T12:00:00`).toLocaleDateString()}
@@ -260,8 +260,8 @@ export default function AdminMemberships() {
           <button
             onClick={submitAdjustment}
             disabled={saving}
-            className="w-full py-3 rounded-xl text-[#1A1A1A] font-semibold disabled:opacity-60"
-            style={{ backgroundColor: '#F2C94C' }}
+            className="w-full py-3 rounded-xl text-[#2B2620] font-semibold disabled:opacity-60"
+            style={{ backgroundColor: '#E8CB80' }}
           >
             {saving ? 'Saving…' : adjustDirection === 'add' ? 'Add Credits' : 'Remove Credits'}
           </button>

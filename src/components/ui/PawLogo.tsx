@@ -4,7 +4,7 @@ interface PawLogoProps {
   className?: string;
 }
 
-export default function PawLogo({ size = 24, color = '#1A1A1A', className }: PawLogoProps) {
+export default function PawLogo({ size = 24, color = '#2B2620', className }: PawLogoProps) {
   return (
     <svg
       width={size}

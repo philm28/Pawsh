@@ -15,8 +15,9 @@ export const BUNDLE_TIERS: BundleTierConfig[] = [
 ];
 
 export const DOG_SITTING_RATES = {
+  checkin: { label: '30-Min Check-In', desc: 'A single drop-by visit for feeding, potty, and playtime', priceCents: 3500 },
   day: { label: 'Day Sitting', desc: '4 visits/day, 15 min each', priceCents: 10000 },
-  overnight: { label: 'Overnight Sitting', desc: '3 visits + an overnight stay', priceCents: 15000 },
+  overnight: { label: 'Overnight Sitting', desc: '3 visits + an overnight stay', priceCents: 12500 },
 };
 
 export function creditRateCents(tier: BundleTier): number {

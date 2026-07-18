@@ -53,9 +53,9 @@ export default function Header() {
     <header className="hidden md:flex sticky top-0 z-40 bg-[#FAF7F2]/90 backdrop-blur border-b border-gray-100 h-16 items-center px-6">
       <button
         onClick={() => navigate(homePages[profile?.role ?? 'client'])}
-        className="flex items-center gap-2 font-bold text-xl text-[#B8860B] mr-8 transition-opacity hover:opacity-80"
+        className="flex items-center gap-2 font-bold text-xl text-[#9C7A3C] mr-8 transition-opacity hover:opacity-80"
       >
-        <PawLogo size={26} color="#B8860B" />
+        <PawLogo size={26} color="#9C7A3C" />
         <span>Pawsh</span>
       </button>
 
@@ -69,7 +69,7 @@ export default function Header() {
               onClick={() => navigate(item.page)}
               className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                 active
-                  ? 'bg-forest-500 text-[#1A1A1A]'
+                  ? 'bg-forest-500 text-[#2B2620]'
                   : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
               }`}
             >

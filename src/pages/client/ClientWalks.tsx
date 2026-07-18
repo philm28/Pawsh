@@ -252,21 +252,21 @@ export default function ClientWalks() {
       {verifyingPayment && (
         <div className="fixed inset-0 z-50 bg-[#FAF7F2]/80 backdrop-blur-sm flex items-center justify-center">
           <div className="bg-white rounded-2xl border border-gray-100 shadow-xl p-8 text-center max-w-xs mx-4">
-            <div className="w-12 h-12 rounded-2xl flex items-center justify-center mx-auto mb-4" style={{ backgroundColor: '#FFF5B8' }}>
-              <CreditCard size={22} style={{ color: '#B8860B' }} />
+            <div className="w-12 h-12 rounded-2xl flex items-center justify-center mx-auto mb-4" style={{ backgroundColor: '#FBF1D9' }}>
+              <CreditCard size={22} style={{ color: '#9C7A3C' }} />
             </div>
-            <div className="font-semibold text-[#1A1A1A] mb-1">Confirming Payment</div>
+            <div className="font-semibold text-[#2B2620] mb-1">Confirming Payment</div>
             <p className="text-sm text-gray-500">Please wait a moment…</p>
           </div>
         </div>
       )}
 
       <div className="flex items-center justify-between mb-5">
-        <h1 className="text-2xl font-bold text-[#1A1A1A]">Walks</h1>
+        <h1 className="font-serif text-2xl font-bold text-[#2B2620]">Walks</h1>
         <button
           onClick={() => setShowSchedule(true)}
-          className="flex items-center gap-2 px-4 py-2 rounded-xl text-[#1A1A1A] text-sm font-semibold"
-          style={{ backgroundColor: '#F2C94C' }}
+          className="flex items-center gap-2 px-4 py-2 rounded-xl text-[#2B2620] text-sm font-semibold"
+          style={{ backgroundColor: '#E8CB80' }}
         >
           <Plus size={16} />
           Schedule
@@ -280,7 +280,7 @@ export default function ClientWalks() {
             key={t}
             onClick={() => setTab(t)}
             className={`flex-1 py-2 rounded-lg text-sm font-medium transition-all ${
-              tab === t ? 'bg-white text-[#1A1A1A] shadow-sm' : 'text-gray-500'
+              tab === t ? 'bg-white text-[#2B2620] shadow-sm' : 'text-gray-500'
             }`}
           >
             {t === 'upcoming' ? 'Upcoming' : 'History'}
@@ -313,7 +313,7 @@ export default function ClientWalks() {
                 <div className="p-4">
                   <div className="flex items-start justify-between gap-2 mb-3">
                     <div>
-                      <div className="font-semibold text-[#1A1A1A]">{walk.dog?.name}</div>
+                      <div className="font-semibold text-[#2B2620]">{walk.dog?.name}</div>
                       <div className="text-xs text-gray-500">{walk.dog?.breed}</div>
                     </div>
                     <div className="flex items-center gap-2 shrink-0">
@@ -355,8 +355,8 @@ export default function ClientWalks() {
                         <button
                           onClick={() => retryPayment(walk)}
                           disabled={checkingOut}
-                          className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl text-[#1A1A1A] text-xs font-semibold disabled:opacity-60 transition-opacity"
-                          style={{ backgroundColor: '#C9A84C' }}
+                          className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl text-[#2B2620] text-xs font-semibold disabled:opacity-60 transition-opacity"
+                          style={{ backgroundColor: '#D9BE7C' }}
                         >
                           <CreditCard size={12} />
                           Complete Payment
@@ -406,7 +406,7 @@ export default function ClientWalks() {
                               href={`https://www.google.com/maps?q=${walk.check_in_lat},${walk.check_in_lng}`}
                               target="_blank" rel="noopener noreferrer"
                               className="text-[11px] font-medium underline"
-                              style={{ color: '#B8860B' }}
+                              style={{ color: '#9C7A3C' }}
                             >
                               View on map
                             </a>
@@ -424,7 +424,7 @@ export default function ClientWalks() {
                               href={`https://www.google.com/maps?q=${walk.check_out_lat},${walk.check_out_lng}`}
                               target="_blank" rel="noopener noreferrer"
                               className="text-[11px] font-medium underline"
-                              style={{ color: '#B8860B' }}
+                              style={{ color: '#9C7A3C' }}
                             >
                               View on map
                             </a>
@@ -439,7 +439,7 @@ export default function ClientWalks() {
                       <button
                         onClick={() => setSelectedWalkPhoto(walk)}
                         className="flex items-center gap-1.5 text-xs font-medium"
-                        style={{ color: '#C9A84C' }}
+                        style={{ color: '#D9BE7C' }}
                       >
                         <Camera size={13} />
                         View walk photo
@@ -457,7 +457,7 @@ export default function ClientWalks() {
                         <button
                           onClick={() => { setRatingWalk(walk); setRatingValue(0); setRatingComment(''); }}
                           className="flex items-center gap-1.5 text-xs font-medium transition-colors"
-                          style={{ color: '#C9A84C' }}
+                          style={{ color: '#D9BE7C' }}
                         >
                           <Star size={13} />
                           Rate this walk
@@ -519,8 +519,8 @@ export default function ClientWalks() {
             form="rating-form"
             type="submit"
             disabled={submittingRating || ratingValue === 0}
-            className="w-full py-3 rounded-xl text-[#1A1A1A] font-semibold disabled:opacity-60"
-            style={{ backgroundColor: '#F2C94C' }}
+            className="w-full py-3 rounded-xl text-[#2B2620] font-semibold disabled:opacity-60"
+            style={{ backgroundColor: '#E8CB80' }}
           >
             {submittingRating ? 'Submitting…' : 'Submit Rating'}
           </button>
@@ -573,8 +573,8 @@ export default function ClientWalks() {
             form="schedule-form"
             type="submit"
             disabled={checkingOut}
-            className="w-full py-3 rounded-xl text-[#1A1A1A] font-semibold disabled:opacity-60 flex items-center justify-center gap-2"
-            style={{ backgroundColor: '#F2C94C' }}
+            className="w-full py-3 rounded-xl text-[#2B2620] font-semibold disabled:opacity-60 flex items-center justify-center gap-2"
+            style={{ backgroundColor: '#E8CB80' }}
           >
             <CreditCard size={16} />
             {checkingOut ? 'Redirecting to checkout…' : `Proceed to Payment · $${duration === 30 ? price30 : price45}`}
@@ -631,7 +631,7 @@ export default function ClientWalks() {
                     onClick={() => setDuration(d)}
                     className="py-3 rounded-xl border-2 text-sm font-medium transition-all"
                     style={duration === d
-                      ? { borderColor: '#F2C94C', color: '#B8860B', backgroundColor: '#FFF5B8' }
+                      ? { borderColor: '#E8CB80', color: '#9C7A3C', backgroundColor: '#FBF1D9' }
                       : { borderColor: '#e5e7eb', color: '#4b5563' }
                     }
                   >
