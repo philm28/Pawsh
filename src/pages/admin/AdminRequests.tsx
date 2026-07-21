@@ -207,6 +207,12 @@ export default function AdminRequests() {
                 </div>
               </div>
 
+              {req.status === 'auto_approved' && (
+                <div className="text-xs text-gray-400 italic mb-2">
+                  Account already active — no action needed
+                </div>
+              )}
+
               {req.requested_role === 'walker' && (
                 <button
                   onClick={() => setExpanded(expanded === req.id ? null : req.id)}
