@@ -7,6 +7,7 @@ interface AuthContextType {
   user: User | null;
   profile: Profile | null;
   loading: boolean;
+  profileError: boolean;
   signIn: (email: string, password: string) => Promise<{ error: Error | null }>;
   signUp: (params: { email: string; password: string; fullName: string; phone?: string; role: 'client' | 'walker' }) => Promise<{ error: Error | null }>;
   signOut: () => Promise<void>;
@@ -19,14 +20,30 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [profile, setProfile] = useState<Profile | null>(null);
   const [loading, setLoading] = useState(true);
+  const [profileError, setProfileError] = useState(false);
 
-  async function fetchProfile(userId: string) {
-    const { data } = await supabase
-      .from('profiles')
-      .select('*')
-      .eq('id', userId)
-      .maybeSingle();
-    if (data) setProfile(data as Profile);
+  // The handle_new_user DB trigger creates the profile row, and it can
+  // occasionally lag a beat (or, rarely, silently fail). A single unretried
+  // read here used to mean: no row yet -> profile stays null -> the app
+  // treats a fully authenticated user as logged out and bounces them to
+  // the public landing page with no explanation. Retry a few times before
+  // giving up, and surface a real error state instead of a silent bounce.
+  async function fetchProfile(userId: string): Promise<boolean> {
+    for (let attempt = 0; attempt < 4; attempt++) {
+      const { data } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', userId)
+        .maybeSingle();
+      if (data) {
+        setProfile(data as Profile);
+        setProfileError(false);
+        return true;
+      }
+      if (attempt < 3) await new Promise(r => setTimeout(r, 600));
+    }
+    setProfileError(true);
+    return false;
   }
 
   async function refreshProfile() {
@@ -49,6 +66,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         fetchProfile(session.user.id);
       } else {
         setProfile(null);
+        setProfileError(false);
       }
     });
 
@@ -106,10 +124,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     await supabase.auth.signOut();
     setUser(null);
     setProfile(null);
+    setProfileError(false);
   }
 
   return (
-    <AuthContext.Provider value={{ user, profile, loading, signIn, signUp, signOut, refreshProfile }}>
+    <AuthContext.Provider value={{ user, profile, loading, profileError, signIn, signUp, signOut, refreshProfile }}>
       {children}
     </AuthContext.Provider>
   );
