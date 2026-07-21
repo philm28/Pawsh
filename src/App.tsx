@@ -30,17 +30,18 @@ import AdminMemberships from './pages/admin/AdminMemberships';
 import AdminSettings from './pages/admin/AdminSettings';
 
 function AppRouter() {
-  const { user, profile, loading } = useAuth();
+  const { user, profile, loading, profileError, refreshProfile, signOut } = useAuth();
   const { page, navigate } = useNav();
 
   useEffect(() => {
     if (loading) return;
-    if (!user || !profile) {
+    if (!user) {
       if (!['request-access', 'login', 'landing', 'about', 'contact', 'terms', 'privacy'].includes(page)) {
         navigate('landing');
       }
       return;
     }
+    if (!profile) return; // still resolving or failed — handled in render below, don't redirect
     const homePages = { client: 'client-dashboard', walker: 'walker-today', admin: 'admin-dashboard' } as const;
     if (page === 'login' || page === 'request-access' || page === 'landing') {
       const params = new URLSearchParams(window.location.search);
@@ -55,6 +56,42 @@ function AppRouter() {
   }, [user, profile, loading]);
 
   if (loading) return <LoadingSpinner className="min-h-screen" />;
+
+  if (user && !profile) {
+    return (
+      <div className="min-h-screen flex items-center justify-center px-4">
+        <div className="max-w-sm w-full text-center space-y-4">
+          <p className="font-semibold text-[#2B2620]">
+            {profileError ? "We're having trouble loading your account." : 'Setting up your account…'}
+          </p>
+          {profileError && (
+            <>
+              <p className="text-sm text-gray-500">
+                You're signed in, but we couldn't load your profile. This is usually temporary.
+              </p>
+              <div className="flex gap-2 justify-center">
+                <button
+                  onClick={() => refreshProfile()}
+                  className="px-4 py-2 rounded-lg text-sm font-medium text-white"
+                  style={{ backgroundColor: '#9C7A3C' }}
+                >
+                  Try again
+                </button>
+                <button
+                  onClick={() => signOut()}
+                  className="px-4 py-2 rounded-lg text-sm font-medium border border-gray-200 text-gray-600"
+                >
+                  Sign out
+                </button>
+              </div>
+              <p className="text-xs text-gray-400">Still stuck? Contact us and we'll get it sorted.</p>
+            </>
+          )}
+          {!profileError && <LoadingSpinner />}
+        </div>
+      </div>
+    );
+  }
 
   if (!user || !profile) {
     if (page === 'request-access') return <RequestAccessPage />;
