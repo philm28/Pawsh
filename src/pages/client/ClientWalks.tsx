@@ -38,6 +38,22 @@ export default function ClientWalks() {
   const [time, setTime] = useState('');
   const [duration, setDuration] = useState<30 | 45>(30);
   const [clientNotes, setClientNotes] = useState('');
+  const [availableCredits, setAvailableCredits] = useState(0);
+  const [showBuyPack, setShowBuyPack] = useState(false);
+  const [packQty, setPackQty] = useState(1);
+  const [buyingPack, setBuyingPack] = useState(false);
+
+  async function loadCredits() {
+    if (!profile) return;
+    const { data } = await supabase
+      .from('credit_lots')
+      .select('remaining')
+      .eq('client_id', profile.id)
+      .is('voided_at', null)
+      .gt('remaining', 0)
+      .gt('expires_at', new Date().toISOString());
+    setAvailableCredits((data ?? []).reduce((sum, l) => sum + l.remaining, 0));
+  }
 
   async function loadData() {
     const [walksRes, dogsRes, ratingsRes, settingsRes] = await Promise.all([
@@ -70,7 +86,7 @@ export default function ClientWalks() {
     setLoading(false);
   }
 
-  useEffect(() => { loadData(); }, [profile]);
+  useEffect(() => { loadData(); loadCredits(); }, [profile]);
 
   // Handle return from Stripe checkout
   useEffect(() => {
@@ -167,6 +183,35 @@ export default function ClientWalks() {
     if (!dogId || !date || !time) return;
     setCheckingOut(true);
 
+    // Spend a credit directly when the client has one — no Stripe involved,
+    // the walk is confirmed immediately. This is the same path whether the
+    // credit came from a subscription or a one-time walk pack.
+    if (availableCredits > 0) {
+      const { error } = await supabase.rpc('book_walk_with_credit', {
+        p_client_id: profile!.id,
+        p_dog_id: dogId,
+        p_scheduled_date: date,
+        p_scheduled_time: time,
+        p_duration_minutes: duration,
+        p_client_notes: clientNotes.trim(),
+      });
+      setCheckingOut(false);
+      if (error) {
+        toast(
+          error.message?.includes('no_credits_available')
+            ? 'Your credits just ran out — try again to pay per walk instead.'
+            : 'Failed to book with credit. Please try again.',
+          'error'
+        );
+        await loadCredits();
+        return;
+      }
+      toast('Walk booked with a credit!', 'success');
+      setShowSchedule(false);
+      await Promise.all([loadData(), loadCredits()]);
+      return;
+    }
+
     const price = duration === 45 ? price45 : price30;
     const origin = window.location.origin;
     const successUrl = `${origin}/?payment=success&walk_id=WALK_ID_PLACEHOLDER&session_id={CHECKOUT_SESSION_ID}`;
@@ -194,6 +239,28 @@ export default function ClientWalks() {
     } catch {
       toast('Failed to start checkout. Please try again.', 'error');
       setCheckingOut(false);
+    }
+  }
+
+  async function buyWalkPack() {
+    setBuyingPack(true);
+    const origin = window.location.origin;
+    try {
+      const res = await callEdgeFunction('walk-pack-checkout', {
+        quantity: packQty,
+        success_url: `${origin}/?payment=pack_success`,
+        cancel_url: `${origin}/?payment=pack_cancelled`,
+      });
+      const data: { url?: string; error?: string } = await res.json();
+      if (!res.ok || !data.url) {
+        toast(data.error ?? 'Failed to start checkout.', 'error');
+        setBuyingPack(false);
+        return;
+      }
+      window.location.href = data.url;
+    } catch {
+      toast('Failed to start checkout. Please try again.', 'error');
+      setBuyingPack(false);
     }
   }
 
@@ -577,7 +644,11 @@ export default function ClientWalks() {
             style={{ backgroundColor: '#E8CB80' }}
           >
             <CreditCard size={16} />
-            {checkingOut ? 'Redirecting to checkout…' : `Proceed to Payment · $${duration === 30 ? price30 : price45}`}
+            {checkingOut
+              ? (availableCredits > 0 ? 'Booking…' : 'Redirecting to checkout…')
+              : availableCredits > 0
+                ? `Book with Credit (${availableCredits} left)`
+                : `Proceed to Payment · $${duration === 30 ? price30 : price45}`}
           </button>
         }
       >
@@ -587,6 +658,19 @@ export default function ClientWalks() {
           </div>
         ) : (
           <form id="schedule-form" onSubmit={scheduleWalk} className="space-y-4">
+            {availableCredits === 0 && (
+              <div className="bg-gray-50 rounded-xl px-4 py-3 text-xs text-gray-600 flex items-center justify-between gap-2">
+                <span>No walk credits available — booking below pays per walk via Stripe.</span>
+                <button
+                  type="button"
+                  onClick={() => setShowBuyPack(true)}
+                  className="shrink-0 font-semibold underline"
+                  style={{ color: '#9C7A3C' }}
+                >
+                  Buy walks instead
+                </button>
+              </div>
+            )}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1.5">Dog</label>
               <select
@@ -660,6 +744,50 @@ export default function ClientWalks() {
             </div>
           </form>
         )}
+      </Modal>
+      {/* Buy Walk Pack Modal */}
+      <Modal
+        open={showBuyPack}
+        onClose={() => setShowBuyPack(false)}
+        title="Buy Walk Credits"
+        footer={
+          <button
+            onClick={buyWalkPack}
+            disabled={buyingPack}
+            className="w-full py-3 rounded-xl text-[#2B2620] font-semibold disabled:opacity-60 flex items-center justify-center gap-2"
+            style={{ backgroundColor: '#E8CB80' }}
+          >
+            <CreditCard size={16} />
+            {buyingPack ? 'Redirecting to checkout…' : `Proceed to Payment · $${packQty * 50}`}
+          </button>
+        }
+      >
+        <div className="space-y-4">
+          <p className="text-sm text-gray-500">
+            Buy 1-4 individual walks in one purchase. Each one becomes a credit you can schedule
+            any time over the next 90 days — no subscription required.
+          </p>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1.5">Number of walks</label>
+            <div className="grid grid-cols-4 gap-2">
+              {[1, 2, 3, 4].map(q => (
+                <button
+                  key={q}
+                  type="button"
+                  onClick={() => setPackQty(q)}
+                  className="py-3 rounded-xl border-2 text-sm font-semibold transition-all"
+                  style={packQty === q
+                    ? { borderColor: '#E8CB80', color: '#9C7A3C', backgroundColor: '#FBF1D9' }
+                    : { borderColor: '#e5e7eb', color: '#4b5563' }
+                  }
+                >
+                  {q}
+                </button>
+              ))}
+            </div>
+            <p className="text-xs text-gray-400 mt-1.5">$50 per walk · {packQty} × $50 = ${packQty * 50}</p>
+          </div>
+        </div>
       </Modal>
     </div>
   );
