@@ -5,6 +5,7 @@ type Prediction = { description: string; placeId: string };
 
 type CheckResult = {
   withinServiceArea: boolean;
+  areaStatus: "in_area" | "extended_area" | "too_far";
   driveMinutes: number;
   distanceMiles: number;
   formattedAddress: string;
@@ -66,6 +67,9 @@ export default function ServiceAreaChecker({ onInService, compact = false }: Ser
         });
         if (fnError) {
           console.error("address-autocomplete invoke error:", fnError);
+        }
+        if (data?.error) {
+          console.error("address-autocomplete returned an error:", data.error);
         }
         setPredictions(data?.predictions ?? []);
       } catch (err) {
@@ -171,7 +175,7 @@ export default function ServiceAreaChecker({ onInService, compact = false }: Ser
             required
           />
 
-          {showDropdown && (predictionsLoading || predictions.length > 0) && (
+          {showDropdown && (predictionsLoading || predictions.length > 0 || query.trim().length >= 3) && (
             <div className="absolute z-10 mt-1.5 w-full bg-white rounded-xl border border-gray-200 shadow-lg max-h-64 overflow-auto">
               {predictionsLoading && (
                 <div className="px-4 py-3 text-sm text-gray-400">Searching…</div>
@@ -216,7 +220,7 @@ export default function ServiceAreaChecker({ onInService, compact = false }: Ser
         </div>
       )}
 
-      {result && !result.withinServiceArea && !requestSubmitted && (
+      {result && result.areaStatus === "extended_area" && !requestSubmitted && (
         <div className="mt-4 rounded-xl bg-amber-50 border border-amber-200 p-4">
           <p className="font-semibold text-amber-800">You're outside our standard service area</p>
           <p className="text-sm text-amber-700 mt-1">
@@ -261,11 +265,64 @@ export default function ServiceAreaChecker({ onInService, compact = false }: Ser
         </div>
       )}
 
-      {requestSubmitted && (
+      {result && result.areaStatus === "too_far" && !requestSubmitted && (
+        <div className="mt-4 rounded-xl bg-gray-50 border border-gray-200 p-4">
+          <p className="font-semibold text-gray-800">Service isn't available in your area yet</p>
+          <p className="text-sm text-gray-600 mt-1">
+            {result.formattedAddress} is about {result.driveMinutes} min from our home base,
+            which is outside where we can currently offer service. Leave your info and we'll
+            reach out if that changes.
+          </p>
+
+          <form onSubmit={handleRequestAnyway} className="mt-3 space-y-2">
+            <input
+              type="text"
+              placeholder="Full name"
+              value={requestForm.fullName}
+              onChange={(e) => setRequestForm((f) => ({ ...f, fullName: e.target.value }))}
+              className="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm"
+              required
+            />
+            <input
+              type="email"
+              placeholder="Email"
+              value={requestForm.email}
+              onChange={(e) => setRequestForm((f) => ({ ...f, email: e.target.value }))}
+              className="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm"
+              required
+            />
+            <input
+              type="tel"
+              placeholder="Phone (optional)"
+              value={requestForm.phone}
+              onChange={(e) => setRequestForm((f) => ({ ...f, phone: e.target.value }))}
+              className="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm"
+            />
+            <button
+              type="submit"
+              disabled={requestSubmitting}
+              className="rounded-xl bg-gray-900 px-4 py-2 text-sm font-semibold text-white hover:bg-gray-800 disabled:opacity-60 transition-colors"
+            >
+              {requestSubmitting ? "Submitting…" : "Notify Me When Available"}
+            </button>
+          </form>
+        </div>
+      )}
+
+      {requestSubmitted && result?.areaStatus === "extended_area" && (
         <div className="mt-4 rounded-xl bg-blue-50 border border-blue-200 p-4">
           <p className="font-semibold text-blue-800">Thanks — we've got your request!</p>
           <p className="text-sm text-blue-700 mt-1">
-            We'll reach out about availability and pricing for your area.
+            We'll follow up about scheduling and confirming the additional fee for your area.
+          </p>
+        </div>
+      )}
+
+      {requestSubmitted && result?.areaStatus === "too_far" && (
+        <div className="mt-4 rounded-xl bg-blue-50 border border-blue-200 p-4">
+          <p className="font-semibold text-blue-800">Thanks — you're on the list!</p>
+          <p className="text-sm text-blue-700 mt-1">
+            We'll reach out if we expand service to your area.
           </p>
         </div>
       )}
