@@ -1,6 +1,7 @@
 import { CheckCircle, ChevronRight, Clock, CreditCard, PawPrint, Shield, Star, Users, Camera, RefreshCw, ShieldCheck, XCircle } from 'lucide-react';
 import { useNav } from '../contexts/NavContext';
 import PawLogo from '../components/ui/PawLogo';
+import ServiceAreaChecker from '../components/ServiceAreaChecker';
 import { BUNDLE_TIERS, DOG_SITTING_RATES } from '../lib/bundles';
 
 export default function LandingPage() {
@@ -18,6 +19,7 @@ export default function LandingPage() {
             <span className="font-bold text-lg text-[#2B2620]">Pawsh</span>
           </div>
           <div className="hidden md:flex items-center gap-6 text-sm font-medium text-gray-600">
+            <a href="#service-area" className="hover:text-[#2B2620] transition-colors">Service Area</a>
             <a href="#pricing" className="hover:text-[#2B2620] transition-colors">Pricing</a>
             <a href="#how-it-works" className="hover:text-[#2B2620] transition-colors">How it Works</a>
             <a href="#policies" className="hover:text-[#2B2620] transition-colors">Policies</a>
@@ -117,8 +119,21 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* Service Area Checker */}
+      <section id="service-area" className="bg-[#FAF7F2] py-16">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-8">
+            <h2 className="font-serif text-3xl font-bold text-[#2B2620] mb-3">Check your service area</h2>
+            <p className="text-gray-500 max-w-xl mx-auto">
+              Enter your address to see if you're in our standard service area, or request service for a small additional fee.
+            </p>
+          </div>
+          <ServiceAreaChecker />
+        </div>
+      </section>
+
       {/* Features */}
-      <section className="bg-[#FAF7F2] py-20">
+      <section className="py-20">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-12">
             <h2 className="font-serif text-3xl font-bold text-[#2B2620] mb-3">Everything you need, nothing you don't</h2>
@@ -155,7 +170,7 @@ export default function LandingPage() {
       </section>
 
       {/* Pricing */}
-      <section id="pricing" className="py-20">
+      <section id="pricing" className="py-20 bg-[#FAF7F2]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-12">
             <h2 className="font-serif text-3xl font-bold text-[#2B2620] mb-3">Simple, transparent pricing</h2>
@@ -223,7 +238,7 @@ export default function LandingPage() {
       </section>
 
       {/* How it works */}
-      <section id="how-it-works" className="bg-[#FAF7F2] py-20">
+      <section id="how-it-works" className="py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-12">
             <h2 className="font-serif text-3xl font-bold text-[#2B2620] mb-3">Simple from start to finish</h2>
@@ -246,7 +261,7 @@ export default function LandingPage() {
       </section>
 
       {/* Policies & Procedures */}
-      <section id="policies" className="py-20">
+      <section id="policies" className="bg-[#FAF7F2] py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-12">
             <h2 className="font-serif text-3xl font-bold text-[#2B2620] mb-3">Policies & procedures</h2>
