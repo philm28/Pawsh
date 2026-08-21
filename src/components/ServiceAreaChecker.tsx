@@ -60,12 +60,21 @@ export default function ServiceAreaChecker({ onInService, compact = false }: Ser
 
     setPredictionsLoading(true);
     const timeout = setTimeout(async () => {
-      const { data } = await supabase.functions.invoke("address-autocomplete", {
-        body: { input: query, sessionToken: sessionTokenRef.current },
-      });
-      setPredictionsLoading(false);
-      setPredictions(data?.predictions ?? []);
-      setShowDropdown(true);
+      try {
+        const { data, error: fnError } = await supabase.functions.invoke("address-autocomplete", {
+          body: { input: query, sessionToken: sessionTokenRef.current },
+        });
+        if (fnError) {
+          console.error("address-autocomplete invoke error:", fnError);
+        }
+        setPredictions(data?.predictions ?? []);
+      } catch (err) {
+        console.error("address-autocomplete threw:", err);
+        setPredictions([]);
+      } finally {
+        setPredictionsLoading(false);
+        setShowDropdown(true);
+      }
     }, 300);
 
     return () => clearTimeout(timeout);
