@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { ArrowLeft, Eye, EyeOff, CheckCircle2 } from 'lucide-react';
 import PawLogo from '../../components/ui/PawLogo';
+import ServiceAreaChecker from '../../components/ServiceAreaChecker';
 import { useNav } from '../../contexts/NavContext';
 import { useToast } from '../../contexts/ToastContext';
 import { useAuth } from '../../contexts/AuthContext';
@@ -69,6 +70,9 @@ export default function RequestAccessPage() {
 }
 
 function ClientSignupForm({ navigate, toast, signUp }: any) {
+  const [serviceAreaConfirmed, setServiceAreaConfirmed] = useState(false);
+  const [confirmedAddress, setConfirmedAddress] = useState('');
+
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -97,10 +101,33 @@ function ClientSignupForm({ navigate, toast, signUp }: any) {
     toast(`Welcome to Pawsh, ${fullName.split(' ')[0]}!`, 'success');
   }
 
+  if (!serviceAreaConfirmed) {
+    return (
+      <>
+        <h2 className="text-lg font-semibold text-[#2B2620] mb-1">First, let's check your address</h2>
+        <p className="text-sm text-gray-500 mb-5">
+          We'll confirm you're in our service area before setting up your account.
+        </p>
+        <ServiceAreaChecker
+          compact
+          onInService={(result) => {
+            setConfirmedAddress(result.formattedAddress);
+            setServiceAreaConfirmed(true);
+          }}
+        />
+      </>
+    );
+  }
+
   return (
     <>
       <h2 className="text-lg font-semibold text-[#2B2620] mb-1">Create your account</h2>
       <p className="text-sm text-gray-500 mb-5">Get started in under a minute — no waiting on approval.</p>
+      {confirmedAddress && (
+        <div className="mb-4 text-xs rounded-lg px-3 py-2 bg-[#FBF1D9] text-[#9C7A3C]">
+          Service area confirmed for {confirmedAddress}
+        </div>
+      )}
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1.5">Full Name</label>
