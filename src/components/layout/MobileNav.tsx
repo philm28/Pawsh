@@ -26,6 +26,7 @@ const adminNav: NavItem[] = [
   { page: 'admin-clients', label: 'Clients', icon: User },
   { page: 'admin-walkers', label: 'Walkers', icon: PawPrint },
   { page: 'admin-requests', label: 'Requests', icon: Inbox },
+  { page: 'admin-stays', label: 'Stays', icon: Calendar },
   { page: 'admin-settings', label: 'Settings', icon: Settings },
 ];
 export default function MobileNav() {
