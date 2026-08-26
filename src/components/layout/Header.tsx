@@ -3,28 +3,25 @@ import PawLogo from '../ui/PawLogo';
 import { useAuth } from '../../contexts/AuthContext';
 import { useNav } from '../../contexts/NavContext';
 import { Page } from '../../lib/types';
-
 interface NavItem {
   page: Page;
   label: string;
   icon: LucideIcon;
 }
-
 const clientNav: NavItem[] = [
   { page: 'client-dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { page: 'client-walks', label: 'Walks', icon: PawPrint },
   { page: 'client-membership', label: 'Membership', icon: Wallet },
+  { page: 'client-stays', label: 'Extended Stays', icon: Calendar },
   { page: 'client-dogs', label: 'Dogs', icon: Dog },
   { page: 'client-profile', label: 'Profile', icon: User },
 ];
-
 const walkerNav: NavItem[] = [
   { page: 'walker-today', label: "Today's Walks", icon: LayoutDashboard },
   { page: 'walker-upcoming', label: 'Upcoming', icon: Calendar },
   { page: 'walker-availability', label: 'Availability', icon: Clock },
   { page: 'walker-profile', label: 'Profile', icon: User },
 ];
-
 const adminNav: NavItem[] = [
   { page: 'admin-dashboard', label: 'All Walks', icon: ClipboardList },
   { page: 'admin-clients', label: 'Clients', icon: User },
@@ -33,22 +30,18 @@ const adminNav: NavItem[] = [
   { page: 'admin-memberships', label: 'Memberships', icon: Wallet },
   { page: 'admin-settings', label: 'Settings', icon: Settings },
 ];
-
 export default function Header() {
   const { profile, signOut } = useAuth();
   const { page, navigate } = useNav();
-
   const items =
     profile?.role === 'client' ? clientNav :
     profile?.role === 'walker' ? walkerNav :
     adminNav;
-
   const homePages: Record<string, Page> = {
     client: 'client-dashboard',
     walker: 'walker-today',
     admin: 'admin-dashboard',
   };
-
   return (
     <header className="hidden md:flex sticky top-0 z-40 bg-[#FAF7F2]/90 backdrop-blur border-b border-gray-100 h-16 items-center px-6">
       <button
@@ -58,7 +51,6 @@ export default function Header() {
         <PawLogo size={26} color="#9C7A3C" />
         <span>Pawsh</span>
       </button>
-
       <nav className="flex items-center gap-1 flex-1">
         {items.map(item => {
           const active = page === item.page;
@@ -79,7 +71,6 @@ export default function Header() {
           );
         })}
       </nav>
-
       <div className="flex items-center gap-3">
         <div className="text-right">
           <div className="text-sm font-medium text-gray-900">{profile?.full_name}</div>
