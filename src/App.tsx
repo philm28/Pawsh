@@ -18,6 +18,7 @@ import ClientWalks from './pages/client/ClientWalks';
 import ClientMembership from './pages/client/ClientMembership';
 import ClientDogs from './pages/client/ClientDogs';
 import ClientProfile from './pages/client/ClientProfile';
+import StayBooking from './pages/client/StayBooking';
 import WalkerToday from './pages/walker/WalkerToday';
 import WalkerUpcoming from './pages/walker/WalkerUpcoming';
 import WalkerAvailability from './pages/walker/WalkerAvailability';
@@ -119,6 +120,7 @@ function AppRouter() {
         case 'client-membership': return <ClientMembership />;
         case 'client-dogs': return <ClientDogs />;
         case 'client-profile': return <ClientProfile />;
+        case 'client-stays': return <StayBooking />;
         default: return <ClientDashboard />;
       }
     }
