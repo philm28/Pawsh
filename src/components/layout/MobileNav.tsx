@@ -2,28 +2,25 @@ import { type LucideIcon, PawPrint, LayoutDashboard, Calendar, Dog, User, Clipbo
 import { useNav } from '../../contexts/NavContext';
 import { useAuth } from '../../contexts/AuthContext';
 import { Page } from '../../lib/types';
-
 interface NavItem {
   page: Page;
   label: string;
   icon: LucideIcon;
 }
-
 const clientNav: NavItem[] = [
   { page: 'client-dashboard', label: 'Home', icon: LayoutDashboard },
   { page: 'client-walks', label: 'Walks', icon: PawPrint },
   { page: 'client-membership', label: 'Plan', icon: Wallet },
+  { page: 'client-stays', label: 'Stays', icon: Calendar },
   { page: 'client-dogs', label: 'Dogs', icon: Dog },
   { page: 'client-profile', label: 'Profile', icon: User },
 ];
-
 const walkerNav: NavItem[] = [
   { page: 'walker-today', label: 'Today', icon: LayoutDashboard },
   { page: 'walker-upcoming', label: 'Upcoming', icon: Calendar },
   { page: 'walker-availability', label: 'Hours', icon: Clock },
   { page: 'walker-profile', label: 'Profile', icon: User },
 ];
-
 const adminNav: NavItem[] = [
   { page: 'admin-dashboard', label: 'Walks', icon: ClipboardList },
   { page: 'admin-clients', label: 'Clients', icon: User },
@@ -31,16 +28,13 @@ const adminNav: NavItem[] = [
   { page: 'admin-requests', label: 'Requests', icon: Inbox },
   { page: 'admin-settings', label: 'Settings', icon: Settings },
 ];
-
 export default function MobileNav() {
   const { page, navigate } = useNav();
   const { profile } = useAuth();
-
   const items =
     profile?.role === 'client' ? clientNav :
     profile?.role === 'walker' ? walkerNav :
     adminNav;
-
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-gray-100 safe-area-inset-bottom md:hidden">
       <div className="flex items-center justify-around h-16">
