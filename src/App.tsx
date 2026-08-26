@@ -142,6 +142,7 @@ function AppRouter() {
         case 'admin-requests': return <AdminRequests />;
         case 'admin-memberships': return <AdminMemberships />;
         case 'admin-settings': return <AdminSettings />;
+        case 'admin-stays': return <AdminStayBookings />;
         default: return <AdminDashboard />;
       }
     }
