@@ -71,7 +71,7 @@ export default function StayBooking() {
         day_visit_counts[d.date] = d.visitCount;
       });
 
-      const result = await callEdgeFunction('create-stay-deposit', {
+      const response = await callEdgeFunction('create-stay-deposit', {
         client_id: user.id,
         start_date: startDate,
         end_date: endDate,
@@ -79,6 +79,8 @@ export default function StayBooking() {
         success_url: `${window.location.origin}/client/stays?booking=success`,
         cancel_url: `${window.location.origin}/client/stays?booking=cancelled`,
       });
+
+      const result = await response.json();
 
       if (result.error) {
         setError(result.error);
