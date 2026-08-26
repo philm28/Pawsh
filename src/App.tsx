@@ -29,6 +29,7 @@ import AdminWalkers from './pages/admin/AdminWalkers';
 import AdminRequests from './pages/admin/AdminRequests';
 import AdminMemberships from './pages/admin/AdminMemberships';
 import AdminSettings from './pages/admin/AdminSettings';
+import AdminStayBookings from './pages/admin/AdminStayBookings';
 
 function AppRouter() {
   const { user, profile, loading, profileError, refreshProfile, signOut } = useAuth();
