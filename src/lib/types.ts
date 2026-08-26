@@ -121,6 +121,7 @@ export type Page =
   | 'client-membership'
   | 'client-dogs'
   | 'client-profile'
+  | 'client-stays'
   | 'walker-today'
   | 'walker-upcoming'
   | 'walker-availability'
@@ -169,4 +170,33 @@ export interface DogSittingBooking {
   client_notes: string | null;
   created_at: string;
   dog?: Dog;
+}
+
+export interface StayBooking {
+  id: string;
+  client_id: string;
+  start_date: string;
+  end_date: string;
+  total_price: number;
+  deposit_amount: number;
+  deposit_paid: boolean;
+  balance_charged: boolean;
+  balance_amount: number | null;
+  stripe_customer_id: string | null;
+  stripe_payment_method_id: string | null;
+  stripe_deposit_payment_intent_id: string | null;
+  status: 'pending_deposit' | 'confirmed' | 'cancelled_refundable' | 'cancelled_nonrefundable' | 'completed';
+  cancelled_at: string | null;
+  created_at: string;
+  // Joined fields
+  client?: Profile;
+  days?: StayBookingDay[];
+}
+
+export interface StayBookingDay {
+  id: string;
+  booking_id: string;
+  visit_date: string;
+  visit_count: 3 | 4;
+  day_rate: 100 | 125;
 }
