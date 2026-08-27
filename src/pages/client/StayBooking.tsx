@@ -6,20 +6,34 @@ interface DayEntry {
   visitCount: 3 | 4;
 }
 
-function toISODate(d: Date): string {
-  return d.toISOString().split('T')[0];
+function pad(n: number): string {
+  return String(n).padStart(2, '0');
 }
 
 function buildDayRange(start: string, end: string): string[] {
   if (!start || !end) return [];
   const days: string[] = [];
-  const cur = new Date(start);
-  const last = new Date(end);
+  const [sy, sm, sd] = start.split('-').map(Number);
+  const [ey, em, ed] = end.split('-').map(Number);
+  // Construct with explicit y/m/d args (local time), never parse the raw
+  // "yyyy-mm-dd" string directly — that gets read as UTC midnight and
+  // shifts a day backward once rendered in a UTC-negative timezone.
+  const cur = new Date(sy, sm - 1, sd);
+  const last = new Date(ey, em - 1, ed);
   while (cur <= last) {
-    days.push(toISODate(cur));
+    days.push(`${cur.getFullYear()}-${pad(cur.getMonth() + 1)}-${pad(cur.getDate())}`);
     cur.setDate(cur.getDate() + 1);
   }
   return days;
+}
+
+function formatDisplayDate(dateStr: string): string {
+  const [y, m, d] = dateStr.split('-').map(Number);
+  return new Date(y, m - 1, d).toLocaleDateString(undefined, {
+    weekday: 'short',
+    month: 'short',
+    day: 'numeric',
+  });
 }
 
 export default function StayBooking() {
@@ -143,7 +157,7 @@ export default function StayBooking() {
           <div className="space-y-2">
             {dayEntries.map((d) => (
               <div key={d.date} className="flex items-center justify-between border rounded-lg px-4 py-3">
-                <span>{new Date(d.date).toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' })}</span>
+                <span>{formatDisplayDate(d.date)}</span>
                 <label className="flex items-center gap-2 text-sm">
                   <input
                     type="checkbox"
