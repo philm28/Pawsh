@@ -10,6 +10,11 @@ const STATUS_LABELS: Record<StayBooking['status'], { label: string; color: strin
   completed: { label: 'Completed', color: 'bg-green-100 text-green-700' },
 };
 
+function formatDateStr(dateStr: string): string {
+  const [y, m, d] = dateStr.split('-').map(Number);
+  return new Date(y, m - 1, d).toLocaleDateString();
+}
+
 export default function AdminStayBookings() {
   const [bookings, setBookings] = useState<StayBooking[]>([]);
   const [loading, setLoading] = useState(true);
@@ -79,8 +84,7 @@ export default function AdminStayBookings() {
                       {booking.client?.full_name ?? 'Unknown client'}
                     </div>
                     <div className="text-sm text-gray-500">
-                      {new Date(booking.start_date).toLocaleDateString()} –{' '}
-                      {new Date(booking.end_date).toLocaleDateString()}
+                      {formatDateStr(booking.start_date)} – {formatDateStr(booking.end_date)}
                     </div>
                   </div>
                   <span className={`text-xs font-medium px-2 py-1 rounded-full ${status.color}`}>
